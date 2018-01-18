@@ -1,9 +1,9 @@
 ---
 # tasks file for x11
 - name: Install X11 config files
-  copy:
+  file:
       src: "{{ user_local_checkout_dir }}/roles/x11/files/{{ item }}"
-      dest: "~"
+      dest: "~/.{{ item }}"
       state: link
   with_items:
     - xinitrc

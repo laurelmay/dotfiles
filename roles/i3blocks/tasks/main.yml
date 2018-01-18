@@ -1,7 +1,7 @@
 ---
 # tasks file for i3blocks
 - name: Install i3blocks config
-  copy:
+  file:
       src: "{{ user_local_checkout_dir }}/roles/i3blocks/files/config"
-      dest: "{{ user_config_path }}/i3blocks/config"
+      dest: "{{ user_config_dir }}/i3blocks/config"
       state: link

@@ -5,7 +5,7 @@
       path: '{{ dunst_config_dir }}'
       state: directory
 - name: Apply dunst config
-  copy:
+  file:
       src: "{{ user_local_checkout_dir }}/roles/dunst/files/dunstrc"
       dest: '{{ dunst_config_dir }}/dunstrc'
       state: link
