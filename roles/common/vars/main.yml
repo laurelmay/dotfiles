@@ -1,0 +1,8 @@
+---
+# vars file for common
+user_config_dir: '~/.config'
+user_local_dir: '~/.local'
+user_bin_dir: '{{ user_local_dir }}/bin'
+user_share_dir: '{{ user_local_dir }}/share'
+user_cache_dir: '~/.cache'
+user_local_checkout_dir: "~/Documents/dotfiles"

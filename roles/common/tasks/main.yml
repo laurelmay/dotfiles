@@ -1,0 +1,16 @@
+---
+# tasks file for common
+- name: Create local clone
+  git:
+      repo: "https://github.com/kylelaker/dotfiles-ansible"
+      dest: "{{ user_local_checkout_dir }}"
+- name: Create necessary directories
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - '{{ user_config_dir }}'
+    - '{{ user_local_dir }}'
+    - '{{ user_bin_dir }}'
+    - '{{ user_share_dir }}'
+    - '{{ user_cache_dir }}'

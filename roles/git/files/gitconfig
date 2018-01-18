@@ -1,0 +1,32 @@
+[alias]
+        co = checkout
+        current = rev-parse --abbrev-ref HEAD
+        count   = !git shortlog -sn
+        syncm   = !git pull upstream master && git push origin master
+        sync    = !CURRENT=$(git current) && git pull upstream $CURRENT && git push origin $CURRENT
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = nvim
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
+[push]
+        default = simple
+[commit]
+        gpgsign = true
+[user]
+        name = Kyle Laker
+        email = kyle@laker.email
+        signingkey = 98351AD5ED619EDA357EC111540AD26362223BB3
+[credential]
+        helper = cache

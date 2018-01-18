@@ -1,0 +1,3 @@
+---
+# vars file for nvim
+nvim_dir: "{{ user_config_dir }}/nvim"

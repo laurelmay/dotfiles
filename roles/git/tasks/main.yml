@@ -1,0 +1,12 @@
+---
+# tasks file for git
+- name: Install global git config
+  copy:
+      src: "{{ user_local_checkout_dir }}/roles/git/files/gitconfig"
+      dest: "~/.gitconfig"
+      state: link
+- name: Install global gitignore
+  copy:
+      src: "{{ user_local_checkout_dir }}/roles/git/files/gitignore"
+      dest: "~/.gitignore"
+      state: link

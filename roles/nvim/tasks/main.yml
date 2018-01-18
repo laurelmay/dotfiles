@@ -1,0 +1,18 @@
+---
+# tasks file for nvim
+- name: Create necessary directories for nvim
+  file:
+      path: "{{ item }}"
+      state: directory
+  with_items:
+    - "{{ nvim_dir }}/autoload"
+    - "{{ nvim_dir }}/undodir"
+- name: Install vim-plug
+  get_url:
+      url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+      dest: "{{ nvim_dir }}/autoload/plug.vim"
+- name: Install vimrc
+  copy:
+      src: "{{ user_local_checkout_dir }}/roles/nvim/files/init.vim"
+      dest: "{{ nvim_dir }}/init.vim"
+      state: link

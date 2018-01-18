@@ -1,0 +1,12 @@
+---
+- name: Configure dotfiles
+  hosts: all
+  become: false
+  roles:
+    - { role: common,   tags: always }
+    - { role: dunst,    tags: ["desktop"] }
+    - { role: git,      tags: always }
+    - { role: i3,       tags: ["desktop"] }
+    - { role: i3blocks, tags: ["desktop"] }
+    - { role: nvim,     tags: always }
+    - { role: x11,      tags: ["desktop"] }
