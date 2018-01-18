@@ -1,0 +1,108 @@
+# Path to your oh-my-zsh installation.
+  export ZSH=~/.oh-my-zsh
+
+bindkey -v
+
+# oh-my-zsh settings
+ZSH_THEME="agnoster"
+CASE_SENSITIVE="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Plugins
+if [[ "$(uname -s)" == "Linux" ]]; then
+    plugins=(git arch debian sudo)
+else
+    plugins=(git osx sudo)
+fi
+
+# User configuration
+
+export PATH="$HOME/.local/bin:$PATH"
+export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
+
+# Ruby Gems
+if which ruby &> /dev/null; then
+  export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH"
+fi
+
+source $ZSH/oh-my-zsh.sh
+
+# Prevent to_source from leaking out of the rc file
+function () {
+    local to_source=("$HOME/.zsh_functions"
+        "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "/usr/share/doc/pkgfile/command-not-found.zsh" \
+        "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "$HOME/.cargo/env")
+
+    for file in "$to_source[@]"; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
+}
+
+if [ "$TERM" = "linux" ]; then
+    echo -en "\e]PB657b83" # S_base00
+    echo -en "\e]PA586e75" # S_base01
+    echo -en "\e]P0073642" # S_base02
+    echo -en "\e]P62aa198" # S_cyan
+    echo -en "\e]P8002b36" # S_base03
+    echo -en "\e]P2859900" # S_green
+    echo -en "\e]P5d33682" # S_magenta
+    echo -en "\e]P1dc322f" # S_red
+    echo -en "\e]PC839496" # S_base0
+    echo -en "\e]PE93a1a1" # S_base1
+    echo -en "\e]P9cb4b16" # S_orange
+    echo -en "\e]P7eee8d5" # S_base2
+    echo -en "\e]P4268bd2" # S_blue
+    echo -en "\e]P3b58900" # S_yellow
+    echo -en "\e]PFfdf6e3" # S_base3
+    echo -en "\e]PD6c71c4" # S_violet
+    clear # against bg artifacts
+fi
+
+# Aliases
+alias shit='sudo $(fc -nl -1)'
+
+# Make nvim all the things if it exists otherwise
+# vim 5ever
+if which nvim &> /dev/null; then
+    export EDITOR='nvim'
+    alias nano='nvim'
+    alias vi='nvim'
+    alias vim='nvim'
+else
+    export EDITOR='vim'
+    alias nano='vim'
+    alias vi='vim'
+fi
+
+if which htop &> /dev/null; then
+    alias top='htop'
+fi
+
+alias :q='exit'
+function mkcd() {
+    mkdir "$@" && cd $_
+}
+
+export BROWSER=firefox
+export GPG_TTY=$(tty)
+
+function dad_joke () {
+    curl -sL https://icanhazdadjoke.com | \
+        cowsay -f "$HOME/.local/share/cowsay/cows/dragon-and-cow.cow"
+}
+
+if [[ "$(hostname)" == "student" ]]; then
+    dad_joke
+fi
+
+# sdkman is used for installing Kotlin. Clean up the nasty stuff they require
+# in .zshrc
+if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
+    export SDKMAN_DIR="$HOME/.sdkman"
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+fi
