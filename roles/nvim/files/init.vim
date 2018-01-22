@@ -10,6 +10,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'udalov/kotlin-vim'
+Plug 'pearofducks/ansible-vim'
 
 call plug#end()
 
@@ -58,6 +60,12 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Configure Ansible settings
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_name_highlight = 'b'
+let g:ansible_normal_keywords_highlight = 'Constant'
+let g:ansible_with_keywords_highlight = 'Constant'
+
 " <F6> to make
 map <F6> :make<CR>
 imap <F6> <C-O>:make<CR>
@@ -94,6 +102,7 @@ if has("autocmd")
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
   autocmd FileType java  setlocal shiftwidth=4 tabstop=4
+  autocmd FileType yml setlocal shiftwidth=2 tabstop=2
   autocmd FileType c,cpp setlocal shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
   autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
