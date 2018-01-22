@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 bindkey -v
 
@@ -27,7 +27,8 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
-# Prevent to_source from leaking out of the rc file
+# Prevent to_source from leaking out of the rc file. For each file, checks if
+# it exists and if it does, source it.
 function () {
     local to_source=("$HOME/.zsh_functions"
         "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
@@ -43,6 +44,7 @@ function () {
     done
 }
 
+# Solarized theme on the TTY
 if [ "$TERM" = "linux" ]; then
     echo -en "\e]PB657b83" # S_base00
     echo -en "\e]PA586e75" # S_base01
@@ -102,7 +104,7 @@ fi
 
 # sdkman is used for installing Kotlin. Clean up the nasty stuff they require
 # in .zshrc
-if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
-    export SDKMAN_DIR="$HOME/.sdkman"
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
+if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
+    export SDKMAN_DIR="${HOME}/.sdkman"
+    source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 fi
