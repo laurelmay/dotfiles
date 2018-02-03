@@ -1,0 +1,11 @@
+---
+# tasks file for ssh
+- name: Create "~/.ssh" directory
+  file:
+    path: "~/.ssh"
+    state: directory
+- name: Install ssh config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/ssh/files/config"
+    dest: "~/.ssh/config"
+    state: link

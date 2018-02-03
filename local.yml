@@ -9,5 +9,6 @@
     - { role: i3,       tags: ["desktop"] }
     - { role: i3blocks, tags: ["desktop"] }
     - { role: nvim,     tags: always }
+    - { role: ssh,      tags: always }
     - { role: x11,      tags: ["desktop"] }
     - { role: zsh,      tags: always }

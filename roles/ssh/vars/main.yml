@@ -1,0 +1,23 @@
+---
+# vars file for ssh
+ssh_hosts:
+  - host: github
+    hostname: github.com
+    user: git
+    file: ~/.ssh/github_ed25519
+  - host: stu stu.cs.jmu.edu
+    hostname: stu.cs.jmu.edu
+    user: lakerka
+    file: ~/.ssh/jmu_ed25519
+  - host: main-site
+    hostname: kylelaker.com
+    user: lakerka
+    file: ~/.ssh/digitalocean_ed25519
+  - host: test-site
+    hostname: test.kylelaker.com
+    user: lakerka
+    file: ~/.ssh/digitalocean_ed25519
+  - host: filestore
+    hostname: filestore.kylelaker.com
+    user: lakerka
+    file: ~/.ssh/digitalocean_ed25519

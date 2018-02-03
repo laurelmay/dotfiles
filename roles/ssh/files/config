@@ -1,0 +1,36 @@
+VerifyHostKeyDNS yes
+
+Host localhost
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/kyle_ed25519
+Host gitlab.com
+    Hostname gitlab.com
+    IdentityFile /home/lakerka/.ssh/gitlab_ed25519
+Host github.com
+    Hostname github.com
+    IdentityFile /home/lakerka/.ssh/github_ed25519
+Host stu stu.cs.jmu.edu
+    Hostname stu.cs.jmu.edu
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/jmu_ed25519
+Host cluster login.cluster.cs.jmu.edu
+    Hostname login.cluster.cs.jmu.edu
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/jmu_ed25519
+Host cluster.oc
+    Hostname login.cluster.cs.jmu.edu
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/jmu_ed25519
+    ProxyJump stu
+Host main-site
+    Hostname kylelaker.com
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/digitalocean_ed25519
+Host test-site
+    Hostname test.kylelaker.com
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/digitalocean_ed25519
+Host files filestore
+    Hostname files.kylelaker.com
+    User lakerka
+    IdentityFile /home/lakerka/.ssh/digitalocean_ed25519
