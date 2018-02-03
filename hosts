@@ -1,6 +1,7 @@
 [targets]
 localhost             ansible_connection=local
 stu
+cluster
 main-site
 test-site
 files
