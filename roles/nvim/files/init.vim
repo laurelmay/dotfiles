@@ -66,6 +66,11 @@ let g:ansible_name_highlight = 'b'
 let g:ansible_normal_keywords_highlight = 'Constant'
 let g:ansible_with_keywords_highlight = 'Constant'
 
+" Configure python
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_flake8_exec = 'python3'
+let g:syntastic_python_flake8_args = ['-m', 'flake8']
+
 " <F6> to make
 map <F6> :make<CR>
 imap <F6> <C-O>:make<CR>
@@ -103,7 +108,7 @@ if has("autocmd")
   autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
   autocmd FileType java  setlocal shiftwidth=4 tabstop=4
   autocmd FileType yml setlocal shiftwidth=2 tabstop=2
-  autocmd FileType c,cpp setlocal shiftwidth=2 tabstop=2
+  autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
   autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
   autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
 
