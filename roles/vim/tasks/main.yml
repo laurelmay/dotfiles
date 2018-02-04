@@ -22,7 +22,7 @@
       dest: "{{ vim_dir }}/autoload/plug.vim"
 - name: Install vimrc
   file:
-      src: "{{ user_local_checkout_dir }}/roles/nvim/files/{{ vimrc_file}}"
+      src: "{{ user_local_checkout_dir }}/roles/vim/files/{{ vimrc_file}}"
       dest: "{{ vim_dir }}/{{ vimrc_file }}"
       state: link
       force: true
