@@ -28,7 +28,7 @@
       scope: global
   with_items:
       - { name: excludesfile, value: "~/.gitignore" }
-      - { name: editor, value: nvim }
+      - { name: editor, value: "{{ vim_cmd }}" }
 - name: Set git user settings
   git_config:
       name: "user.{{ item.name }}"
@@ -41,7 +41,7 @@
 - name: Sign commits by default
   git_config:
       name: commit.gpgsign
-      value: true
+      value: "{{ git_gpg }}"
       scope: global
 - name: Set push settings
   git_config:

@@ -1,0 +1,28 @@
+---
+# tasks file for nvim
+- set_fact:
+    vim_dir: "~/.vim"
+    vimrc_file: "vimrc"
+  when: vim_cmd == 'vim'
+- set_fact:
+    vim_dir: "{{ user_config_dir }}/nvim"
+    vimrc_file: "init.vim"
+  when: vim_cmd == 'nvim'
+
+- name: Create necessary directories for nvim
+  file:
+      path: "{{ item }}"
+      state: directory
+  with_items:
+    - "{{ vim_dir }}/autoload"
+    - "{{ vim_dir }}/undodir"
+- name: Install vim-plug
+  get_url:
+      url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+      dest: "{{ vim_dir }}/autoload/plug.vim"
+- name: Install vimrc
+  file:
+      src: "{{ user_local_checkout_dir }}/roles/nvim/files/{{ vimrc_file}}"
+      dest: "{{ vim_dir }}/{{ vimrc_file }}"
+      state: link
+      force: true

@@ -9,3 +9,8 @@
     src: "{{ user_local_checkout_dir }}/roles/ssh/files/config"
     dest: "~/.ssh/config"
     state: link
+- name: Accept correct key
+  authorized_key:
+    user: lakerka
+    state: present
+    key: "{{ ssh_pub_key }}"

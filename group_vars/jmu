@@ -1,0 +1,4 @@
+---
+ssh_pub_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOzfnxg6A9CxfRs77jFJ4UCuTAyDRHysFo7Z+V/duclK lakerka@Kyles-MBP-Arch"
+vim_cmd: vim
+git_gpg: false
