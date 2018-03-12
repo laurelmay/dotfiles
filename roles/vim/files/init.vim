@@ -24,7 +24,7 @@ set cursorline
 set spelllang=en
 
 " colors
-set background=dark
+set background=light
 colorscheme solarized
 
 " scrolling
