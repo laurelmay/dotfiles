@@ -9,6 +9,11 @@ Host gitlab.com
 Host github.com
     Hostname github.com
     IdentityFile ~/.ssh/github_ed25519
+Host code.cs.jmu.edu git.cs.jmu.edu
+    Hostname git.cs.jmu.edu
+    User git
+    IdentityFile ~/.ssh/jmu_ed25519
+    Port 10022
 Host stu stu.cs.jmu.edu
     Hostname stu.cs.jmu.edu
     User lakerka
@@ -30,7 +35,7 @@ Host test-site
     Hostname test.kylelaker.com
     User lakerka
     IdentityFile ~/.ssh/digitalocean_ed25519
-Host files filestore
+Host files
     Hostname files.kylelaker.com
     User lakerka
     IdentityFile ~/.ssh/digitalocean_ed25519
