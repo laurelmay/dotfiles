@@ -22,7 +22,7 @@ export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # Ruby Gems
 if which ruby &> /dev/null; then
-  export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH"
+  export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -100,6 +100,10 @@ function dad_joke () {
 
 if [[ "$(hostname)" == "student" ]]; then
     dad_joke
+fi
+
+if [ -f "$HOME/.zsh_functions" ]; then
+    source "$HOME/.zsh_functions"
 fi
 
 # sdkman is used for installing Kotlin. Clean up the nasty stuff they require

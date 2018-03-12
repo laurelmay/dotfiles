@@ -1,0 +1,8 @@
+up() {
+    ups=${1:-"1"}
+
+    until [ $ups -eq 0 ]; do
+        cd ..
+        ups=$((ups - 1))
+    done
+}
