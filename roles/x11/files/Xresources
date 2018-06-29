@@ -4,7 +4,7 @@ Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintslight
-!Xft.dpi:       120
+Xft.dpi:       144
 Xft.lcdfilter: lcddefault
 
 ! rofi
@@ -33,7 +33,7 @@ rofi.location: 2
 rofi.padding: 100
 rofi.fuzzy: false
 
-xterm*faceName: Fira Code Retina:size=9
+xterm*faceName: Fira Code Retina:size=10
 xterm*font: 7x13
 xterm*termName: xterm-256color
 XTerm*locale: true
