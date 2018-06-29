@@ -9,12 +9,13 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-exec --no-startup-id ~/.fehbg
-exec firefox
-
 set $mod Mod4
-set $terminal gnome-terminal
+set $terminal i3-sensible-terminal
 set $editor vim
+set $browser firefox
+
+exec --no-startup-id ~/.fehbg
+exec $browser
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -24,12 +25,12 @@ font pango:System San Fransisco,"Font Awesome 5 Pro Light" 12
 floating_modifier $mod
 
 new_window pixel 1
-smart_gaps on
-set $default_gaps_inner 10
-set $default_gaps_outer 5
-gaps inner $default_gaps_inner
-gaps outer $default_gaps_outer
-
+#smart_gaps on
+#set $default_gaps_inner 10
+#set $default_gaps_outer 5
+#gaps inner $default_gaps_inner
+#gaps outer $default_gaps_outer
+#
 # Define workspaces
 set $ws1 "1:"
 set $ws2 "2:"
@@ -73,54 +74,54 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-set $mode_gaps gaps
-set $mode_gaps_outer outer gaps
-set $mode_gaps_inner inner gaps
-bindsym $mod+Shift+g mode "$mode_gaps"
-mode "$mode_gaps" {
-    bindsym o      mode "$mode_gaps_outer"
-    bindsym i      mode "$mode_gaps_inner"
-
-    bindsym 0      mode "default", exec --no-startup-id i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
-    bindsym d      mode "default", exec --no-startup-id i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-mode "$mode_gaps_inner" {
-    bindsym plus  gaps inner current plus 5
-    bindsym minus gaps inner current minus 5
-    bindsym 0     mode "default", gaps inner current set 0
-    bindsym d     mode "default", gaps inner current set $default_gaps_inner
-
-    bindsym Shift+plus  gaps inner all plus 5
-    bindsym Shift+minus gaps inner all minus 5
-    bindsym Shift+0     mode "default", gaps inner all set 0
-    bindsym Shift+d     mode "default", gaps inner all set $default_gaps_inner
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-mode "$mode_gaps_outer" {
-    bindsym plus  gaps outer current plus 5
-    bindsym minus gaps outer current minus 5
-    bindsym 0     mode "default", gaps outer current set 0
-    bindsym d     mode "default", gaps outer current set $default_gaps_outer
-
-    bindsym Shift+plus  gaps outer all plus 5
-    bindsym Shift+minus gaps outer all minus 5
-    bindsym Shift+0     mode "default", gaps outer all set 0
-    bindsym Shift+d     mode "default", gaps outer all set $default_gaps_outer
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+#set $mode_gaps gaps
+#set $mode_gaps_outer outer gaps
+#set $mode_gaps_inner inner gaps
+#bindsym $mod+Shift+g mode "$mode_gaps"
+#mode "$mode_gaps" {
+#    bindsym o      mode "$mode_gaps_outer"
+#    bindsym i      mode "$mode_gaps_inner"
+#
+#    bindsym 0      mode "default", exec --no-startup-id i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
+#    bindsym d      mode "default", exec --no-startup-id i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
+#
+#    bindsym Return mode "default"
+#    bindsym Escape mode "default"
+#}
+#
+#mode "$mode_gaps_inner" {
+#    bindsym plus  gaps inner current plus 5
+#    bindsym minus gaps inner current minus 5
+#    bindsym 0     mode "default", gaps inner current set 0
+#    bindsym d     mode "default", gaps inner current set $default_gaps_inner
+#
+#    bindsym Shift+plus  gaps inner all plus 5
+#    bindsym Shift+minus gaps inner all minus 5
+#    bindsym Shift+0     mode "default", gaps inner all set 0
+#    bindsym Shift+d     mode "default", gaps inner all set $default_gaps_inner
+#
+#    bindsym Return mode "default"
+#    bindsym Escape mode "default"
+#}
+#
+#mode "$mode_gaps_outer" {
+#    bindsym plus  gaps outer current plus 5
+#    bindsym minus gaps outer current minus 5
+#    bindsym 0     mode "default", gaps outer current set 0
+#    bindsym d     mode "default", gaps outer current set $default_gaps_outer
+#
+#    bindsym Shift+plus  gaps outer all plus 5
+#    bindsym Shift+minus gaps outer all minus 5
+#    bindsym Shift+0     mode "default", gaps outer all set 0
+#    bindsym Shift+d     mode "default", gaps outer all set $default_gaps_outer
+#
+#    bindsym Return mode "default"
+#    bindsym Escape mode "default"
+#}
 
 bar {
     status_command i3blocks
-    i3bar_command i3bar -t
+#    i3bar_command i3bar -t
     position top
     font pango:Fira Code Retina,"Font Awesome 5 Pro Light","Font Awesome 5 Brands" 10
     colors {
@@ -142,7 +143,6 @@ client.focused_inactive #002b3600 #073642    #839496 #073642   #00000000
 client.unfocused        #002b3600 #073642    #839496 #073642   #00000000
 client.urgent           #002b36   #dc322f    #fdf6e3 #002b36   #00000000
 
-smart_borders on
 workspace_auto_back_and_forth yes
 
 # Power settings from the Arch wiki
@@ -216,10 +216,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+q kill
 
 # Replace these with dmenu_run for default config
-bindsym $mod+d exec --no-startup-id rofi -show run
-bindsym $mod+space exec --no-startup-id rofi -show drun
-bindsym $mod+Tab exec --no-startup-id rofi -show window
-bindsym $mod+Shift+s exec --no-startup-id rofi -show ssh
+bindsym $mod+d exec --no-startup-id rofi -modi run -show run
+bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun
+bindsym $mod+Tab exec --no-startup-id rofi -modi window -show window
+bindsym $mod+Shift+s exec --no-startup-id rofi -modi ssh -show ssh
 
 # Window bindings
 bindsym $mod+j focus left
@@ -254,6 +254,6 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 
 # Specific software
-bindsym $mod+Shift+f exec firefox
-bindsym $mod+Shift+n exec firefox --private-window
+bindsym $mod+Shift+f exec $browser
+bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
