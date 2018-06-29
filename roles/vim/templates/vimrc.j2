@@ -77,11 +77,11 @@ if has("vms")
 else
   set backup		" keep a backup file (restore to previous version)
   set backupdir-=.
-  set backupdir^=~/.vim/undodir
+  set backupdir^="{{ vimdir }}/undodir"
   if has('persistent_undo')
     set undofile	" keep an undo file (undo changes after closing)
     set undodir-=.
-    set undodir^=~/.vim/undodir
+    set undodir^="{{ vimdir }}/undodir"
   endif
 endif
 
