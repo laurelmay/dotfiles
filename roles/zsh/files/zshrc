@@ -1,4 +1,5 @@
 # Path to your oh-my-zsh installation.
+source /etc/profile
 export ZSH=~/.oh-my-zsh
 
 bindkey -v
@@ -10,7 +11,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Plugins
 if [[ "$(uname -s)" == "Linux" ]]; then
-    plugins=(git arch debian sudo)
+    plugins=(git sudo)
 else
     plugins=(git osx sudo)
 fi
