@@ -18,7 +18,7 @@ fi
 
 # User configuration
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # Ruby Gems
@@ -68,6 +68,7 @@ fi
 
 # Aliases
 alias shit='sudo $(fc -nl -1)'
+alias cdgit='cd "$(git rev-parse --show-toplevel)"'
 
 # Make nvim all the things if it exists otherwise
 # vim 5ever
