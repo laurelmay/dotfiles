@@ -35,6 +35,10 @@ Host test-site
     Hostname test.kylelaker.com
     User lakerka
     IdentityFile ~/.ssh/digitalocean_ed25519
+Host jmupark
+    Hostname jmupark.kylelaker.com
+    User lakerka
+    IdentityFile ~/.ssh/digitalocean_ed25519
 Host files
     Hostname files.kylelaker.com
     User lakerka
