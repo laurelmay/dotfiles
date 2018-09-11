@@ -2,7 +2,7 @@
 # tasks file for common
 - name: Create local clone
   git:
-      repo: "https://github.com/kylelaker/dotfiles-ansible"
+      repo: "https://github.com/kylelaker/dotfiles"
       dest: "{{ user_local_checkout_dir }}"
 - name: Create necessary directories
   file:
