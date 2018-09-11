@@ -1,9 +1,7 @@
-#[jmu]
-#stu
-#cluster.oc
-#[do]
-#main-site
-#test-site
-#files
+[jmu]
+stu
+[do]
+main-site
+files
 [other]
 localhost  ansible_connection=local
