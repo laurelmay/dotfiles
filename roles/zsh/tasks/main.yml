@@ -10,3 +10,11 @@
     src: "{{ user_local_checkout_dir }}/roles/zsh/files/zsh_functions"
     dest: "~/.zsh_functions"
     state: link
+- name: Install oh-my-zsh
+  git:
+    repo: "https://github.com/robbyrussell/oh-my-zsh"
+    dest: "~/.oh-my-zsh"
+- name: Install zsh_syntax_highlighting
+  git:
+    repo: "{{ zsh_syntax_highlight_git }}"
+    dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
