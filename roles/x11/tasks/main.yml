@@ -6,6 +6,5 @@
       dest: "~/.{{ item }}"
       state: link
   with_items:
-    - xinitrc
     - xsession
     - Xresources

@@ -6,6 +6,7 @@ Xft.rgba:      rgb
 Xft.hintstyle: hintslight
 Xft.dpi:       144
 Xft.lcdfilter: lcddefault
+Xft.autohint: 0
 
 ! rofi
 rofi.modi: run,ssh,drun,window
