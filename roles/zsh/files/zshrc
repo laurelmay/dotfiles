@@ -23,7 +23,7 @@ export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # Ruby Gems
 if which ruby &> /dev/null; then
-  export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
+  export PATH="$(ruby -e "puts Gem.user_dir")/bin:$PATH"
 fi
 
 source $ZSH/oh-my-zsh.sh
