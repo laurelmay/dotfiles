@@ -11,7 +11,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Plugins
 if [[ "$(uname -s)" == "Linux" ]]; then
-    plugins=(git sudo)
+    plugins=(git sudo zsh-syntax-highlighting)
 else
     plugins=(git osx sudo)
 fi
