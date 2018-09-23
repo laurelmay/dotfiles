@@ -1,67 +1,84 @@
 " PLUGINS
 call plug#begin()
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'ervandew/supertab'
-Plug 'itchyny/lightline.vim'
-Plug 'Yggdroot/indentLine'
+Plug 'altercation/vim-colors-solarized'  " Solarized color scheme
+Plug 'ervandew/supertab'                 " Tab completion
+Plug 'Yggdroot/indentLine'               " Thin vertical lines at indents
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'                " Git plugin
+Plug 'mhinz/vim-signify'                 " Multiple VCS support
+Plug 'sheerun/vim-polyglot'              " Support for many languages
+Plug 'vim-airline/vim-airline'           " Needed for buffer display
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-rhubarb'
-Plug 'zamua/mocha'
+Plug 'tpope/vim-rhubarb'                 " GitHub support
+Plug 'zamua/mocha'                       " CS 432 Decaf syntax highlighting
 
 call plug#end()
 
+"""
+" BASIC VIM SETTINGS
+"""
+
 syntax on
 
-" defaults
+" Indent settings
 set smarttab expandtab shiftwidth=4
+" Show numbers in gutter but not relative numbers
 set number norelativenumber
+" Highlight the line with the cursor
 set cursorline
 
 " spellcheck
 set spelllang=en
 
-" colors
+" Colors
 set background=light
 colorscheme solarized
 
-" scrolling
+" Scrolling
 set scrolloff=5
 
-" linewrap
+" Disable line wrap
 set nowrap
 
-" fix lightline
-set laststatus=2
-let g:lightline = { 'colorscheme': 'solarized' }
-set noshowmode
-
+" Bar at 80 characters
 if exists("+colorcolumn")
     set colorcolumn=80
     highlight ColorColumn ctermbg=DarkCyan guibg=DarkCyan
 endif
 
-" Live preview of :substitute. Doesn't work on old vim
-" set inccommand=split
+{% if vim_cmd == 'nvim' %}
+" Live preview of :substitute.
+set inccommand=split
+{% endif %}
+
+
+"""
+" PLUGIN SETTINGS
+"""
 
 " NERDCommenter settings
 let mapleader=","
 let g:NERDSpaceDelims=1
 
+" Show buffers at top of screen.
+let g:airline#extensions#tabline#enabled = 1
+
+" Use powerline fonts for airline
+let g:airline_powerline_fonts = 1
+
+
+"""
+" KEY MAPPINGS
+"""
+
+" Quicker buffer switching
+nnoremap gb :ls<CR>:b<Space>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
+
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-" Configure Ansible settings
-let g:ansible_extra_keywords_highlight = 1
-let g:ansible_name_highlight = 'b'
-let g:ansible_normal_keywords_highlight = 'Constant'
-let g:ansible_with_keywords_highlight = 'Constant'
 
 " <F6> to make
 map <F6> :make<CR>
@@ -75,13 +92,9 @@ imap <F7> <C-O>:make CC=gcc-5 clean default test<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Show buffers at top of screen.
-let g:airline#extensions#tabline#enabled = 1
-
-" Quicker buffer switching
-nnoremap gb :ls<CR>:b<Space>
-nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
+"""
+" BACKUP/UNDO FILES
+"""
 
 " backup and undo files
 if has("vms")
@@ -97,13 +110,15 @@ else
   endif
 endif
 
+"""
+" LANGUAGE PREFERENCES
+"""
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
-
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
   autocmd FileType java  setlocal shiftwidth=4 tabstop=4
@@ -111,12 +126,8 @@ if has("autocmd")
   autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
   autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
   autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
-
   augroup END
-
 else
-
   set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
 
