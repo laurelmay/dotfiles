@@ -10,6 +10,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sheerun/vim-polyglot'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-rhubarb'
 Plug 'zamua/mocha'
 
 call plug#end()
@@ -71,6 +74,14 @@ imap <F7> <C-O>:make CC=gcc-5 clean default test<CR>
 "make < > shifts keep selection
 vnoremap < <gv
 vnoremap > >gv
+
+" Show buffers at top of screen.
+let g:airline#extensions#tabline#enabled = 1
+
+" Quicker buffer switching
+nnoremap gb :ls<CR>:b<Space>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
 
 " backup and undo files
 if has("vms")
