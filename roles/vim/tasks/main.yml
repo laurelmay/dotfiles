@@ -25,3 +25,7 @@
       src: "{{ user_local_checkout_dir }}/roles/vim/templates/vimrc.j2"
       dest: "{{ vim_dir }}/{{ vimrc_file }}"
       force: true
+- name: Install vim plugins
+  shell: "vim +PlugInstall +qall"
+- name: Update vim plugins
+  shell: "vim +PlugUpdate +qall"
