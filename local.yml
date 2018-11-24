@@ -9,6 +9,7 @@
     - { role: i3,       tags: ["desktop"] }
     - { role: i3blocks, tags: ["desktop"] }
     - { role: ssh,      tags: always }
+    - { role: sway,     tags: ["desktop"] }
     - { role: vim,      tags: always }
     - { role: x11,      tags: ["desktop"] }
     - { role: zsh,      tags: always }
