@@ -14,6 +14,10 @@ Host code.cs.jmu.edu git.cs.jmu.edu
     User git
     IdentityFile ~/.ssh/jmu_ed25519
     Port 10022
+Host bitbucket.org
+    Hostname bitbucket.org
+    User hg
+    IdentityFile ~/.ssh/bitbucket_ed25519
 Host stu stu.cs.jmu.edu
     Hostname stu.cs.jmu.edu
     User lakerka
@@ -43,3 +47,11 @@ Host files
     Hostname files.kylelaker.com
     User lakerka
     IdentityFile ~/.ssh/digitalocean_ed25519
+Host unms
+    Hostname unms.kylelaker.com
+    User lakerka
+    IdentityFile ~/.ssh/digitalocean_ed25519
+Host 192.168.*
+    User lakerka
+    IdentityFile ~/.ssh/homenet_ed25519
+
