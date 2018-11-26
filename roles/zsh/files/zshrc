@@ -108,6 +108,10 @@ if [ -f "$HOME/.zsh_functions" ]; then
     source "$HOME/.zsh_functions"
 fi
 
+if [[ "$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
+    exec sway
+fi
+
 # sdkman is used for installing Kotlin. Clean up the nasty stuff they require
 # in .zshrc
 if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
