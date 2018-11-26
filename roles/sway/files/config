@@ -1,33 +1,42 @@
 # sway config file
 
+# Use the cmd key
 set $mod Mod4
+# alacritty is a fast, GPU-accelerated terminal emulator (written in Rust)
 set $terminal alacritty
-set $editor vim
 set $browser firefox
-set $wm sway
 
-exec --no-startup-id ~/.fehbg
-exec $browser
-
-# Sway support
-input "1452:627:Apple_Inc._Apple_Internal_Keyboard_/_Trackpad" {
+# Libinput config for the built-in trackpad. This block doesn't seem to be
+# working.
+input 1452:627:Apple_Inc._Apple_Internal_Keyboard_/_Trackpad {
     tap enabled
     natural_scroll enabled
 }
 
+# Fractional scaling isn't perfect, but it looks okay
 output eDP-1 scale 1.5
-output "*" background /home/lakerka/Pictures/gentoo-bg.png fill
+# Use the same background on all displays
+output "*" background /home/lakerka/Pictures/gentoo-bg.png stretch
 
 # Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+# is used in the bar {} block below. In practice, this font is never seen.
 font pango:System San Fransisco,"Font Awesome 5 Pro Light" 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-#new_window pixel 10
-#
-# Define workspaces
+# Don't draw the title bars
+new_window pixel 1
+
+# Gaps settings
+smart_gaps on
+set $default_gaps_inner 10
+set $default_gaps_outer 5
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
+# Define workspaces; 6-7 still aren't really assigned to a purpose.
+# I need a better symbol for those.
 set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3: "
@@ -39,34 +48,10 @@ set $ws8 "8:"
 set $ws9 "9:"
 set $ws10 "10:"
 
-# Assign applications to workspaces
-assign [class="Thunderbird"]     $ws3
-assign [class="libreoffice*"]    $ws5
-assign [class="jetbrains-idea*"] $ws4
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
+# Assign applications to workspaces -- these seem to be broken on sway at
+# the moment.
+#assign [class="Thunderbird"]     $ws3
+#assign [class="jetbrains-idea*"] $ws4
 
 bar {
     status_command i3blocks
@@ -76,7 +61,8 @@ bar {
         background #002b36f0
         statusline #ffffff00
         separator  #ffffff60
-        #                  Border     Background  Text
+
+        # Solarized Dark   Border     Background  Text
         focused_workspace  #002b36f0  #586e75     #eee8d5
         active_workspace   #002b36f0  #586e75     #eee8d5
         inactive_workspace #002b36f0  #002b36f0   #eee8d5
@@ -85,7 +71,7 @@ bar {
     }
 }
 
-# Colors                BORDER    BACKGROUND TEXT    INDICATOR CHILD_BORDER
+# Solarized Dark        BORDER    BACKGROUND TEXT    INDICATOR CHILD_BORDER
 client.focused          #002b36   #b58900    #fdf6e3 #268bd2   #dac48100
 client.focused_inactive #002b3600 #073642    #839496 #073642   #00000000
 client.unfocused        #002b3600 #073642    #839496 #073642   #00000000
@@ -98,7 +84,7 @@ set $Locker swaylock
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id $wm-msg exit, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
     bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
@@ -197,7 +183,7 @@ bindsym $mod+a focus parent
 bindsym $mod+y fullscreen disable; floating enable; resize set 1024 648; sticky enable; move window to position 1520 54
 
 # Exit/refresh/reload bindings
-bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: SFNS Display, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit $wm? This will end your X session.' -b 'Yes, exit $wm' '$wm-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: SFNS Display, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 
@@ -205,3 +191,6 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+f exec $browser
 bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
+
+# Start some software on launch
+exec $browser
