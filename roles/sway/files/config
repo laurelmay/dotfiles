@@ -26,7 +26,7 @@ font pango:System San Fransisco,"Font Awesome 5 Pro Light" 8
 floating_modifier $mod
 
 # Don't draw the title bars
-new_window pixel 1
+new_window pixel 0
 
 # Gaps settings
 smart_gaps on
