@@ -18,7 +18,7 @@ fi
 
 # User configuration
 
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # Ruby Gems
@@ -35,14 +35,21 @@ function () {
         "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/doc/pkgfile/command-not-found.zsh" \
         "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
-        "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
-        "$HOME/.cargo/env")
+        "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh")
 
     for file in "$to_source[@]"; do
         if [ -f "$file" ]; then
             source "$file"
         fi
     done
+
+    # set up pyenv when installed
+    pyenv_dir="$HOME/.pyenv"
+    if [ -d "$pyenv_dir" ]; then
+        export PATH="${pyenv_dir}/bin:$PATH"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+    fi
 }
 
 # Solarized theme on the TTY
@@ -67,7 +74,6 @@ if [ "$TERM" = "linux" ]; then
 fi
 
 # Aliases
-alias shit='sudo $(fc -nl -1)'
 alias cdgit='cd "$(git rev-parse --show-toplevel)"'
 
 # Make nvim all the things if it exists otherwise
@@ -83,6 +89,7 @@ else
     alias vi='vim'
 fi
 
+# Use htop instead of top when available
 if which htop &> /dev/null; then
     alias top='htop'
 fi
