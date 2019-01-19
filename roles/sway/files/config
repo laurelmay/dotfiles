@@ -1,16 +1,27 @@
 # sway config file
+# vim: set ft=i3config:
 
 # Use the cmd key
 set $mod Mod4
 # alacritty is a fast, GPU-accelerated terminal emulator (written in Rust)
 set $terminal alacritty
-set $browser firefox
+# Use firefox nightly with wayland support
+set $browser env GDK_BACKEND=wayland /opt/firefox/firefox
 
-# Libinput config for the built-in trackpad. This block doesn't seem to be
-# working.
-input 1452:627:Apple_Inc._Apple_Internal_Keyboard_/_Trackpad {
+# Libinput config for the built-in trackpad. Previously, I had attempted to
+# use the keyboard/trackpad device listed in `swaymsg -t get_inputs`; however,
+# that device seems to specifically be the keyboard (despite what the name
+# implies). bcm5974 seems to be the trackpad.
+input 1452:627:bcm5974 {
     tap enabled
     natural_scroll enabled
+}
+
+# Use the Arc theme and set it in this convoluted way
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc'
+    gsettings set $gnome-schema icon-theme 'Arc'
 }
 
 # Fractional scaling isn't perfect, but it looks okay
@@ -20,9 +31,9 @@ output "*" background /home/lakerka/Pictures/gentoo-bg.png stretch
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. In practice, this font is never seen.
-font pango:System San Fransisco,"Font Awesome 5 Pro Light" 8
+font pango:Fira Code Retina,"Font Awesome 5 Pro Light" 8
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
 # Don't draw the title bars
@@ -85,8 +96,8 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id swaymsg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id "$Locker -f & ; systemctl suspend", mode "default"
+    bindsym h exec --no-startup-id $Locker -f & ; systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
@@ -114,7 +125,6 @@ bindsym XF86KbdBrightnessDown exec --no-startup-id $backlight -ctrl smc::kbd_bac
 
 # Mode bindings
 bindsym $mod+x mode "$mode_system"
-bindsym $mod+r mode "resize"
 
 # Workspace bindings
 bindsym $mod+1 workspace $ws1
@@ -143,10 +153,9 @@ bindsym $mod+Control+Shift+Left move workspace prev
 bindsym $mod+Control+Shift+Right move workspace next
 
 # Console binding
-bindsym $mod+Return exec --no-startup-id $terminal
+bindsym $mod+Return exec $terminal
 
 # Kill bindings
-bindsym $mod+Shift+q kill
 bindsym $mod+q kill
 
 # Replace these with dmenu_run for default config
@@ -156,18 +165,10 @@ bindsym $mod+Tab     exec --no-startup-id rofi -modi window -show window
 bindsym $mod+Shift+s exec --no-startup-id rofi -modi ssh -show ssh
 
 # Window bindings
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -184,13 +185,13 @@ bindsym $mod+y fullscreen disable; floating enable; resize set 1024 648; sticky 
 
 # Exit/refresh/reload bindings
 bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: SFNS Display, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
-bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 
 # Specific software
 bindsym $mod+Shift+f exec $browser
 bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
+bindsym $mod+Shift+t exec env GDK_BACKEND=wayland /opt/thunderbird/thunderbird
 
 # Start some software on launch
 exec $browser
