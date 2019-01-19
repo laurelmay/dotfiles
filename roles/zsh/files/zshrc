@@ -50,6 +50,11 @@ function () {
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
     fi
+
+    poetry_dir="$HOME/.poetry/bin"
+    if [ -d "$poetry_dir" ]; then
+        export PATH="$PATH:$poetry_dir"
+    fi
 }
 
 # Solarized theme on the TTY
