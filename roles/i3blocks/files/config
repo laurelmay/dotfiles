@@ -8,6 +8,11 @@ label=
 instance=wlp3s0
 interval=5
 
+[wifi]
+label=
+instance=wlan2
+interval=5
+
 [volume]
 label=
 interval=once
