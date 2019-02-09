@@ -101,7 +101,16 @@ fi
 
 alias :q='exit'
 function mkcd() {
-    mkdir "$@" && cd $_
+    mkdir "$@" && cd "$_"
+}
+
+# Creates a Python package with an empty __init__.py file
+function mkpypkg() {
+    mkdir "$@" && touch "$_/__init__.py"
+}
+
+function syncwatch() {
+    watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
 }
 
 export BROWSER=firefox
@@ -112,6 +121,7 @@ function dad_joke () {
         cowsay -f "$HOME/.local/share/cowsay/cows/dragon-and-cow.cow"
 }
 
+# Fun thing on JMU CS Student Server.
 if [[ "$(hostname)" == "student" ]]; then
     dad_joke
 fi
@@ -120,7 +130,15 @@ if [ -f "$HOME/.zsh_functions" ]; then
     source "$HOME/.zsh_functions"
 fi
 
+# Automatically set some variables for wayland and execute it on TTY on my
+# laptop
 if [[ "$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
+    export XDG_SESSION_TYPE="wayland"
+    export GDK_BACKEND="wayland"
+    export CLUTTER_BACKEND="wayland"
+    export _JAVA_AWT_WM_NONREPARENTING=1
+
+    # Immediately launch sway at this point
     exec sway
 fi
 
