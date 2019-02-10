@@ -4,7 +4,7 @@
 " PLUGINS
 """
 call plug#begin()
-Plug 'altercation/vim-colors-solarized'  " Solarized color scheme
+Plug 'iCyMind/NeoSolarized'              " Truecolor Solarized theme
 Plug 'Yggdroot/indentLine'               " Thin vertical lines at indents
 Plug 'tpope/vim-fugitive'                " Git plugin
 Plug 'sheerun/vim-polyglot'              " Support for many languages
@@ -38,8 +38,9 @@ set cursorline
 set spelllang=en
 
 " Solarized Dark theme
+set termguicolors
+colorscheme NeoSolarized
 set background=dark
-colorscheme solarized
 
 " Scrolling
 set scrolloff=5
