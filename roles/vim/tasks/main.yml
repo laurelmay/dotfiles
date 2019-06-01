@@ -26,6 +26,6 @@
       dest: "{{ vim_dir }}/{{ vimrc_file }}"
       force: true
 - name: Install vim plugins
-  shell: "vim +PlugInstall +qall"
+  shell: "{{ vim_cmd }} +PlugInstall +qall"
 - name: Update vim plugins
-  shell: "vim +PlugUpdate +qall"
+  shell: "{{ vim_cmd }} +PlugUpdate +qall"
