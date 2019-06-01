@@ -22,6 +22,9 @@ Host stu stu.cs.jmu.edu
     Hostname stu.cs.jmu.edu
     User lakerka
     IdentityFile ~/.ssh/jmu_ed25519
+Host l*.cs.jmu.edu
+    User lakerka
+    IdentityFile ~/.ssh/jmu_ed25519
 Host cluster login.cluster.cs.jmu.edu
     Hostname login.cluster.cs.jmu.edu
     User lakerka
@@ -51,7 +54,20 @@ Host unms
     Hostname unms.kylelaker.com
     User lakerka
     IdentityFile ~/.ssh/digitalocean_ed25519
+Host minecraft minecraft.jmunixusers.org
+    Hostname minecraft.jmunixusers.org
+    User lakerka
+    IdentityFile ~/.ssh/digitalocean_ed25519
+Host 192.168.100.*
+    Ciphers +aes256-cbc
+    User lakerka
+    IdentityFile ~/.ssh/homenet_rsa
 Host 192.168.*
+    Ciphers +aes256-cbc
+    #KexAlgorithms aes256-cbc
     User lakerka
     IdentityFile ~/.ssh/homenet_ed25519
-
+Host pihole
+    Hostname 192.168.20.2
+    User pi
+    IdentityFile ~/.ssh/homenet_ed25519
