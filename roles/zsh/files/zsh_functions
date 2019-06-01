@@ -1,8 +1,14 @@
 up() {
-    ups=${1:-"1"}
+    go_up=${1:-"1"}
+    cd_arg=""
 
-    until [ $ups -eq 0 ]; do
-        cd ..
-        ups=$((ups - 1))
+    until [ "$go_up" -eq 0 ]; do
+        cd_arg="../${cd_arg}"
+        go_up=$((go_up - 1))
     done
+    cd "$cd_arg"
+}
+
+exists() {
+    type "$1" > /dev/null 2>&1
 }

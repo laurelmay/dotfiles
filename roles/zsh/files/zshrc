@@ -2,6 +2,10 @@
 source /etc/profile
 export ZSH=~/.oh-my-zsh
 
+if [[ "$ASCIINEMA_REC" == 1 ]]; then
+    PS1="recording > "
+fi
+
 bindkey -v
 
 # oh-my-zsh settings
@@ -31,7 +35,7 @@ source $ZSH/oh-my-zsh.sh
 # Prevent to_source from leaking out of the rc file. For each file, checks if
 # it exists and if it does, source it.
 function () {
-    local to_source=("$HOME/.zsh_functions"
+    local to_source=("$HOME/.zsh_functions" \
         "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/doc/pkgfile/command-not-found.zsh" \
         "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
@@ -43,6 +47,17 @@ function () {
         fi
     done
 
+    local path_dirs=("$HOME/.cargo/bin" \
+        "$HOME/.npm-packages/bin" \
+        "$HOME/.nimble/bin" \
+        "$HOME/.poetry/bin")
+
+    for dir in "$path_dirs[@]"; do
+        if [ -d "$dir" ]; then
+            export PATH="$dir:$PATH"
+        fi
+    done
+
     # set up pyenv when installed
     pyenv_dir="$HOME/.pyenv"
     if [ -d "$pyenv_dir" ]; then
@@ -51,10 +66,8 @@ function () {
         eval "$(pyenv virtualenv-init -)"
     fi
 
-    poetry_dir="$HOME/.poetry/bin"
-    if [ -d "$poetry_dir" ]; then
-        export PATH="$PATH:$poetry_dir"
-    fi
+    NPM_PACKAGES="${HOME}/.npm-packages"
+    export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 }
 
 # Solarized theme on the TTY
@@ -132,11 +145,13 @@ fi
 
 # Automatically set some variables for wayland and execute it on TTY on my
 # laptop
-if [[ "$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
-    export XDG_SESSION_TYPE="wayland"
+if [[ exists "sway" && "$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
+    #export XDG_SESSION_TYPE="wayland"
     export GDK_BACKEND="wayland"
     export CLUTTER_BACKEND="wayland"
     export _JAVA_AWT_WM_NONREPARENTING=1
+    export QT_QPA_PLATFORM="wayland-egl"
+    export QT_WAYLAND_FORCE_DPI="physical"
 
     # Immediately launch sway at this point
     exec sway
