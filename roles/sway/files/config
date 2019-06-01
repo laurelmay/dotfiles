@@ -4,9 +4,9 @@
 # Use the cmd key
 set $mod Mod4
 # alacritty is a fast, GPU-accelerated terminal emulator (written in Rust)
-set $terminal gnome-terminal
+set $terminal alacritty
 # Use firefox nightly with wayland support
-set $browser /opt/firefox/firefox
+set $browser env GDK_BACKEND="wayland" /opt/firefox/firefox
 
 # Libinput config for the built-in trackpad. Previously, I had attempted to
 # use the keyboard/trackpad device listed in `swaymsg -t get_inputs`; however,
@@ -28,17 +28,17 @@ exec_always {
 # Fractional scaling isn't perfect, but it looks okay
 output eDP-1 scale 1.5
 # Use the same background on all displays
-output "*" background /home/lakerka/Pictures/gentoo-bg.png stretch
+output "*" background /home/lakerka/Pictures/bi.png stretch
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. In practice, this font is never seen.
-font pango:Hack,"Font Awesome 5 Pro Light" 8
+font pango:"Font Awesome 5 Pro Solid" 8
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
 # Don't draw the title bars
-new_window pixel 0
+default_border pixel 0
 
 # Gaps settings
 smart_gaps on
@@ -68,7 +68,7 @@ set $ws10 "10:"
 bar {
     status_command i3blocks
     position top
-    font pango:Fira Code Retina,"Font Awesome 5 Pro Light","Font Awesome 5 Brands" 10
+    font pango:Hack,"Font Awesome 5 Pro Solid","Font Awesome 5 Brands Regular" 10
     colors {
         background #002b36f0
         statusline #ffffff00
@@ -98,7 +98,6 @@ mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id swaymsg exit, mode "default"
     bindsym s exec --no-startup-id "$Locker -f & ; systemctl suspend", mode "default"
-    bindsym h exec --no-startup-id $Locker -f & ; systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
@@ -111,6 +110,9 @@ mode "$mode_system" {
 # Key bindings
 #--------------
 
+# Screenshot
+bindsym $mod+Shift+p exec --no-startup-id screenshot
+
 # Media keys
 set $backlight xbacklight
 bindsym XF86MonBrightnessUp   exec --no-startup-id $backlight -inc 7
@@ -118,9 +120,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id $backlight -dec 7
 bindsym XF86AudioPlay         exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext         exec --no-startup-id playerctl next
 bindsym XF86AudioPrev         exec --no-startup-id playerctl previous
-bindsym XF86AudioRaiseVolume  exec --no-startup-id "pactl set-sink-volume 0 +5%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioLowerVolume  exec --no-startup-id "pactl set-sink-volume 0 -5%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioMute         exec --no-startup-id "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioRaiseVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioLowerVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioMute         exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
 bindsym XF86KbdBrightnessUp   exec --no-startup-id $backlight -ctrl smc::kbd_backlight -inc 10
 bindsym XF86KbdBrightnessDown exec --no-startup-id $backlight -ctrl smc::kbd_backlight -dec 10
 
@@ -182,7 +184,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+a focus parent
-bindsym $mod+y fullscreen disable; floating enable; resize set 1024 648; sticky enable; move window to position 1520 54
+bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1520 54
 
 # Exit/refresh/reload bindings
 bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: SFNS Display, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
