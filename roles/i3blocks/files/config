@@ -1,20 +1,24 @@
 command=~/.local/bin/$BLOCK_NAME
-separator_block_width=15
+separator=false
+separator_block_width=25
 markup=pango
 color=#eee8d5
 
+[weather]
+label=
+interval=60
+
 [wifi]
-label=
 instance=wlp3s0
 interval=5
 
 [wifi]
-label=
 instance=wlan2
 interval=5
 
 [volume]
-label=
+label=
+command=~/.local/bin/volume "10dB" pulse
 interval=once
 signal=11
 
@@ -22,4 +26,5 @@ signal=11
 interval=1
 
 [datetime]
+label=
 interval=1
