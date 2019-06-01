@@ -145,7 +145,7 @@ fi
 
 # Automatically set some variables for wayland and execute it on TTY on my
 # laptop
-if [[ exists "sway" && "$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
+if exists "sway" && [["$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
     #export XDG_SESSION_TYPE="wayland"
     export GDK_BACKEND="wayland"
     export CLUTTER_BACKEND="wayland"
