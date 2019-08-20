@@ -7,13 +7,15 @@ call plug#begin()
 Plug 'iCyMind/NeoSolarized'              " Truecolor Solarized theme
 Plug 'Yggdroot/indentLine'               " Thin vertical lines at indents
 Plug 'tpope/vim-fugitive'                " Git plugin
-Plug 'sheerun/vim-polyglot'              " Support for many languages
 Plug 'vim-airline/vim-airline'           " Needed for buffer display
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-rhubarb'                 " GitHub support
 Plug 'zamua/mocha'                       " CS 432 Decaf syntax highlighting
 Plug 'kylelaker/riscv.vim'
 Plug 'kylelaker/cisco.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'kylelaker/vim-cfn', { 'branch': 'add-content-detect-faster' }
 call plug#end()
 
 """
@@ -50,7 +52,7 @@ set nowrap
 
 " Bar at 80 characters
 if exists("+colorcolumn")
-    set colorcolumn=80
+    set colorcolumn=100
     highlight ColorColumn ctermbg=DarkCyan guibg=DarkCyan
 endif
 
@@ -70,6 +72,17 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Use powerline fonts for airline
 let g:airline_powerline_fonts = 1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_cloudformation_checkers = ['cfn_lint']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 
 """
@@ -119,19 +132,13 @@ endif
 " LANGUAGE PREFERENCES
 """
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
-  autocmd FileType java  setlocal shiftwidth=4 tabstop=4
-  autocmd FileType yml setlocal shiftwidth=2 tabstop=2
-  autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-  autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-  autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
-  augroup END
-else
-  set autoindent		" always set autoindenting on
-endif " has("autocmd")
+augroup vimrcEx
+au!
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
+autocmd FileType java  setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
+augroup END
