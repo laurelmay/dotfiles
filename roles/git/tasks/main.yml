@@ -37,12 +37,6 @@
   with_items:
       - { name: name, value: Kyle Laker }
       - { name: email, value: kyle@laker.email }
-      - { name: signingkey, value: 98351AD5ED619EDA357EC111540AD26362223BB3 }
-- name: Sign commits by default
-  git_config:
-      name: commit.gpgsign
-      value: "{{ git_gpg }}"
-      scope: global
 - name: Set push settings
   git_config:
       name: "push.{{ item.name }}"
