@@ -50,6 +50,7 @@ function () {
     local path_dirs=("$HOME/.cargo/bin" \
         "$HOME/.npm-packages/bin" \
         "$HOME/.nimble/bin" \
+        "$HOME/go/bin" \
         "$HOME/.poetry/bin")
 
     for dir in "$path_dirs[@]"; do
