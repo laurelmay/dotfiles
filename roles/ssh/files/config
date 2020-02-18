@@ -71,3 +71,6 @@ Host pihole
     Hostname 192.168.20.2
     User pi
     IdentityFile ~/.ssh/homenet_ed25519
+Host aur.archlinux.org
+    IdentityFile ~/.ssh/aur_ed25519
+    User aur
