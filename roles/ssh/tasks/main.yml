@@ -11,6 +11,6 @@
     state: link
 - name: Accept correct key
   authorized_key:
-    user: lakerka
+    user: "{{ ansible_user_id }}"
     state: present
     key: "{{ ssh_pub_key }}"
