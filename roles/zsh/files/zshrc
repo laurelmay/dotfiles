@@ -131,32 +131,8 @@ function syncwatch() {
 export BROWSER=firefox
 export GPG_TTY=$(tty)
 
-function dad_joke () {
-    curl -sL https://icanhazdadjoke.com | \
-        cowsay -f "$HOME/.local/share/cowsay/cows/dragon-and-cow.cow"
-}
-
-# Fun thing on JMU CS Student Server.
-if [[ "$(hostname)" == "student" ]]; then
-    dad_joke
-fi
-
 if [ -f "$HOME/.zsh_functions" ]; then
     source "$HOME/.zsh_functions"
-fi
-
-# Automatically set some variables for wayland and execute it on TTY on my
-# laptop
-if exists "sway" && [["$(hostname)" == "wilson" && "$TTY" == "/dev/tty1" ]]; then
-    #export XDG_SESSION_TYPE="wayland"
-    export GDK_BACKEND="wayland"
-    export CLUTTER_BACKEND="wayland"
-    export _JAVA_AWT_WM_NONREPARENTING=1
-    export QT_QPA_PLATFORM="wayland-egl"
-    export QT_WAYLAND_FORCE_DPI="physical"
-
-    # Immediately launch sway at this point
-    exec sway
 fi
 
 # sdkman is used for installing Kotlin. Clean up the nasty stuff they require
