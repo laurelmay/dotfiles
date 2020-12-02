@@ -8,6 +8,7 @@
   file:
     path: '{{ item }}'
     state: directory
+    mode: 0755
   with_items:
     - '{{ user_config_dir }}'
     - '{{ user_local_dir }}'

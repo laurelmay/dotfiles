@@ -20,7 +20,7 @@
       - { name: diff, value: auto }
       - { name: status, value: auto }
       - { name: branch, value: auto }
-      - { name: ui, value: true }
+      - { name: ui, value: 'true' }
 - name: Set git core settings
   git_config:
       name: "core.{{ item.name }}"
@@ -51,8 +51,8 @@
       scope: global
   with_items:
       - { name: apply.whitespace, value: nowarn }
-      - { name: mergetool.keepBackup, value: false }
-      - { name: difftool.prompt, value: false }
+      - { name: mergetool.keepBackup, value: 'false' }
+      - { name: difftool.prompt, value: 'false' }
       - { name: help.autocorrect, value: 1 }
 - name: Install global gitignore
   file:

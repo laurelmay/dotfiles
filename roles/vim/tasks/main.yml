@@ -1,10 +1,12 @@
 ---
 # tasks file for nvim
-- set_fact:
+- name: Set variables for vim
+  set_fact:
     vim_dir: "~/.vim"
     vimrc_file: "vimrc"
   when: vim_cmd == 'vim'
-- set_fact:
+- name: Set variables for nvim
+  set_fact:
     vim_dir: "{{ user_config_dir }}/nvim"
     vimrc_file: "init.vim"
   when: vim_cmd == 'nvim'
@@ -13,6 +15,7 @@
   file:
       path: "{{ item }}"
       state: directory
+      mode: 0755
   with_items:
     - "{{ vim_dir }}/autoload"
     - "{{ vim_dir }}/undodir"
@@ -25,6 +28,7 @@
       src: "{{ user_local_checkout_dir }}/roles/vim/templates/vimrc.j2"
       dest: "{{ vim_dir }}/{{ vimrc_file }}"
       force: true
+      mode: 0644
 - name: Install vim plugins
   shell: "{{ vim_cmd }} +PlugInstall +qall"
 - name: Update vim plugins
