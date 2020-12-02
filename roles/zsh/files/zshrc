@@ -2,10 +2,6 @@
 source /etc/profile
 export ZSH=~/.oh-my-zsh
 
-if [[ "$ASCIINEMA_REC" == 1 ]]; then
-    PS1="recording > "
-fi
-
 bindkey -v
 
 # oh-my-zsh settings
@@ -31,6 +27,10 @@ if which ruby &> /dev/null; then
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+if [[ "$ASCIINEMA_REC" == 1 ]]; then
+    PS1="recording > "
+fi
 
 # Prevent to_source from leaking out of the rc file. For each file, checks if
 # it exists and if it does, source it.
@@ -115,18 +115,6 @@ if which htop &> /dev/null; then
 fi
 
 alias :q='exit'
-function mkcd() {
-    mkdir "$@" && cd "$_"
-}
-
-# Creates a Python package with an empty __init__.py file
-function mkpypkg() {
-    mkdir "$@" && touch "$_/__init__.py"
-}
-
-function syncwatch() {
-    watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
-}
 
 export BROWSER=firefox
 export GPG_TTY=$(tty)

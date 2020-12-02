@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 up() {
     go_up=${1:-"1"}
     cd_arg=""
@@ -11,4 +13,17 @@ up() {
 
 exists() {
     type "$1" > /dev/null 2>&1
+}
+
+mkcd() {
+    mkdir "$@" && cd "$_"
+}
+
+# Creates a Python package with an empty __init__.py file
+mkpypkg() {
+    mkdir "$@" && touch "$_/__init__.py"
+}
+
+syncwatch() {
+    watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
 }
