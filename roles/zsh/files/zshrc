@@ -59,6 +59,10 @@ function () {
         fi
     done
 
+    if [ -d /home/linuxbrew/.linuxbrew/ ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+
     # set up pyenv when installed
     pyenv_dir="$HOME/.pyenv"
     if [ -d "$pyenv_dir" ]; then
