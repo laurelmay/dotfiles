@@ -100,6 +100,13 @@ fi
 # Aliases
 alias cdgit='cd "$(git rev-parse --show-toplevel)"'
 
+# This function is defined here since it's used within the file
+function on_wsl() {
+    test -n "$IS_WSL" \
+        || test -n "$WSL_DISTRO_NAME" \
+        || grep -q microsoft /proc/version &> /dev/null
+}
+
 # Make nvim all the things if it exists otherwise
 # vim 5ever
 if which nvim &> /dev/null; then
@@ -120,7 +127,12 @@ fi
 
 alias :q='exit'
 
-export BROWSER=firefox
+if on_wsl; then
+    export BROWSER="wslview"
+else
+    export BROWSER="firefox"
+fi
+
 export GPG_TTY=$(tty)
 
 if [ -f "$HOME/.zsh_functions" ]; then
