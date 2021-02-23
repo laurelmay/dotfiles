@@ -53,9 +53,17 @@
       - { name: apply.whitespace, value: nowarn }
       - { name: mergetool.keepBackup, value: 'false' }
       - { name: difftool.prompt, value: 'false' }
-      - { name: help.autocorrect, value: 1 }
 - name: Install global gitignore
   file:
       src: "{{ user_local_checkout_dir }}/roles/git/files/gitignore"
       dest: "~/.gitignore"
       state: link
+- name: Set PGP signing values
+  git_config:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+      scope: global
+  with_items:
+      - { name: user.signingKey, value: "0x17CAD266B70E3F72" }
+      - { name: commit.pgpSign, value: 'true' }
+
