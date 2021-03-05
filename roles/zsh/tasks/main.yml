@@ -28,7 +28,7 @@
 - name: Install zshrc
   file:
       src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshrc"
-      dest: "~/.config/zsh/zshrc"
+      dest: "~/.config/zsh/.zshrc"
       state: link
 - name: Install oh-my-zsh
   git:
