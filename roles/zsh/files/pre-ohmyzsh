@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+export ZSH="$ZDOTDIR/.oh-my-zsh"
+
+bindkey -v
+
+# oh-my-zsh settings
+ZSH_THEME="agnoster"
+CASE_SENSITIVE="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Plugins
+if [[ "$(uname -s)" == "Linux" ]]; then
+    plugins=(git sudo zsh-syntax-highlighting virtualenv)
+else
+    plugins=(git osx sudo)
+fi
+
+# User configuration
+
+export PATH="$HOME/.local/bin:$PATH"
+export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
+
+# Ruby Gems
+if which ruby &> /dev/null; then
+  export PATH="$(ruby -e "puts Gem.user_dir")/bin:$PATH"
+fi
+
+export GPG_TTY="$(tty)"
+
+

@@ -1,20 +1,40 @@
 ---
 # tasks file for zsh
+- name: Create zsh config directory
+  file:
+      path: "~/.config/zsh"
+      state: directory
+- name: Install zshenv
+  file:
+      src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshenv"
+      dest: "~/.zshenv"
+      state: link
+- name: Install zsh config files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/zsh/files/{{ item }}"
+    dest: "~/.config/zsh/{{ item }}"
+    state: link
+  with_items:
+    - "aliases"
+    - "asciinema"
+    - "colors"
+    - "functions"
+    - "loadtools"
+    - "pre-ohmyzsh"
+    - "wslconfig"
+    - "wslfixes"
+    - "xdg"
+    - "zsh"
 - name: Install zshrc
   file:
       src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshrc"
-      dest: "~/.zshrc"
+      dest: "~/.config/zsh/zshrc"
       state: link
-- name: Install zsh_functions
-  file:
-    src: "{{ user_local_checkout_dir }}/roles/zsh/files/zsh_functions"
-    dest: "~/.zsh_functions"
-    state: link
 - name: Install oh-my-zsh
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh"
-    dest: "~/.oh-my-zsh"
+    dest: "~/.config/zsh/.oh-my-zsh"
 - name: Install zsh_syntax_highlighting
   git:
     repo: "{{ zsh_syntax_highlight_git }}"
-    dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    dest: "~/.config/zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"

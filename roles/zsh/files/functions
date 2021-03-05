@@ -2,12 +2,7 @@
 
 up() {
     go_up=${1:-"1"}
-    cd_arg=""
-
-    until [ "$go_up" -eq 0 ]; do
-        cd_arg="../${cd_arg}"
-        go_up=$((go_up - 1))
-    done
+    cd_arg="$(python3 -c "print('../' * $go_up)")"
     cd "$cd_arg"
 }
 

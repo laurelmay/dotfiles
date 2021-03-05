@@ -1,5 +1,9 @@
 VerifyHostKeyDNS yes
 
+Host ccpogit
+    User git
+    Hostname github.com
+    IdentityFile ~/.ssh/ccpo_ed25519
 Host localhost
     User lakerka
     IdentityFile ~/.ssh/kyle_ed25519

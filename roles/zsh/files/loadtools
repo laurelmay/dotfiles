@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+
+function () {
+    local to_source=( \
+        "$HOME/.zsh_functions" \
+        "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "/usr/share/doc/pkgfile/command-not-found.zsh" \
+        "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+    )
+
+    for file in "$to_source[@]"; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
+
+    local path_dirs=( \
+        "$HOME/.cargo/bin" \
+        "$HOME/.npm-packages/bin" \
+        "$HOME/.nimble/bin" \
+        "$HOME/go/bin" \
+        "$HOME/.poetry/bin"\
+    )
+
+    for dir in "$path_dirs[@]"; do
+        if [ -d "$dir" ]; then
+            export PATH="$dir:$PATH"
+        fi
+    done
+
+    if [ -d /home/linuxbrew/.linuxbrew/ ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+
+    # set up pyenv when installed
+    pyenv_dir="$HOME/.pyenv"
+    if [ -d "$pyenv_dir" ]; then
+        export PYENV_ROOT="$pyenv_dir"
+        export PATH="${pyenv_dir}/bin:$PATH"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+    fi
+
+    NPM_PACKAGES="${HOME}/.npm-packages"
+    export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+
+    if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
+        export SDKMAN_DIR="${HOME}/.sdkman"
+        source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+    fi
+}
