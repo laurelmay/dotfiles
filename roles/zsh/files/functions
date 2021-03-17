@@ -22,3 +22,21 @@ mkpypkg() {
 syncwatch() {
     watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
 }
+
+#--
+# Query for ANY for the given domain, optionally to the given NS for a given domain.
+# Params:
+#   $1 - The FQDN to query for (required)
+#   $2 - The FQDN's NS record to query for $1 (defaults to $1)
+dig_any() {
+    if [ -z "$1" ]; then
+        >&2 echo "Must provide a domain to query for"
+        return 1
+    fi
+    local ns="$(dig +noall +answer NS "${2:-1}" | grep -v "\tCNAME\t" | awk '{print $NF};' | head -n1)"
+    if [ -z "$ns" ]; then
+        >&2 echo "No NS server for ${2:-$1}"
+        return 1
+    fi
+    dig ANY "$1" "@$ns"
+}
