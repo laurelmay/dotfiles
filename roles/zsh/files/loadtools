@@ -29,9 +29,15 @@ function () {
         fi
     done
 
-    if [ -d /home/linuxbrew/.linuxbrew/ ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    fi
+    local homebrew_paths=(\
+        "/home/linuxbrew/.linuxbrew" \
+        "/opt/homebrew" \
+    )
+    for brew_path in "$homebrew_paths[@]"; do
+        if [ -d "$brew_path" ]; then
+            eval "$("$brew_path/bin/brew" shellenv)"
+        fi
+    done
 
     # set up pyenv when installed
     pyenv_dir="$HOME/.pyenv"
