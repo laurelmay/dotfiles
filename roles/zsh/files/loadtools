@@ -1,10 +1,17 @@
 #!/usr/bin/env zsh
 
+# The commands in this file largely either source various files or output of commands, add
+# directories to PATH if they exist, or modify similar values.
+#
+# Note to self: It is very easy to try to use $path as a variable name in this file; however,
+# in ZSH (and other shells), that is just $PATH as an array instead of colon-delimited. So try
+# to be careful of that.
+
 function () {
+    # Files to source directly if they exist
     local to_source=( \
-        "$HOME/.zsh_functions" \
-        "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/doc/pkgfile/command-not-found.zsh" \
+        "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
     )
@@ -15,6 +22,7 @@ function () {
         fi
     done
 
+    # Directories to add to the path if they exist
     local path_dirs=( \
         "$HOME/.cargo/bin" \
         "$HOME/.npm-packages/bin" \
@@ -29,6 +37,10 @@ function () {
         fi
     done
 
+    # The location for homebrew is different on macOS and Linux; however, in both scenarios, a
+    # the `shellenv` command should be `eval`-ed to set the necessary environment variables
+    # correctly. In generally, only one of these should be loaded but that constraint is not
+    # enforced.
     local homebrew_paths=(\
         "/home/linuxbrew/.linuxbrew" \
         "/opt/homebrew" \
@@ -39,18 +51,27 @@ function () {
         fi
     done
 
-    # set up pyenv when installed
+    # If pyenv is installed and is located in $HOME/.pyenv, run the commands to configure it as
+    # well as the virtualenv plugin (if installed)
     pyenv_dir="$HOME/.pyenv"
     if [ -d "$pyenv_dir" ]; then
         export PYENV_ROOT="$pyenv_dir"
         export PATH="${pyenv_dir}/bin:$PATH"
         eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
+        if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
+            eval "$(pyenv virtualenv-init -)"
+        fi
     fi
 
+    # This likely needs to be made more generic to add various paths to $MANPATH just like we
+    # do for $PATH itself above.
     NPM_PACKAGES="${HOME}/.npm-packages"
-    export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+    if [ -d "$NPM_PACKAGES" ]; then
+        export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+    fi
 
+    # Not sure that I actually use sdkman anymore, but the commands the installer adds to the
+    # rc file are pretty ugly so this is a somewhat pretty-ified version of those.
     if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
         export SDKMAN_DIR="${HOME}/.sdkman"
         source "${SDKMAN_DIR}/bin/sdkman-init.sh"

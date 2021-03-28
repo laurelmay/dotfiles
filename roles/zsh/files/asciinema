@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# Override PS1 to make it clear we're recording when using asciinema
 if [[ "$ASCIINEMA_REC" == 1 ]]; then
     PS1="recording > "
 fi

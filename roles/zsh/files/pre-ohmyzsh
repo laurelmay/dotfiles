@@ -1,4 +1,9 @@
 #!/usr/bin/env zsh
+
+# This file contains commands that should be set _prior_ to oh-my-zsh being loaded. In general
+# they are commands that set omz config values and plugin lists. It also does some basic config
+# for the $PATH and $MANPATH.
+
 export ZSH_DISABLE_COMPFIX="true"
 export ZSH="$ZDOTDIR/.oh-my-zsh"
 

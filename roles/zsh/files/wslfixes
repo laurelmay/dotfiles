@@ -17,3 +17,4 @@ function () {
 if [[ "$is_wsl" == "true" ]]; then
     BROWSER="wslview"
 fi
+

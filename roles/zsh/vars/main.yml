@@ -1,3 +1,4 @@
 ---
 # vars file for zsh
+zdot_dir: "~/.config/zsh"
 zsh_syntax_highlight_git: "https://github.com/zsh-users/zsh-syntax-highlighting.git"

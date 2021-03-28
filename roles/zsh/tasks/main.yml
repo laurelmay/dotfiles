@@ -1,8 +1,13 @@
 ---
-# tasks file for zsh
+# This playbook configures ZSH with the configuration files placed in {{ zdot_dir }} while a
+# ~/.local/share/zsh is created to store history. The configured ~/.zshenv will set ZDOTDIR to
+# {{ zdot_dir }}. While this isn't totally perfect, it helps clean up some of the mess in $HOME
+# that would be typical in a ZSH configuration. It also makes it a bit easier to break the
+# configuration into multiple files rather than having everything in one giant rc file. All files
+# are created as symlinks which hopefully makes it easier to track changes.
 - name: Create zsh config directory
   file:
-      path: "~/.config/zsh"
+      path: "{{ zdot_dir }}"
       state: directory
 - name: Create zsh history directory
   file:
@@ -16,7 +21,7 @@
 - name: Install zsh config files
   file:
     src: "{{ user_local_checkout_dir }}/roles/zsh/files/{{ item }}"
-    dest: "~/.config/zsh/{{ item }}"
+    dest: "{{ zdot_dir }}/{{ item }}"
     state: link
   with_items:
     - "aliases"
@@ -32,13 +37,13 @@
 - name: Install zshrc
   file:
       src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshrc"
-      dest: "~/.config/zsh/.zshrc"
+      dest: "{{ zdot_dir }}/.zshrc"
       state: link
 - name: Install oh-my-zsh
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh"
-    dest: "~/.config/zsh/.oh-my-zsh"
+    dest: "{{ zdot_dir }}/.oh-my-zsh"
 - name: Install zsh_syntax_highlighting
   git:
     repo: "{{ zsh_syntax_highlight_git }}"
-    dest: "~/.config/zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    dest: "{{ zdot_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
