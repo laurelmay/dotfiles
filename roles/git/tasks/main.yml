@@ -65,5 +65,5 @@
       scope: global
   with_items:
       - { name: user.signingKey, value: "0x17CAD266B70E3F72" }
-      - { name: commit.pgpSign, value: 'true' }
+      - { name: commit.gpgSign, value: 'true' }
 
