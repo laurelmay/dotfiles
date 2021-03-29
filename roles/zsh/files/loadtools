@@ -14,6 +14,7 @@ function () {
         "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+        "$HOME/.cargo/env" \
     )
 
     for file in "$to_source[@]"; do
@@ -24,7 +25,6 @@ function () {
 
     # Directories to add to the path if they exist
     local path_dirs=( \
-        "$HOME/.cargo/bin" \
         "$HOME/.npm-packages/bin" \
         "$HOME/.nimble/bin" \
         "$HOME/go/bin" \
