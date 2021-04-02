@@ -1,9 +1,9 @@
 source /etc/profile
 source "$ZDOTDIR/zsh"
 source "$ZDOTDIR/pre-ohmyzsh"
+source "$ZDOTDIR/loadtools"
 source "$ZSH/oh-my-zsh.sh"
 source "$ZDOTDIR/wslconfig"
-source "$ZDOTDIR/loadtools"
 source "$ZDOTDIR/functions"
 source "$ZDOTDIR/aliases"
 source "$ZDOTDIR/colors"

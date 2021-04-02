@@ -48,6 +48,7 @@ function () {
     for brew_path in "$homebrew_paths[@]"; do
         if [ -d "$brew_path" ]; then
             eval "$("$brew_path/bin/brew" shellenv)"
+            FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
         fi
     done
 
