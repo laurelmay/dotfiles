@@ -58,6 +58,7 @@ function () {
     if [ -d "$pyenv_dir" ]; then
         export PYENV_ROOT="$pyenv_dir"
         export PATH="${pyenv_dir}/bin:$PATH"
+        eval "$(pyenv init --path)"
         eval "$(pyenv init -)"
         if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
             eval "$(pyenv virtualenv-init -)"
