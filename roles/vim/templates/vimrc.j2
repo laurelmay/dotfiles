@@ -6,22 +6,24 @@
 call plug#begin()
 Plug 'iCyMind/NeoSolarized'              " Truecolor Solarized theme
 Plug 'Yggdroot/indentLine'               " Thin vertical lines at indents
-Plug 'tpope/vim-fugitive'                " Git plugin
 Plug 'vim-airline/vim-airline'           " Needed for buffer display
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-rhubarb'                 " GitHub support
+Plug 'airblade/vim-gitgutter'
 Plug 'zamua/mocha'                       " CS 432 Decaf syntax highlighting
 Plug 'kylelaker/riscv.vim'
 Plug 'kylelaker/cisco.vim'
-" Plug 'vim-syntastic/syntastic'
-Plug 'ycm-core/YouCompleteMe'
+Plug 'vim-syntastic/syntastic'
 Plug 'speshak/vim-cfn'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 """
 " BASIC VIM SETTINGS
 """
+
+{% if vim_cmd != 'nvim' %}
+set encoding=utf-8
+{% endif %}
 
 " Required for lots of vim things
 set nocompatible
@@ -43,7 +45,7 @@ set spelllang=en
 " Solarized Dark theme
 set termguicolors
 colorscheme NeoSolarized
-set background=dark
+set background=light
 
 " Scrolling
 set scrolloff=5
@@ -62,7 +64,6 @@ endif
 " Live preview of :substitute.
 set inccommand=split
 {% endif %}
-
 
 """
 " PLUGIN SETTINGS
@@ -109,6 +110,40 @@ imap <F7> <C-O>:make clean default test<CR>
 " keep selection after shifting with < or >
 vnoremap < <gv
 vnoremap > >gv
+
+" CoC mappings
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 
 """
 " BACKUP/UNDO FILES

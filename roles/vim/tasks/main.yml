@@ -33,3 +33,5 @@
   shell: "{{ vim_cmd }} +PlugInstall +qall"
 - name: Update vim plugins
   shell: "{{ vim_cmd }} +PlugUpdate +qall"
+- name: Install vim CoC language support
+  shell: "{{ vim_cmd }} +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh' +qall"
