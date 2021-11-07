@@ -66,4 +66,8 @@
   with_items:
       - { name: user.signingKey, value: "0x17CAD266B70E3F72" }
       - { name: commit.gpgSign, value: 'true' }
-
+- name: Use main branch name
+  community.general.git_config:
+      name: init.defaultBranch
+      value: main
+      scope: global
