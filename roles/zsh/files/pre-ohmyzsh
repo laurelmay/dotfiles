@@ -28,6 +28,7 @@ export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # Ruby Gems
 if which ruby &> /dev/null; then
+  export GEM_HOME="$(ruby -e "puts Gem.user_dir")"
   export PATH="$(ruby -e "puts Gem.user_dir")/bin:$PATH"
 fi
 
