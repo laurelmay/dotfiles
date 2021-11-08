@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
 install_pyenv_deps() (
-    sudo apt update
-    sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 )
 
 install_neovim() (
-    sudo apt update
-    sudo apt install neovim
+    sudo apt-get install -y neovim
 )
 
 install_base_deps() (
-    sudo apt install git ansible 
+    sudo apt-get install -y git ansible 
 )
 
 run_ansible() (
@@ -19,6 +17,8 @@ run_ansible() (
 )
 
 main () (
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt-get -y update
     install_base_deps
     install_neovim
     install_pyenv_deps
