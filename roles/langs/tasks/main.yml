@@ -26,5 +26,14 @@
   ini_file:
     path: ~/.npmrc
     section: null
-    option: prefix
-    value: "${HOME}/.npm-global"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+    - option: prefix
+      value: ${HOME}/.npm-global
+    - option: fund
+      value: "false"
+    - option: init-author-name
+      value: "{{ me.name }}"
+    - option: init-author-email
+      value: "{{ me.email }}"

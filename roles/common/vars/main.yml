@@ -6,3 +6,8 @@ user_bin_dir: '{{ user_local_dir }}/bin'
 user_share_dir: '{{ user_local_dir }}/share'
 user_cache_dir: '~/.cache'
 user_local_checkout_dir: "~/Documents/dotfiles"
+
+me:
+  name: "Kyle Laker"
+  email: "kyle@laker.email"
+  pgp: "0x17CAD266B70E3F72"

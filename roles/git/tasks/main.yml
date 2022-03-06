@@ -35,8 +35,8 @@
       value: "{{ item.value }}"
       scope: global
   with_items:
-      - { name: name, value: Kyle Laker }
-      - { name: email, value: kyle@laker.email }
+      - { name: name, value: "{{ me.name }}" }
+      - { name: email, value: "{{ me.email }}" }
 - name: Set push settings
   git_config:
       name: "push.{{ item.name }}"
@@ -64,7 +64,7 @@
       value: "{{ item.value }}"
       scope: global
   with_items:
-      - { name: user.signingKey, value: "0x17CAD266B70E3F72" }
+      - { name: user.signingKey, value: "{{ me.pgp }}" }
       - { name: commit.gpgSign, value: 'true' }
 - name: Use main branch name
   git_config:

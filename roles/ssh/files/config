@@ -1,79 +1,14 @@
 VerifyHostKeyDNS yes
 
-Host ccpogit
-    User git
-    Hostname github.com
-    IdentityFile ~/.ssh/ccpo_ed25519
 Host localhost
-    User lakerka
     IdentityFile ~/.ssh/kyle_ed25519
-Host gitlab.com
-    Hostname gitlab.com
-    IdentityFile ~/.ssh/gitlab_ed25519
 Host github.com
     Hostname github.com
-    IdentityFile ~/.ssh/github_ed25519
-Host code.cs.jmu.edu git.cs.jmu.edu
-    Hostname git.cs.jmu.edu
     User git
-    IdentityFile ~/.ssh/jmu_ed25519
-    Port 10022
-Host bitbucket.org
-    Hostname bitbucket.org
-    User hg
-    IdentityFile ~/.ssh/bitbucket_ed25519
-Host stu stu.cs.jmu.edu
-    Hostname stu.cs.jmu.edu
-    User lakerka
-    IdentityFile ~/.ssh/jmu_ed25519
-Host l*.cs.jmu.edu
-    User lakerka
-    IdentityFile ~/.ssh/jmu_ed25519
-Host cluster login.cluster.cs.jmu.edu
-    Hostname login.cluster.cs.jmu.edu
-    User lakerka
-    IdentityFile ~/.ssh/jmu_ed25519
-Host cluster.oc
-    Hostname login.cluster.cs.jmu.edu
-    User lakerka
-    IdentityFile ~/.ssh/jmu_ed25519
-    ProxyJump stu
-Host main-site
-    Hostname kylelaker.com
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host test-site
-    Hostname test.kylelaker.com
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host jmupark
-    Hostname jmupark.kylelaker.com
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host files
-    Hostname files.kylelaker.com
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host unms
-    Hostname unms.kylelaker.com
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host minecraft minecraft.jmunixusers.org
-    Hostname minecraft.jmunixusers.org
-    User lakerka
-    IdentityFile ~/.ssh/digitalocean_ed25519
-Host 192.168.100.*
-    Ciphers +aes256-cbc
-    User lakerka
-    IdentityFile ~/.ssh/homenet_rsa
+    IdentityFile ~/.ssh/github_ed25519
 Host 192.168.*
     Ciphers +aes256-cbc
     #KexAlgorithms aes256-cbc
-    User lakerka
-    IdentityFile ~/.ssh/homenet_ed25519
-Host pihole
-    Hostname 192.168.20.2
-    User pi
     IdentityFile ~/.ssh/homenet_ed25519
 Host aur.archlinux.org
     IdentityFile ~/.ssh/aur_ed25519
