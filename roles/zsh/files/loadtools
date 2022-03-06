@@ -25,7 +25,7 @@ function () {
 
     # Directories to add to the path if they exist
     local path_dirs=( \
-        "$HOME/.npm-packages/bin" \
+        "$HOME/.npm-global/bin" \
         "$HOME/.nimble/bin" \
         "$HOME/go/bin" \
         "$HOME/.poetry/bin"\
