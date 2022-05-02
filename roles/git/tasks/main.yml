@@ -28,7 +28,7 @@
       scope: global
   with_items:
       - { name: excludesfile, value: "~/.gitignore" }
-      - { name: editor, value: "{{ vim_cmd }}" }
+      - { name: editor, value: "nvim" }
 - name: Set git user settings
   git_config:
       name: "user.{{ item.name }}"

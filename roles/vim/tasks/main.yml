@@ -1,37 +1,24 @@
 ---
-# tasks file for nvim
-- name: Set variables for vim
-  set_fact:
-    vim_dir: "~/.vim"
-    vimrc_file: "vimrc"
-  when: vim_cmd == 'vim'
-- name: Set variables for nvim
-  set_fact:
-    vim_dir: "{{ user_config_dir }}/nvim"
-    vimrc_file: "init.vim"
-  when: vim_cmd == 'nvim'
-
 - name: Create necessary directories for nvim
   file:
       path: "{{ item }}"
       state: directory
       mode: 0755
   with_items:
-    - "{{ vim_dir }}/autoload"
-    - "{{ vim_dir }}/undodir"
+    - "{{ nvim_dir }}/autoload"
+    - "{{ nvim_dir }}/undodir"
 - name: Install vim-plug
   get_url:
       url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-      dest: "{{ vim_dir }}/autoload/plug.vim"
+      dest: "{{ nvim_dir }}/autoload/plug.vim"
 - name: Install vimrc
-  template:
-      src: "{{ user_local_checkout_dir }}/roles/vim/templates/vimrc.j2"
-      dest: "{{ vim_dir }}/{{ vimrc_file }}"
-      force: true
-      mode: 0644
+  file:
+      src: "{{ user_local_checkout_dir }}/roles/vim/files/init.vim"
+      dest: "{{ nvim_dir }}/{{ nvimrc_file }}"
+      state: link
 - name: Install vim plugins
-  shell: "{{ vim_cmd }} +PlugInstall +qall"
+  shell: "nvim +PlugInstall +qall"
 - name: Update vim plugins
-  shell: "{{ vim_cmd }} +PlugUpdate +qall"
+  shell: "nvim +PlugUpdate +qall"
 - name: Install vim CoC language support
-  shell: "{{ vim_cmd }} +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh' +qall"
+  shell: "nvim +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh' +qall"

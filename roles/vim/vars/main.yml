@@ -1,3 +1,4 @@
 ---
 # vars file for nvim
-#nvim_dir: "{{ user_config_dir }}/nvim"
+nvim_dir: "{{ user_config_dir }}/nvim"
+nvimrc_file: "init.vim"
