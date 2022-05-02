@@ -21,4 +21,4 @@
 - name: Update vim plugins
   shell: "nvim +PlugUpdate +qall"
 - name: Install vim CoC language support
-  shell: "nvim +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh' +qall"
+  shell: "nvim +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh coc-tsserver' +qall"
