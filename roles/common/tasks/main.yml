@@ -4,6 +4,7 @@
   git:
       repo: "https://github.com/kylelaker/dotfiles"
       dest: "{{ user_local_checkout_dir }}"
+      verify_commit: yes
 - name: Create necessary directories
   file:
     path: '{{ item }}'
