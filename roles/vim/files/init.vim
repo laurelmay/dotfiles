@@ -22,6 +22,7 @@ set cursorline
 set nowrap
 set inccommand=split
 set backup undofile
+set backupdir-=.
 
 " spellcheck
 set spelllang=en
