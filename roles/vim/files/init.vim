@@ -14,7 +14,7 @@ call plug#end()
 
 syntax on
 
-set expandtab shiftwidth=4
+set expandtab shiftwidth=2
 
 set number norelativenumber signcolumn=number
 set scrolloff=5
