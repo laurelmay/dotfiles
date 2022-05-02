@@ -1,10 +1,7 @@
 " vim: set ft=vim:
 
-"""
-" PLUGINS
-"""
 call plug#begin()
-Plug 'iCyMind/NeoSolarized'              " Truecolor Solarized theme
+Plug 'overcache/NeoSolarized'            " Truecolor Solarized theme
 Plug 'Yggdroot/indentLine'               " Thin vertical lines at indents
 Plug 'vim-airline/vim-airline'           " Needed for buffer display
 Plug 'vim-airline/vim-airline-themes'
@@ -15,58 +12,53 @@ Plug 'kylelaker/cisco.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
-"""
-" BASIC VIM SETTINGS
-"""
-
-set nocompatible
-set encoding=utf-8
-set hidden
-set cmdheight=2
-set updatetime=300
-set shortmess+=c
-set signcolumn=number
-
-" Required for lots of vim things
-
 syntax on
 
-" Indent settings
 set smarttab expandtab shiftwidth=4
 
-" Show numbers in gutter but not relative numbers
 set number norelativenumber
-
-" Highlight the line with the cursor
 set cursorline
+set signcolumn=number
+set scrolloff=5
+set nowrap
 
 " spellcheck
 set spelllang=en
 
-" Solarized Dark theme
+" Solarized theme
 set termguicolors
-colorscheme NeoSolarized
 set background=light
-
-" Scrolling
-set scrolloff=5
-
-" Disable line wrap
-set nowrap
+colorscheme NeoSolarized
 
 " Bar at 100 characters
-if exists("+colorcolumn")
-    set colorcolumn=100
-    highlight ColorColumn ctermbg=DarkCyan guibg=DarkCyan
-endif
+set colorcolumn=100
+highlight ColorColumn ctermbg=DarkCyan guibg=DarkCyan
+
+" Workaround for neovim/neovim#9019
+function! s:CustomizeColors()
+    if has('gui_running') || &termguicolors || exists('g:gonvim_running')
+        highlight CursorLine ctermfg=white
+    else
+        highlight CursorLine guifg=white
+    endif
+endfunction
+augroup OnColorScheme
+    autocmd!
+    autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
+augroup END
+
 
 " Enabled only when using neovim
 " Live preview of :substitute.
 set inccommand=split
 
-"""
-" PLUGIN SETTINGS
-"""
+" backup and undo files
+set backup
+set backupdir-=.
+set backupdir^=~/.config/nvim/undodir
+set undofile
+set undodir-=.
+set undodir^=~/.config/nvim/undodir
 
 " Show buffers at top of screen.
 let g:airline#extensions#coc#enabled = 1
@@ -74,10 +66,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Use powerline fonts for airline
 let g:airline_powerline_fonts = 1
-
-"""
-" KEY MAPPINGS
-"""
 
 " Quicker buffer switching
 nnoremap gb :ls<CR>:b<Space>
@@ -90,6 +78,12 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " keep selection after shifting with < or >
 vnoremap < <gv
 vnoremap > >gv
+
+" Settings recommended by CoC
+set hidden
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
 
 " CoC mappings
 " Use tab for trigger completion with characters ahead and navigate.
@@ -163,14 +157,12 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -182,37 +174,4 @@ command! -nargs=0 Format :call CocActionAsync('format')
 command! -nargs=0 OR   :call   CocActionAsync('runCommand', 'editor.action.organizeImport')
 nnoremap <F6> :Format<CR>:OR<CR>
 
-"""
-" BACKUP/UNDO FILES
-"""
 
-" backup and undo files
-" files will be stored in ~/.config/nvim/undodir (set by Ansible)
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-  set nowritebackup
-else
-  set backup		" keep a backup file (restore to previous version)
-  set backupdir-=.
-  set backupdir^=~/.config/nvim/undodir
-  if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
-    set undodir-=.
-    set undodir^=~/.config/nvim/undodir
-  endif
-endif
-
-"""
-" LANGUAGE PREFERENCES
-"""
-
-augroup vimrcEx
-    au!
-    " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text setlocal textwidth=78 shiftwidth=2 tabstop=2
-    autocmd FileType java  setlocal shiftwidth=4 tabstop=4
-    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-    autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-    autocmd FileType haskell setlocal shiftwidth=2 tabstop=2
-augroup END
