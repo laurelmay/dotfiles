@@ -15,14 +15,9 @@ CASE_SENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Plugins
-if [[ "$(uname -s)" == "Linux" ]]; then
-    plugins=(git sudo zsh-syntax-highlighting virtualenv direnv)
-else
-    plugins=(git osx sudo)
-fi
+plugins=(sudo zsh-syntax-highlighting virtualenv direnv)
 
 # User configuration
-
 export PATH="$HOME/.local/bin:$PATH"
 export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 

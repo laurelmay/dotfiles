@@ -2,6 +2,9 @@
 
 up() {
     go_up=${1:-"1"}
+    if [ $go_up -lt 1 ]; then
+        return 1
+    fi
     cd_arg="$(python3 -c "print('../' * $go_up)")"
     cd "$cd_arg"
 }
