@@ -14,20 +14,21 @@ call plug#end()
 
 syntax on
 
-set smarttab expandtab shiftwidth=4
+set expandtab shiftwidth=4
 
-set number norelativenumber
-set cursorline
-set signcolumn=number
+set number norelativenumber signcolumn=number
 set scrolloff=5
+set cursorline
 set nowrap
+set inccommand=split
+set backup undofile
 
 " spellcheck
 set spelllang=en
 
 " Solarized theme
 set termguicolors
-set background=light
+set background=dark
 colorscheme NeoSolarized
 
 " Bar at 100 characters
@@ -47,18 +48,6 @@ augroup OnColorScheme
     autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
 augroup END
 
-
-" Enabled only when using neovim
-" Live preview of :substitute.
-set inccommand=split
-
-" backup and undo files
-set backup
-set backupdir-=.
-set backupdir^=~/.config/nvim/undodir
-set undofile
-set undodir-=.
-set undodir^=~/.config/nvim/undodir
 
 " Show buffers at top of screen.
 let g:airline#extensions#coc#enabled = 1
@@ -100,10 +89,24 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
