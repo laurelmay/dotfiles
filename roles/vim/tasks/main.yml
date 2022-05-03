@@ -1,24 +1,16 @@
 ---
-- name: Create necessary directories for nvim
+- name: Make configuration directory
   file:
-      path: "{{ item }}"
-      state: directory
-      mode: 0755
-  with_items:
-    - "{{ nvim_dir }}/autoload"
-    - "{{ nvim_dir }}/undodir"
-- name: Install vim-plug
-  get_url:
-      url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-      dest: "{{ nvim_dir }}/autoload/plug.vim"
-- name: Install vimrc
+    path: "{{ nvim_dir }}"
+    state: directory
+    mode: "0755"
+- name: Install init.lua
   file:
-      src: "{{ user_local_checkout_dir }}/roles/vim/files/init.vim"
-      dest: "{{ nvim_dir }}/{{ nvimrc_file }}"
-      state: link
-- name: Install vim plugins
-  shell: "nvim +PlugInstall +qall"
-- name: Update vim plugins
-  shell: "nvim +PlugUpdate +qall"
-- name: Install vim CoC language support
-  shell: "nvim +'CocInstall -sync coc-rust-analyzer coc-pyright coc-json coc-sh coc-tsserver' +qall"
+    src: "{{ user_local_checkout_dir }}/roles/vim/files/init.lua"
+    dest: "{{ nvim_dir }}/init.lua"
+    state: link
+- name: Install remaining files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/vim/files/lua"
+    dest: "{{ nvim_dir}}/lua"
+    state: link
