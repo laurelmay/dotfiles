@@ -2,7 +2,7 @@ local code = {}
 
 function code.check_back_space()
   local col = vim.fn.col('.') - 1
-  return col <= 0 or vim.fn.getline('.'):sub(col, col):match('%')
+  return col <= 0 or vim.fn.getline('.'):sub(col, col):match('%s')
 end
 
 map('i', '<TAB>', [[pumvisible() ? "\<C-n>" : v:lua.config.code.check_back_space() ? "\<TAB>" : coc#refresh()]], { expr = true })
