@@ -13,17 +13,17 @@ if fn.empty(fn.glob(install_path)) > 0 then
   })
 end
 
+local status_ok, packer = pcall(require, 'packer')
+if not status_ok then
+  return
+end
+
 vim.cmd [[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost packer_init.lua source <afile> | PackerSync
   augroup end
 ]]
-
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  return
-end
 
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'

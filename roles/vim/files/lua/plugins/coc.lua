@@ -1,12 +1,12 @@
-map('i', '<TAB>', [[pumvisible() ? "\<C-n>" : <SID><check_back_space() ? "\<TAB>" : coc#refresh()]], { expr = true })
-map('i', '<S-TAB>', [[pumvisible() ? "\<C-p>" : "\<C-h>"]], { expr = true })
+local code = {}
 
-vim.cmd [[
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-]]
+function code.check_back_space()
+  local col = vim.fn.col('.') - 1
+  return col <= 0 or vim.fn.getline('.'):sub(col, col):match('%')
+end
+
+map('i', '<TAB>', [[pumvisible() ? "\<C-n>" : v:lua.config.code.check_back_space() ? "\<TAB>" : coc#refresh()]], { expr = true })
+map('i', '<S-TAB>', [[pumvisible() ? "\<C-p>" : "\<C-h>"]], { expr = true })
 
 -- use <c-space> to trigger completion
 map('i', '<c-space>', 'coc#refresh()', { expr = true })
@@ -25,16 +25,14 @@ map('n', 'gi', '<Plug>(coc-implementation)')
 map('n', 'gr', '<Plug>(coc-refeferences)')
 
 -- K to show documentation
-map('n', 'K', ':call <SID>show_documentation()<CR>')
-vim.cmd [[
-function! s:show_documentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
+map('n', 'K', ':call v:lua.config.code.show_documentation()<CR>')
+function code.show_documentation()
+  if vim.fn.CocAction('hasProvider', 'hover') then
+    vim.fn.CocActionAsync('doHover')
   else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-]]
+    vim.fn.feedkeys('K', 'in')
+  end
+end
 
 -- Highlight all occurrences of symbol on cursorhold
 vim.cmd [[
@@ -98,3 +96,5 @@ command! -nargs=0 Format :call CocActionAsync('format')
 command! -nargs=0 OR   :call   CocActionAsync('runCommand', 'editor.action.organizeImport')
 nnoremap <F6> :Format<CR>:OR<CR>
 ]]
+
+_G.config.code = code
