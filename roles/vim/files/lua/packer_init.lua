@@ -27,12 +27,16 @@ vim.cmd [[
 
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'overcache/NeoSolarized'
   use 'Yggdroot/indentLine'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  use 'ishan9299/nvim-solarized-lua'
   use {
     'neoclide/coc.nvim',
     branch = 'release'
