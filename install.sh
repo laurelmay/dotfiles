@@ -1,28 +1,32 @@
 #!/usr/bin/env bash
 
 install_pyenv_deps() (
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 )
 
 install_neovim() (
-    sudo apt-get install -y neovim
+  sudo dnf install -y neovim
 )
 
 install_base_deps() (
-    sudo apt-get install -y git ansible 
+  sudo dnf install -y git ansible
+)
+
+import_pgp_key() (
+  curl -sL https://kylelaker.com/kylelaker.asc | gpg --import
 )
 
 run_ansible() (
-    ansible-playbook -i hosts -t common local.yml
+  ansible-playbook -i hosts -t common local.yml
 )
 
 main () (
-    export DEBIAN_FRONTEND=noninteractive
-    sudo apt-get -y update
-    install_base_deps
-    install_neovim
-    install_pyenv_deps
-    run_ansible
+  sudo dnf update -y
+  install_base_deps
+  install_neovim
+  install_pyenv_deps
+  import_pgp_key
+  run_ansible
 )
 
 main "$@"
