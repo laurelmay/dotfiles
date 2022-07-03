@@ -39,7 +39,8 @@ return packer.startup(function(use)
   use 'ishan9299/nvim-solarized-lua'
   use {
     'neoclide/coc.nvim',
-    branch = 'release'
+    branch = 'release',
+    run = ":CocUpdate"
   }
   use {
     'kyazdani42/nvim-tree.lua',
