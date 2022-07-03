@@ -1,12 +1,3 @@
-vim.g.nvim_tree_highlight_opened_files = 1
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_respect_buf_cwd = 1
-vim.g.nvim_tree_width_allow_resize = 1
-vim.g.nvim_tree_show_icons = {
-  git = 1,
-  folders = 1,
-  files = 1,
-}
 local status_ok, nvim_tree = pcall(require, 'nvim-tree')
 if not status_ok then
   return
@@ -16,21 +7,16 @@ nvim_tree.setup {
   open_on_setup = true,
   open_on_setup_file = true,
   open_on_tab = true,
-  update_cwd = true,
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
+  disable_netrw = true,
   view = { width = 32, side = "left" },
   renderer = {
-    indent_markers = {
-      enable = false,
-      icons = {
-        corner = "└ ",
-        edge = "│ ",
-        none = "  ",
-      },
-    },
-    icons = {
-      webdev_colors = true,
-    },
-  },
+    add_trailing = true,
+    group_empty = true,
+    highlight_opened_files = "icon",
+    highlight_git = true,
+   },
   actions = {
     change_dir = { enable = false },
     open_file = {
@@ -39,7 +25,7 @@ nvim_tree.setup {
   },
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_root = true,
   },
   filters = {
     dotfiles = true,
