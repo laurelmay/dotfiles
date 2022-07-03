@@ -38,11 +38,8 @@ return packer.startup(function(use)
   }
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'ishan9299/nvim-solarized-lua'
-  use {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    run = ":CocUpdate"
-  }
+  use 'williamboman/nvim-lsp-installer'
+  use 'neovim/nvim-lspconfig'
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
