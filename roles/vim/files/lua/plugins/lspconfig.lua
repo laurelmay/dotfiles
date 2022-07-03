@@ -36,12 +36,13 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-local coq = require "coq"
-local lsp = require "lspconfig"
 
 vim.g.coq_settings = {
   auto_start = 'shut-up',
+  xdg = true,
 }
+local lsp = require "lspconfig"
+local coq = require "coq"
 
 require("nvim-lsp-installer").setup {
   automatic_installation = true,
