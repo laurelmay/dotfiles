@@ -16,7 +16,7 @@ nvim_tree.setup {
     group_empty = true,
     highlight_opened_files = "icon",
     highlight_git = true,
-   },
+  },
   actions = {
     change_dir = { enable = false },
     open_file = {
@@ -35,6 +35,3 @@ nvim_tree.setup {
 
 map('n', '<C-n>', ':NvimTreeToggle<CR>')
 
-vim.cmd [[
-autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-]]
