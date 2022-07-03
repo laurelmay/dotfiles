@@ -41,6 +41,14 @@ return packer.startup(function(use)
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
   use {
+    'ms-jpq/coq_nvim',
+    branch = 'coq',
+    requires = {
+      'ms-jpq/coq.artifacts'
+    },
+    run = ':COQdeps'
+  }
+  use {
     'kyazdani42/nvim-tree.lua',
     requires = {
       'kyazdani42/nvim-web-devicons', -- optional, for file icon

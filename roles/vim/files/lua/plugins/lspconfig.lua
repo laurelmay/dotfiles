@@ -36,31 +36,37 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+local coq = require "coq"
+local lsp = require "lspconfig"
+
+vim.g.coq_settings = {
+  auto_start = 'shut-up',
+}
 
 require("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
-require('lspconfig')['pyright'].setup{
+lsp.pyright.setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
     flags = lsp_flags,
-}
-require('lspconfig')['tsserver'].setup{
+})
+lsp.tsserver.setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
     flags = lsp_flags,
-}
-require('lspconfig')['rust_analyzer'].setup{
+})
+lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
     }
-}
-require('lspconfig')['jdtls'].setup {
+})
+lsp.jdtls.setup(coq.lsp_ensure_capabilities {
   on_attach = on_attach,
   flags = lsp_flags,
-}
-require('lspconfig')['sumneko_lua'].setup {
+})
+lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
@@ -73,8 +79,8 @@ require('lspconfig')['sumneko_lua'].setup {
       },
     },
   },
-}
-require('lspconfig')['dockerls'].setup {
+})
+lsp.dockerls.setup(coq.lsp_ensure_capabilities {
   on_attach = on_attach,
   flags=lsp_flags
-}
+})
