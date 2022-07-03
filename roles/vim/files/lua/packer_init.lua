@@ -36,6 +36,7 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
+  use 'nvim-treesitter/nvim-treesitter-context'
   use 'ishan9299/nvim-solarized-lua'
   use {
     'neoclide/coc.nvim',

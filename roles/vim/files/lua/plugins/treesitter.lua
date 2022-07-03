@@ -5,5 +5,18 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = false
+  },
+  context = {
+    enable = true,
+    patterns = {
+      default = {
+        'class',
+        'function',
+        'if',
+        'for',
+        'switch',
+        'case',
+      }
+    }
   }
 }
