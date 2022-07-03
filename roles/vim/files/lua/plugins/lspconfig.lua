@@ -31,11 +31,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 end
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
+local lsp_flags = {}
 
 vim.g.coq_settings = {
   auto_start = 'shut-up',
@@ -47,30 +43,21 @@ local coq = require "coq"
 require("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
-lsp.pyright.setup(coq.lsp_ensure_capabilities {
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
-lsp.tsserver.setup(coq.lsp_ensure_capabilities {
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
-lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
+
+-- Map server names to the additional settings for that particular
+-- language server (many won't have additional settings)
+local lsp_configs = {
+  pyright = {},
+  tsserver = {},
+  rust_analyzer = {
+    ['rust-analyzer'] = {
+      checkOnSave = {
+        command = 'clippy'
+      }
     }
-})
-lsp.jdtls.setup(coq.lsp_ensure_capabilities {
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
-lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
-  on_attach = on_attach,
-  flags = lsp_flags,
-  settings = {
+  },
+  jdtls = {},
+  sumneko_lua = {
     Lua = {
       runtime = {
         version = 'LuaJIT'
@@ -80,8 +67,14 @@ lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
       },
     },
   },
-})
-lsp.dockerls.setup(coq.lsp_ensure_capabilities {
-  on_attach = on_attach,
-  flags=lsp_flags
-})
+  dockerls = {}
+}
+
+for server, settings in pairs(lsp_configs) do
+  lsp[server].setup(coq.lsp_ensure_capabilities {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = settings,
+  })
+end
+
