@@ -36,7 +36,6 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
-  use 'max-0406/autoclose.nvim'
   use 'ishan9299/nvim-solarized-lua'
   use {
     'neoclide/coc.nvim',
