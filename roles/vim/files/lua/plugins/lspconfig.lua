@@ -47,6 +47,8 @@ require("nvim-lsp-installer").setup {
 -- Map server names to the additional settings for that particular
 -- language server (many won't have additional settings)
 local lsp_configs = {
+  ansiblels = {},
+  bashls = {},
   pyright = {},
   tsserver = {},
   rust_analyzer = {
