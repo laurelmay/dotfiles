@@ -5,10 +5,8 @@ end
 
 nvim_tree.setup {
   open_on_setup = true,
-  open_on_setup_file = true,
   open_on_tab = true,
   sync_root_with_cwd = true,
-  respect_buf_cwd = true,
   disable_netrw = true,
   view = { width = 32, side = "left" },
   renderer = {

@@ -1,4 +1,3 @@
--- Derived from https://github.com/brainfucksec/neovim-lua/blob/main/nvim/lua/packer_init.lua
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -55,8 +54,13 @@ return packer.startup(function(use)
   }
   use 'nvim-treesitter/nvim-treesitter-context'
   use {
-    'lourenci/github-colors',
-    branch = 'main'
+    'projekt0n/github-nvim-theme',
+    config = function()
+      require'github-theme'.setup {
+        theme_style = "dimmed",
+        keyword_style = "NONE"
+      }
+    end
   }
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'

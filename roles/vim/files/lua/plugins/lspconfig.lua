@@ -48,6 +48,7 @@ require("nvim-lsp-installer").setup {
 -- language server (many won't have additional settings)
 local lsp_configs = {
   ansiblels = {},
+  clangd = {},
   bashls = {},
   pyright = {},
   tsserver = {},
