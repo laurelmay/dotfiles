@@ -27,11 +27,28 @@ vim.cmd [[
 
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'Yggdroot/indentLine'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
+
+  use 'lewis6991/gitsigns.nvim'
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      vim.g.indent_blankline_char = '¦'
+      vim.g.indent_blankline_use_treesitter = true
+      vim.g.indent_blankline_use_treesitter_scope = true
+      vim.g.indent_blankline_show_trailing_blankline_indent = false
+      vim.cmd [[
+        highlight IndentBlanklineChar guifg=Grey30 gui=nocombine
+      ]]
+      require'indent_blankline'.setup{
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end
+  }
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'

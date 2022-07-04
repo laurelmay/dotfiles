@@ -21,7 +21,7 @@ vim.cmd [[
   colorscheme github-colors
 ]]
 vim.cmd [[
-  highlight ColorColumn ctermbg=DarkGray guibg=DarkGray
+  highlight ColorColumn ctermbg=DarkGray guibg=#005F87
 ]]
 
 
