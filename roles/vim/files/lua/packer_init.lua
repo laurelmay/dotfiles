@@ -30,14 +30,17 @@ return packer.startup(function(use)
   use 'Yggdroot/indentLine'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use 'airblade/vim-gitgutter'
+  use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
   use 'nvim-treesitter/nvim-treesitter-context'
-  use 'ishan9299/nvim-solarized-lua'
+  use {
+    'lourenci/github-colors',
+    branch = 'main'
+  }
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
   use {

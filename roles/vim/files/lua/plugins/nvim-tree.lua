@@ -33,5 +33,5 @@ nvim_tree.setup {
   },
 }
 
-map('n', '<C-n>', ':NvimTreeToggle<CR>')
+_G.map('n', '<C-n>', ':NvimTreeToggle<CR>')
 

@@ -18,10 +18,10 @@ vim.opt.cmdheight = 2
 vim.opt.shortmess:append 'c'
 vim.opt.colorcolumn = '100'
 vim.cmd [[
-  colorscheme solarized
+  colorscheme github-colors
 ]]
 vim.cmd [[
-  highlight ColorColumn ctermbg=DarkCyan guibg=DarkCyan
+  highlight ColorColumn ctermbg=DarkGray guibg=DarkGray
 ]]
 
 
