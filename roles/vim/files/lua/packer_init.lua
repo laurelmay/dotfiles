@@ -53,15 +53,6 @@ return packer.startup(function(use)
     run = ':TSUpdate'
   }
   use 'nvim-treesitter/nvim-treesitter-context'
-  use {
-    'projekt0n/github-nvim-theme',
-    config = function()
-      require'github-theme'.setup {
-        theme_style = "dimmed",
-        keyword_style = "NONE"
-      }
-    end
-  }
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
   use {
@@ -71,6 +62,31 @@ return packer.startup(function(use)
       'ms-jpq/coq.artifacts'
     },
     run = ':COQdeps'
+  }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use 'nvim-telescope/telescope-ui-select.nvim'
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function ()
+      require"octo".setup()
+    end
+  }
+  use {
+    'projekt0n/github-nvim-theme',
+    config = function()
+      require'github-theme'.setup {
+        theme_style = "dimmed",
+        keyword_style = "NONE"
+      }
+    end
   }
   use {
     'kyazdani42/nvim-tree.lua',
