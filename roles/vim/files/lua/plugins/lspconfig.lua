@@ -53,31 +53,37 @@ local lsp_configs = {
   pyright = {},
   tsserver = {},
   rust_analyzer = {
-    ['rust-analyzer'] = {
-      checkOnSave = {
-        command = 'clippy'
+    settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = {
+          command = 'clippy'
+        }
       }
     }
   },
-  jdtls = {},
+  jdtls = {
+    root_dir = function()
+      return vim.fn.getcwd()
+    end
+  },
   sumneko_lua = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT'
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT'
+        },
+        diagnostics = {
+          globals = {'vim'}
+        },
       },
-      diagnostics = {
-        globals = {'vim'}
-      },
-    },
+    }
   },
   dockerls = {}
 }
 
 for server, settings in pairs(lsp_configs) do
-  lsp[server].setup(coq.lsp_ensure_capabilities {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    settings = settings,
-  })
+  local server_config = { on_attach = on_attach, flags = lsp_flags }
+  local full_config = vim.tbl_extend('force', server_config, settings)
+  lsp[server].setup(coq.lsp_ensure_capabilities(full_config))
 end
 
