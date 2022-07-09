@@ -19,5 +19,10 @@ require'nvim-treesitter.configs'.setup {
         'case',
       }
     }
-  }
+  },
+  rainbow = {
+    enable = true,
+  },
 }
+
+vim.opt.foldexpr   = "nvim_treesitter#foldexpr()"
