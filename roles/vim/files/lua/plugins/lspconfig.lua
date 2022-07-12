@@ -44,14 +44,38 @@ require("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
 
+local function ts_organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
 -- Map server names to the additional settings for that particular
 -- language server (many won't have additional settings)
 local lsp_configs = {
   ansiblels = {},
   clangd = {},
   bashls = {},
+  elixirls = {},
+  eslint = {
+    settings = {
+      codeActionOnSave = {
+        enable = true,
+      },
+    },
+  },
   pyright = {},
-  tsserver = {},
+  tsserver = {
+    commands = {
+      OrganizeImports = {
+        ts_organize_imports,
+        description = "Organize Imports"
+      }
+    }
+  },
   rust_analyzer = {
     settings = {
       ['rust-analyzer'] = {
