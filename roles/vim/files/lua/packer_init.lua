@@ -17,18 +17,33 @@ if not status_ok then
   return
 end
 
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packer_init.lua source <afile> | PackerSync
-  augroup end
-]]
+local packerGroup = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  command = "source <afile> | PackerSync",
+  group = packerGroup,
+})
 
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
+  use {
+    'nvim-lualine/lualine.nvim',
+    after = "github-nvim-theme",
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require'lualine'.setup {
+        tabline = {
+            lualine_a = {'branch'},
+            lualine_b = {'buffers'},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {'tabs'}
+        },
+        extensions = {'nvim-tree'},
+      }
+    end
+  }
 
   use 'tpope/vim-fugitive'
   use 'lewis6991/gitsigns.nvim'

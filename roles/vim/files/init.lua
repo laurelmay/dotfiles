@@ -2,7 +2,6 @@ _G.config = {}
 require('packer_init')
 require('options')
 require('keymap')
-require('plugins/airline')
 require('plugins/lspconfig')
 require('plugins/telescope')
 require('plugins/nvim-tree')
