@@ -17,6 +17,13 @@ if not status_ok then
   return
 end
 
+local packerGroup = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "packer_init.lua" },
+  command = "source <afile> | PackerSync",
+  group = packerGroup,
+})
+
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
