@@ -17,10 +17,6 @@ vim.opt.background = 'dark'
 vim.opt.cmdheight = 2
 vim.opt.shortmess:append 'c'
 vim.opt.colorcolumn = '100'
-vim.cmd [[
-  highlight ColorColumn ctermbg=DarkGray guibg=#005F87
-]]
-
 
 -- Tabs and stuff
 vim.opt.expandtab = true

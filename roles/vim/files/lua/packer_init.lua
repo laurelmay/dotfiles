@@ -17,12 +17,6 @@ if not status_ok then
   return
 end
 
-local packerGroup = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-  command = "source <afile> | PackerSync",
-  group = packerGroup,
-})
-
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
@@ -75,9 +69,7 @@ return packer.startup(function(use)
       vim.g.indent_blankline_use_treesitter = true
       vim.g.indent_blankline_use_treesitter_scope = true
       vim.g.indent_blankline_show_trailing_blankline_indent = false
-      vim.cmd [[
-        highlight IndentBlanklineChar guifg=Grey30 gui=nocombine
-      ]]
+      vim.cmd.highlight "IndentBlanklineChar guifg=Grey30 gui=nocombine"
       require'indent_blankline'.setup{
         show_current_context = true,
         show_current_context_start = true,
@@ -92,8 +84,11 @@ return packer.startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'p00f/nvim-ts-rainbow'
 
-  use 'williamboman/nvim-lsp-installer'
-  use 'neovim/nvim-lspconfig'
+  use {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+  }
   use {
     'ms-jpq/coq_nvim',
     branch = 'coq',
@@ -112,7 +107,7 @@ return packer.startup(function(use)
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      'kyazdani42/nvim-web-devicons',
     }
   }
   use 'kylelaker/riscv.vim'
