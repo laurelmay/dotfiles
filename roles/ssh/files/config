@@ -1,4 +1,6 @@
 VerifyHostKeyDNS yes
+PubkeyAcceptedAlgorithms +ssh-rsa
+HostkeyAlgorithms +ssh-rsa
 
 Host localhost
     IdentityFile ~/.ssh/kyle_ed25519
