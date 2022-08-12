@@ -36,6 +36,9 @@ local lsp_flags = {}
 vim.g.coq_settings = {
   auto_start = 'shut-up',
   xdg = true,
+  match = {
+    exact_matches = 0,
+  },
 }
 local lsp = require "lspconfig"
 local coq = require "coq"
@@ -103,7 +106,8 @@ local lsp_configs = {
       },
     }
   },
-  dockerls = {}
+  dockerls = {},
+  yamlls = {},
 }
 
 for server, settings in pairs(lsp_configs) do
