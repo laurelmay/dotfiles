@@ -90,6 +90,12 @@ return packer.startup(function(use)
   }
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'p00f/nvim-ts-rainbow'
+  use {
+    "kylechui/nvim-surround",
+    config = function()
+      require'nvim-surround'.setup{}
+    end
+  }
 
   use {
       "williamboman/mason.nvim",
