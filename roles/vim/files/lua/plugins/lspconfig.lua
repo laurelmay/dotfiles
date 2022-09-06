@@ -64,13 +64,6 @@ local lsp_configs = {
   clangd = {},
   bashls = {},
   elixirls = {},
-  eslint = {
-    settings = {
-      codeActionOnSave = {
-        enable = true,
-      },
-    },
-  },
   pyright = {},
   tsserver = {
     commands = {
@@ -107,7 +100,16 @@ local lsp_configs = {
     }
   },
   dockerls = {},
-  yamlls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        hover = true,
+        completion = true,
+        validate = true,
+        schemas = require "schemastore".json.schemas(),
+      },
+    },
+  },
 }
 
 for server, settings in pairs(lsp_configs) do
@@ -115,4 +117,3 @@ for server, settings in pairs(lsp_configs) do
   local full_config = vim.tbl_extend('force', server_config, settings)
   lsp[server].setup(coq.lsp_ensure_capabilities(full_config))
 end
-

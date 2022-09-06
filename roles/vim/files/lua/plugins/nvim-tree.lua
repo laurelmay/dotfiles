@@ -8,7 +8,7 @@ nvim_tree.setup {
   open_on_tab = true,
   sync_root_with_cwd = true,
   disable_netrw = true,
-  view = { width = 32, side = "left" },
+  view = { width = 32 },
   renderer = {
     add_trailing = true,
     group_empty = true,
@@ -26,8 +26,7 @@ nvim_tree.setup {
     update_root = true,
   },
   filters = {
-    dotfiles = true,
-    custom = { 'node_modules', '.cache', '.bin' },
+    custom = { 'node_modules', '^\\.git$' },
   },
 }
 

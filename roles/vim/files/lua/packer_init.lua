@@ -100,6 +100,7 @@ return packer.startup(function(use)
   use {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "b0o/SchemaStore.nvim",
       "neovim/nvim-lspconfig",
   }
   use {
