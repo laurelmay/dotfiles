@@ -29,7 +29,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, bufopts)
 end
 local lsp_flags = {}
 
@@ -117,3 +117,28 @@ for server, settings in pairs(lsp_configs) do
   local full_config = vim.tbl_extend('force', server_config, settings)
   lsp[server].setup(coq.lsp_ensure_capabilities(full_config))
 end
+
+local null_ls = require "null-ls";
+null_ls.setup {
+  sources = {
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.diagnostics.alex,
+    -- JavaScript/TypeScript
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.formatting.prettier,
+    -- Shell
+    null_ls.builtins.code_actions.shellcheck,
+    null_ls.builtins.diagnostics.shellcheck,
+    -- Markdown
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.formatting.markdownlint,
+  }
+}
+
+local null_ls_installer = require "mason-null-ls";
+null_ls_installer.setup({
+  automatic_installation = true,
+  auto_update = true,
+})
+null_ls_installer.check_install(true)

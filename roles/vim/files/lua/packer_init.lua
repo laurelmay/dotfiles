@@ -111,6 +111,13 @@ return packer.startup(function(use)
     },
     run = ':COQdeps'
   }
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+    }
+  }
+  use "jayp0521/mason-null-ls.nvim"
 
   use {
     'nvim-telescope/telescope.nvim',
