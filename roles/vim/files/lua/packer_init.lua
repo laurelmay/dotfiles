@@ -98,19 +98,32 @@ return packer.startup(function(use)
   }
 
   use {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "b0o/SchemaStore.nvim",
-      "neovim/nvim-lspconfig",
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "b0o/SchemaStore.nvim",
+    "neovim/nvim-lspconfig",
   }
+
   use {
-    'ms-jpq/coq_nvim',
-    branch = 'coq',
-    requires = {
-      'ms-jpq/coq.artifacts'
-    },
-    run = ':COQdeps'
+    'L3MON4D3/LuaSnip',
+    { tag = 'v1.*' },
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end
   }
+
+  -- Autocompletion setup
+  use {
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-nvim-lua',
+    'onsails/lspkind.nvim',
+    'saadparwaiz1/cmp_luasnip',
+  }
+
   use {
     "jose-elias-alvarez/null-ls.nvim",
     requires = {
