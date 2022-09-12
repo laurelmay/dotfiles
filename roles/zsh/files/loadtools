@@ -65,6 +65,10 @@ function () {
         fi
     fi
 
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
     # This likely needs to be made more generic to add various paths to $MANPATH just like we
     # do for $PATH itself above.
     NPM_PACKAGES="${HOME}/.npm-packages"
