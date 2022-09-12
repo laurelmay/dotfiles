@@ -105,6 +105,7 @@ local lsp_configs = {
 
 local base_capabilities = vim.lsp.protocol.make_client_capabilities()
 local capabilities = require('cmp_nvim_lsp').update_capabilities(base_capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 local base_lsp_config = {
   flags = {
     debounce_text_changes = 150,
@@ -137,11 +138,14 @@ cmp.setup {
     { name = 'nvim_lsp_signature_help' },
     { name = 'path' },
     { name = 'luasnip' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 2, },
     { name = 'nvim_lua' },
   },
   window = {
     documentation = cmp.config.window.bordered()
+  },
+  completion = {
+    keyword_length = 1,
   },
   formatting = {
     fields = { 'menu', 'abbr', 'kind' },
@@ -164,20 +168,30 @@ cmp.setup {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.abort(),
+    ['<Esc>'] = cmp.mapping.close(),
     ['<Tab>'] = cmp.mapping(function(fallback)
-      local col = vim.fn.col('.') - 1
+      local has_words_before = function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and (
+            vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+            )
+      end
 
       if cmp.visible() then
         cmp.select_next_item(select_opts)
-      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        fallback()
-      else
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
         cmp.complete()
+      else
+        fallback()
       end
     end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(select_opts)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
