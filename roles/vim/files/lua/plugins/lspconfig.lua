@@ -249,6 +249,12 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   { border = 'rounded' }
 )
 
+local null_ls_installer = require "mason-null-ls"
+null_ls_installer.setup {
+  automatic_installation = true,
+  auto_update = true,
+}
+
 local null_ls = require "null-ls";
 null_ls.setup {
   sources = {
@@ -266,10 +272,3 @@ null_ls.setup {
     null_ls.builtins.formatting.markdownlint,
   }
 }
-
-local null_ls_installer = require "mason-null-ls";
-null_ls_installer.setup({
-  automatic_installation = true,
-  auto_update = true,
-})
-null_ls_installer.check_install(true)
