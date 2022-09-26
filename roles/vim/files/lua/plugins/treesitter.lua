@@ -1,6 +1,9 @@
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
-  ignore_install = { 'phpdoc' },
+  ignore_install = {
+    -- phpdoc TS parser compilation is broken on M1 Macs and other ARM64
+    'phpdoc'
+  },
   highlight = {
     enable = true,
   },
@@ -26,4 +29,4 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-vim.opt.foldexpr   = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

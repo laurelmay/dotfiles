@@ -27,6 +27,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
   use {
     'nvim-lualine/lualine.nvim',
     after = "github-nvim-theme",
@@ -34,14 +35,17 @@ return packer.startup(function(use)
     config = function()
       require'lualine'.setup {
         tabline = {
-            lualine_a = {'branch'},
-            lualine_b = {'buffers'},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {'tabs'}
+          lualine_a = {'branch'},
+          lualine_b = {'buffers'},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {'tabs'}
         },
-        extensions = {'nvim-tree'},
+        sections = {
+          lualine_c = {'lsp_progress'}
+        },
+        extensions = {'neo-tree'},
       }
     end
   }
@@ -106,7 +110,6 @@ return packer.startup(function(use)
 
   use {
     'L3MON4D3/LuaSnip',
-    { tag = 'v1.*' },
     config = function()
       require('luasnip.loaders.from_vscode').lazy_load()
     end
@@ -133,16 +136,38 @@ return packer.startup(function(use)
   use "jayp0521/mason-null-ls.nvim"
 
   use {
+    "windwp/nvim-autopairs",
+    config = function() require "nvim-autopairs".setup {} end
+  }
+
+  use {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use 'nvim-telescope/telescope-ui-select.nvim'
 
   use {
-    'kyazdani42/nvim-tree.lua',
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
     requires = {
-      'kyazdani42/nvim-web-devicons',
-    }
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function ()
+      vim.g.neo_tree_remove_legacy_commands = 1
+      require "neo-tree".setup {
+        close_if_last_window = true,
+        filesystem = {
+          follow_current_file = true,
+          filtered_items = {
+            always_show = { ".github" },
+            never_show = { ".git", 'node_modules' },
+          },
+        },
+      }
+      _G.map('n', '<C-n>', ':Neotree toggle<CR>')
+    end,
   }
   use 'kylelaker/riscv.vim'
   use 'kylelaker/cisco.vim'
