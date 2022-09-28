@@ -1,21 +1,31 @@
+-- These are plugins that are used within this module. All of
+-- them are required for LSP and completion to work as expected.
 local telescope = require'telescope.builtin'
+local lsp = require "lspconfig"
+local schemastore = require "schemastore"
+local mason = require "mason"
+local mason_lspconfig = require "mason-lspconfig"
+local cmp = require "cmp"
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+local luasnip = require "luasnip"
+local lspkind = require "lspkind"
+local mason_null_ls = require "mason-null-ls"
+local null_ls = require "null-ls"
 
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
+-- These are LSP-related key mappings that are applied globally.
 _G.map('n', '<space>e', vim.diagnostic.open_float)
 _G.map('n', '<space>d', telescope.diagnostics)
 _G.map('n', '[d', vim.diagnostic.goto_prev)
 _G.map('n', ']d', vim.diagnostic.goto_next)
 _G.map('n', '<space>q', vim.diagnostic.setloclist)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- This function is run in the `on_attach` event for each language server to set up
+-- additional key mappings. Primarily, these deal with LSP features and mappings.
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { buffer = bufnr }
   _G.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
   _G.map('n', 'gd', telescope.lsp_definitions, bufopts)
@@ -35,24 +45,12 @@ local on_attach = function(client, bufnr)
   _G.map('n', '<leader>f', vim.lsp.buf.format, bufopts)
 end
 
-local lsp = require "lspconfig"
+mason.setup {}
+mason_lspconfig.setup { automatic_installation = true }
 
-require "mason".setup {}
-require "mason-lspconfig".setup {
-  automatic_installation = true,
-}
-
-local function ts_organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
-
--- Map server names to the additional settings for that particular
--- language server (many won't have additional settings)
+-- This maps each of the language server names that are configured as part of `lspconfig`
+-- to the settings that are used for each; many do not require additional settings but others
+-- may have more involved overrides
 local lsp_configs = {
   ansiblels = {},
   clangd = {},
@@ -62,7 +60,13 @@ local lsp_configs = {
   tsserver = {
     commands = {
       OrganizeImports = {
-        ts_organize_imports,
+        function()
+          vim.lsp.buf.execute_command {
+            command = "_typescript.organizeImports",
+            arguments = { vim.api.nvim_buf_get_name(0) },
+            title = ""
+          }
+        end,
         description = "Organize Imports"
       }
     }
@@ -100,7 +104,8 @@ local lsp_configs = {
         hover = true,
         completion = true,
         validate = true,
-        schemas = require "schemastore".json.schemas(),
+        schemas = schemastore.json.schemas(),
+        -- These tags are only really useful if using AWS CloudFormation
         customTags = {
           "!Cidr",
           "!Cidr sequence",
@@ -136,9 +141,14 @@ local lsp_configs = {
   },
 }
 
+-- Set the capabilities for each of the language servers, primarily for the purpose of
+-- adding completion support
 local base_capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require('cmp_nvim_lsp').update_capabilities(base_capabilities)
+local capabilities = cmp_nvim_lsp.update_capabilities(base_capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- These are the base settings generally for each language server. They're applied globally
+-- to the default config for the LSP Config plugin.
 local base_lsp_config = {
   flags = {
     debounce_text_changes = 150,
@@ -151,13 +161,12 @@ lsp.util.default_config = vim.tbl_deep_extend(
   lsp.util.default_config,
   base_lsp_config
 )
+-- Actually setup of each of the language server implementations defined above
 for server, settings in pairs(lsp_configs) do
   lsp[server].setup(settings)
 end
 
-local cmp = require "cmp";
-local luasnip = require "luasnip"
-local lspkind = require "lspkind"
+-- Configure completion using nvim-cmp and luasnip
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup {
@@ -241,7 +250,6 @@ cmp.setup.cmdline('/', {
     { name = 'buffer' }
   }
 })
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done()
@@ -251,19 +259,17 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
   vim.lsp.handlers.hover,
   { border = 'rounded' }
 )
-
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
   { border = 'rounded' }
 )
 
-local null_ls_installer = require "mason-null-ls"
-null_ls_installer.setup {
+-- Configure various null-ls builtins using the mason installer. The installer
+-- plugin must be configured before null-ls itself. 
+mason_null_ls.setup {
   automatic_installation = true,
   auto_update = true,
 }
-
-local null_ls = require "null-ls";
 null_ls.setup {
   sources = {
     null_ls.builtins.code_actions.gitsigns,
