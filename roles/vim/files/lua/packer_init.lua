@@ -1,68 +1,34 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path
-  })
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
 
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  return
-end
+local packer_bootstrap = ensure_packer()
 
-local packerGroup = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "packer_init.lua" },
   command = "source <afile> | PackerSync",
-  group = packerGroup,
+  group = vim.api.nvim_create_augroup("packer_user_config", { clear = true }),
 })
 
-return packer.startup(function(use)
+require('packer').init {
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end,
+  },
+}
+
+return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
-  use {
-    'nvim-lualine/lualine.nvim',
-    after = "github-nvim-theme",
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require'lualine'.setup {
-        tabline = {
-          lualine_a = {'branch'},
-          lualine_b = {'buffers'},
-          lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {'tabs'}
-        },
-        sections = {
-          lualine_c = {'lsp_progress'}
-        },
-        extensions = {'neo-tree'},
-      }
-    end
-  }
-
-  use 'tpope/vim-fugitive'
-  use 'lewis6991/gitsigns.nvim'
-  use {
-    'pwntester/octo.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
-    },
-    config = function ()
-      require"octo".setup()
-    end
-  }
   use {
     'projekt0n/github-nvim-theme',
     config = function()
@@ -72,11 +38,28 @@ return packer.startup(function(use)
       }
     end
   }
+  use {
+    'nvim-lualine/lualine.nvim',
+    after = "github-nvim-theme",
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function() require('plugins.lualine') end
+  }
+
+  use 'tpope/vim-fugitive'
+  use 'lewis6991/gitsigns.nvim'
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      { 'kyazdani42/nvim-web-devicons', opt = false },
+    },
+    config = function() require 'octo'.setup() end,
+  }
 
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = function()
-      vim.cmd.highlight "IndentBlanklineChar guifg=Grey30 gui=nocombine"
       require'indent_blankline'.setup {
         char = '¦',
         use_treesitter = true,
@@ -166,13 +149,26 @@ return packer.startup(function(use)
           },
         },
       }
+      -- Show the file explorer by default
       vim.api.nvim_create_autocmd("VimEnter", {
-        command = ":Neotree toggle",
+        command = ":Neotree show",
         once = true,
       })
       _G.map('n', '<C-n>', ':Neotree toggle<CR>')
     end,
   }
+
+  use {
+    'rcarriga/nvim-notify',
+    config = function ()
+      vim.notify = require 'notify'
+      vim.notify.setup {
+        stages = "fade",
+        level = "DEBUG",
+      }
+    end
+  }
+
   use 'kylelaker/riscv.vim'
   use 'kylelaker/cisco.vim'
 
@@ -180,3 +176,5 @@ return packer.startup(function(use)
     require('packer').sync()
   end
 end)
+
+
