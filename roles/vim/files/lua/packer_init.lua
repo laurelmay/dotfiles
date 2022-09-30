@@ -75,8 +75,12 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
-  use 'nvim-treesitter/nvim-treesitter-context'
-  use 'p00f/nvim-ts-rainbow'
+  use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-context',
+    'p00f/nvim-ts-rainbow',
+  }
+
   use {
     "kylechui/nvim-surround",
     config = function()
@@ -148,13 +152,32 @@ return require('packer').startup(function(use)
             never_show = { ".git", 'node_modules' },
           },
         },
+        event_handlers = {
+          {
+            event = "vim_buffer_enter",
+            handler = function()
+              if vim.bo.filetype == "neo-tree" then
+                vim.cmd("setlocal nonumber")
+              end
+            end
+          },
+        },
       }
-      -- Show the file explorer by default
-      vim.api.nvim_create_autocmd("VimEnter", {
-        command = ":Neotree show",
-        once = true,
-      })
       _G.map('n', '<C-n>', ':Neotree toggle<CR>')
+
+      -- Show the file explorer by default, based on
+      -- https://github.com/AstroNvim/AstroNvim/issues/648
+      vim.api.nvim_create_augroup("neotree_autoopen", { clear = true })
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        desc = "Open neo-tree on enter",
+        group = "neotree_autoopen",
+        callback = function()
+          if not vim.g.neotree_opened then
+            vim.cmd "Neotree show"
+            vim.g.neotree_opened = true
+          end
+        end,
+      })
     end,
   }
 
