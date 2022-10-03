@@ -55,7 +55,7 @@ return {
       yaml = {
         hover = true,
         completion = true,
-        validate = true,
+        validate = false,
         schemas = schemastore.json.schemas(),
         -- These tags are only really useful if using AWS CloudFormation
         customTags = {
