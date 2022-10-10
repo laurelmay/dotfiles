@@ -5,6 +5,7 @@ local function map(mode, lhs, rhs, opts)
   end
   vim.keymap.set(mode, lhs, rhs, options)
 end
+
 _G.map = map
 
 -- Allow switching buffers easier

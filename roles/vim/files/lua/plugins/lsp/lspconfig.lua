@@ -23,7 +23,7 @@ lsp.util.default_config = vim.tbl_deep_extend(
     flags = { debounce_text_changes = 150 },
     capabilities = capabilities,
     --- @diagnostic disable-next-line: unused-local
-    on_attach = function (client, bufnr)
+    on_attach = function(client, bufnr)
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
       _G.lsp.buffer_keymap(bufnr)
     end,

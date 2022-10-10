@@ -17,14 +17,14 @@ cmp.setup {
     { name = 'nvim_lsp_signature_help' },
     { name = 'path' },
     { name = 'luasnip' },
-    { name = 'buffer', keyword_length = 2, },
+    { name = 'buffer' },
     { name = 'nvim_lua' },
   },
   window = {
     documentation = cmp.config.window.bordered()
   },
   completion = {
-    keyword_length = 1,
+    keyword_length = 3,
   },
   formatting = {
     fields = { 'menu', 'abbr', 'kind' },
@@ -91,5 +91,3 @@ cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done()
 )
-
-

@@ -33,7 +33,7 @@ function () {
 
     for dir in "$path_dirs[@]"; do
         if [ -d "$dir" ]; then
-            export PATH="$dir:$PATH"
+            path+=("$dir")
         fi
     done
 
@@ -48,7 +48,7 @@ function () {
     for brew_path in "$homebrew_paths[@]"; do
         if [ -d "$brew_path" ]; then
             eval "$("$brew_path/bin/brew" shellenv)"
-            FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+            fpath+=("$(brew --prefix)/share/zsh/site-functions")
         fi
     done
 
@@ -57,7 +57,7 @@ function () {
     pyenv_dir="$HOME/.pyenv"
     if [ -d "$pyenv_dir" ]; then
         export PYENV_ROOT="$pyenv_dir"
-        export PATH="${pyenv_dir}/bin:$PATH"
+        path+=("${pyenv_dir}/bin")
         eval "$(pyenv init --path)"
         eval "$(pyenv init -)"
         if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
@@ -73,7 +73,7 @@ function () {
     # do for $PATH itself above.
     NPM_PACKAGES="${HOME}/.npm-packages"
     if [ -d "$NPM_PACKAGES" ]; then
-        export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+      manpath+=("$NPM_PACKAGES/share/man")
     fi
 
     # Not sure that I actually use sdkman anymore, but the commands the installer adds to the

@@ -2,9 +2,10 @@
 # tasks file for common
 - name: Create local clone
   git:
-      repo: "https://github.com/kylelaker/dotfiles"
-      dest: "{{ user_local_checkout_dir }}"
-      verify_commit: yes
+    repo: "https://github.com/kylelaker/dotfiles"
+    dest: "{{ user_local_checkout_dir }}"
+    verify_commit: yes
+  when: local_only is not defined
 - name: Create necessary directories
   file:
     path: '{{ item }}'

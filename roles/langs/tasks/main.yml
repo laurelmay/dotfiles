@@ -1,5 +1,5 @@
 ---
-# tasks file for pyenv
+# pyenv setup
 - name: Install pyenv
   git:
     repo: https://github.com/pyenv/pyenv.git
@@ -22,15 +22,19 @@
     mode: 0755
     path: ~/.npm-global
 
-- name: Set npm prefix
+# nvm & node
+- name: Clone NVM
+  git:
+    repo: https://github.com/nvm-sh/nvm.git
+    dest: "~/.nvm"
+    version: "v{{ nvm_version }}"
+- name: Set npm global config
   ini_file:
     path: ~/.npmrc
     section: null
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   with_items:
-    - option: prefix
-      value: ${HOME}/.npm-global
     - option: fund
       value: "false"
     - option: init-author-name

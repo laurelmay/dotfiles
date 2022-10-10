@@ -1,2 +1,2 @@
 ---
-# vars file for pyenv
+nvm_version: "0.39.1"

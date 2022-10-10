@@ -18,13 +18,13 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(sudo zsh-syntax-highlighting virtualenv direnv)
 
 # User configuration
-export PATH="$HOME/.local/bin:$PATH"
-export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
+path=("$HOME/.local/bin" $path)
+manpath+=("$HOME/.local/share/man" "/usr/local/share/man")
 
 # Ruby Gems
 if which ruby &> /dev/null; then
   export GEM_HOME="$(ruby -e "puts Gem.user_dir")"
-  export PATH="$(ruby -e "puts Gem.user_dir")/bin:$PATH"
+  path=("$(ruby -e 'puts Gem.user_dir')/bin" $path)
 fi
 
 export GPG_TTY="$(tty)"

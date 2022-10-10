@@ -1,8 +1,8 @@
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -32,7 +32,7 @@ return require('packer').startup(function(use)
   use {
     'projekt0n/github-nvim-theme',
     config = function()
-      require'github-theme'.setup {
+      require 'github-theme'.setup {
         theme_style = "dimmed",
         keyword_style = "NONE"
       }
@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = function()
-      require'indent_blankline'.setup {
+      require 'indent_blankline'.setup {
         char = '¦',
         use_treesitter = true,
         use_treesitter_scope = true,
@@ -84,7 +84,7 @@ return require('packer').startup(function(use)
   use {
     "kylechui/nvim-surround",
     config = function()
-      require'nvim-surround'.setup{}
+      require 'nvim-surround'.setup {}
     end
   }
 
@@ -129,7 +129,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
   use 'nvim-telescope/telescope-ui-select.nvim'
 
@@ -141,7 +141,7 @@ return require('packer').startup(function(use)
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
-    config = function ()
+    config = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       require "neo-tree".setup {
         close_if_last_window = true,
@@ -150,16 +150,6 @@ return require('packer').startup(function(use)
           filtered_items = {
             always_show = { ".github" },
             never_show = { ".git", 'node_modules' },
-          },
-        },
-        event_handlers = {
-          {
-            event = "vim_buffer_enter",
-            handler = function()
-              if vim.bo.filetype == "neo-tree" then
-                vim.cmd("setlocal nonumber")
-              end
-            end
           },
         },
       }
@@ -183,7 +173,7 @@ return require('packer').startup(function(use)
 
   use {
     'rcarriga/nvim-notify',
-    config = function ()
+    config = function()
       vim.notify = require 'notify'
       vim.notify.setup {
         stages = "fade",
@@ -199,5 +189,3 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
-

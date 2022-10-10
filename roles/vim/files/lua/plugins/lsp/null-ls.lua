@@ -24,4 +24,3 @@ mason_null_ls.setup {
   automatic_installation = true,
   auto_update = true,
 }
-
