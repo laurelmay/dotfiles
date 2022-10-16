@@ -10,8 +10,7 @@ mason_lspconfig.setup { automatic_installation = true }
 
 -- Set the capabilities for each of the language servers, primarily for the purpose of
 -- adding completion support
-local base_capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = cmp_nvim_lsp.update_capabilities(base_capabilities)
+local capabilities = cmp_nvim_lsp.default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- These are the base settings generally for each language server. They're applied globally
