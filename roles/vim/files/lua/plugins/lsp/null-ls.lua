@@ -8,7 +8,7 @@ null_ls.setup {
     -- JavaScript/TypeScript
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.eslint_d,
     -- Shell
     null_ls.builtins.code_actions.shellcheck,
     null_ls.builtins.diagnostics.shellcheck,

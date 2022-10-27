@@ -8,7 +8,7 @@ require('keymap')
 -- rather than needing to be called directly from init.lua
 require('plugins.telescope')
 require('plugins.treesitter')
+require('plugins.nvim-cmp')
 require('plugins.lsp.lspconfig')
 require('plugins.lsp.null-ls')
-require('plugins.nvim-cmp')
 require('plugins.gitsigns')
