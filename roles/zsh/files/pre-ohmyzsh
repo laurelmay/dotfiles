@@ -19,7 +19,7 @@ plugins=(sudo zsh-syntax-highlighting virtualenv direnv)
 
 # User configuration
 path=("$HOME/.local/bin" $path)
-manpath+=("$HOME/.local/share/man" "/usr/local/share/man")
+manpath+=("$HOME/.local/share/man" "/usr/local/share/man" "/usr/share/man")
 
 # Ruby Gems
 if which ruby &> /dev/null; then
@@ -28,5 +28,3 @@ if which ruby &> /dev/null; then
 fi
 
 export GPG_TTY="$(tty)"
-
-
