@@ -23,9 +23,12 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 
+-- Nicer search
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
 -- Performance Settings
 vim.opt.hidden = true
-vim.opt.lazyredraw = true
 vim.opt.updatetime = 300
 
 -- Disable builtins plugins

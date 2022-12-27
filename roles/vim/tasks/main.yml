@@ -11,6 +11,7 @@
     state: link
 - name: Install remaining files
   file:
-    src: "{{ user_local_checkout_dir }}/roles/vim/files/lua"
-    dest: "{{ nvim_dir}}/lua"
+    src: "{{ user_local_checkout_dir }}/roles/vim/files/{{ item }}"
+    dest: "{{ nvim_dir}}/{{ item }}"
     state: link
+  with_items: [lua, after]
