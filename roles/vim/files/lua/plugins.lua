@@ -12,7 +12,7 @@ end
 local packer_bootstrap = ensure_packer()
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "packer_init.lua" },
+  pattern = { "plugins.lua" },
   command = "source <afile> | PackerSync",
   group = vim.api.nvim_create_augroup("packer_user_config", { clear = true }),
 })
@@ -106,6 +106,11 @@ return require('packer').startup(function(use)
   }
 
   use {
+    'numToStr/Comment.nvim',
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  }
+
+  use {
     'folke/noice.nvim',
     requires = {
       'MunifTanjim/nui.nvim',
@@ -128,6 +133,15 @@ return require('packer').startup(function(use)
       "MunifTanjim/nui.nvim",
     },
   }
+
+  use 'WhoIsSethDaniel/mason-tool-installer.nvim'
+
+  use {
+    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+  }
+  use 'simrat39/rust-tools.nvim'
 
   use 'kylelaker/riscv.vim'
   use 'kylelaker/cisco.vim'

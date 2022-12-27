@@ -82,8 +82,21 @@ end)
 
 lsp.nvim_workspace()
 
+local rust_lsp = lsp.build_options('rust_analyzer', {
+  settings = {
+    ["rust-analyzer"] = {
+      -- Workaround for simrat39/rust-tools.nvim#300
+      inlayHints = { locationLinks = false }
+    }
+  }
+})
+
 lsp.setup()
 
 vim.diagnostic.config {
   virtual_text = true,
+}
+
+require('rust-tools').setup {
+  server = rust_lsp,
 }
