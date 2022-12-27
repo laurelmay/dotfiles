@@ -29,17 +29,19 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
-    'projekt0n/github-nvim-theme',
+    'rebelot/kanagawa.nvim',
     config = function()
-      require 'github-theme'.setup {
-        theme_style = "dimmed",
-        keyword_style = "NONE"
+      require('kanagawa').setup {
+        keywordStyle = {
+          italic = false
+        }
       }
+      vim.cmd.colorscheme('kanagawa')
     end
   }
   use {
     'nvim-lualine/lualine.nvim',
-    after = "github-nvim-theme",
+    after = "kanagawa.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
   }
   use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
