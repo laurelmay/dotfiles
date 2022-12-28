@@ -13,7 +13,7 @@ vim.opt.splitright = true
 vim.opt.wrap = false
 vim.opt.inccommand = 'split'
 vim.opt.termguicolors = true
-vim.opt.background = 'dark'
+vim.opt.background = 'light'
 vim.opt.cmdheight = 0
 vim.opt.shortmess:append 'c'
 vim.opt.colorcolumn = '100'

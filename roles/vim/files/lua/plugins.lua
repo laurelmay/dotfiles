@@ -28,20 +28,47 @@ require('packer').init {
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  -- use {
+  --   'rebelot/kanagawa.nvim',
+  --   config = function()
+  --     require('kanagawa').setup {
+  --       keywordStyle = {
+  --         italic = false
+  --       }
+  --     }
+  --     vim.cmd.colorscheme('kanagawa')
+  --   end
+  -- }
+  -- use {
+  --   'sainnhe/everforest',
+  --   config = function()
+  --     vim.g.everforest_background = "soft"
+  --     vim.g.everforest_better_performance = 1
+  --     vim.cmd.colorscheme('everforest')
+  --   end
+  -- }
+  -- use {
+  --   "catppuccin/nvim",
+  --   as = "catppuccin",
+  --   config = function()
+  --     vim.cmd.colorscheme("catppuccin-latte")
+  --   end
+  -- }
   use {
-    'rebelot/kanagawa.nvim',
+    'rose-pine/neovim',
+    as = 'rose-pine',
     config = function()
-      require('kanagawa').setup {
-        keywordStyle = {
-          italic = false
+      require('rose-pine').setup {
+        disable_italics = true,
+        groups = {
+          comment = "subtle"
         }
       }
-      vim.cmd.colorscheme('kanagawa')
+      vim.cmd.colorscheme('rose-pine')
     end
   }
   use {
     'nvim-lualine/lualine.nvim',
-    after = "kanagawa.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
   }
   use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
