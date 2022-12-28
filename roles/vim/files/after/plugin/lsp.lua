@@ -14,6 +14,7 @@ lsp.ensure_installed {
   'sumneko_lua',
   'dockerls',
   'yamlls',
+  'jdtls',
 }
 
 lsp.configure('tsserver', {
