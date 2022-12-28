@@ -87,9 +87,10 @@ local rust_lsp = lsp.build_options('rust_analyzer', {
   settings = {
     ["rust-analyzer"] = {
       -- Workaround for simrat39/rust-tools.nvim#300
-      inlayHints = { locationLinks = false }
-    }
-  }
+      inlayHints = { locationLinks = false },
+      checkOnSave = { command = "clippy" },
+    },
+  },
 })
 
 lsp.setup()
