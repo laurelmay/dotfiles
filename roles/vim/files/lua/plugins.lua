@@ -1,99 +1,53 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd.packadd("packer.nvim")
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "plugins.lua" },
-  command = "source <afile> | PackerSync",
-  group = vim.api.nvim_create_augroup("packer_user_config", { clear = true }),
-})
-
-require('packer').init {
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "rounded" }
-    end,
-  },
-}
-
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-
-  -- use {
-  --   'rebelot/kanagawa.nvim',
-  --   config = function()
-  --     require('kanagawa').setup {
-  --       keywordStyle = {
-  --         italic = false
-  --       }
-  --     }
-  --     vim.cmd.colorscheme('kanagawa')
-  --   end
-  -- }
-  -- use {
-  --   'sainnhe/everforest',
-  --   config = function()
-  --     vim.g.everforest_background = "soft"
-  --     vim.g.everforest_better_performance = 1
-  --     vim.cmd.colorscheme('everforest')
-  --   end
-  -- }
-  -- use {
-  --   "catppuccin/nvim",
-  --   as = "catppuccin",
-  --   config = function()
-  --     vim.cmd.colorscheme("catppuccin-latte")
-  --   end
-  -- }
-  use {
-    'rose-pine/neovim',
-    as = 'rose-pine',
+local plugins = {
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
     config = function()
-      require('rose-pine').setup {
-        disable_italics = true,
-        groups = {
-          comment = "subtle"
+      require('tokyonight').setup {
+        styles = {
+          keywords = { italic = false }
         }
       }
-      vim.cmd.colorscheme('rose-pine')
+      vim.cmd.colorscheme 'tokyonight'
     end
-  }
-  use {
+  },
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-  }
-  use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
-
-  use 'tpope/vim-fugitive'
-  use 'lewis6991/gitsigns.nvim'
-
-  use 'lukas-reineke/indent-blankline.nvim'
-
-  use {
+    dependencies = {
+      'kyazdani42/nvim-web-devicons',
+      'WhoIsSethDaniel/lualine-lsp-progress.nvim',
+    },
+  },
+  'lewis6991/gitsigns.nvim',
+  'lukas-reineke/indent-blankline.nvim',
+  {
     "kylechui/nvim-surround",
-    config = function() require 'nvim-surround'.setup {} end
-  }
-  use {
-    "m4xshen/autoclose.nvim",
-    config = function() require 'autoclose'.setup {} end
-  }
-  use {
+    config = true,
+  },
+  {
+    'windwp/nvim-autopairs',
+    config = true,
+  },
+  {
     "windwp/nvim-ts-autotag",
-    config = function() require "nvim-ts-autotag".setup {} end
-  }
-
-  use {
+    config = true,
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
-    requires = {
+    dependencies = {
       -- LSP Support
       'neovim/nvim-lspconfig',
       'williamboman/mason.nvim',
@@ -114,74 +68,92 @@ return require('packer').startup(function(use)
       -- LSP configs
       'b0o/schemastore.nvim',
     }
-  }
-
-  use {
+  },
+  {
     "jose-elias-alvarez/null-ls.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "jayp0521/mason-null-ls.nvim",
     }
-  }
-
-  use {
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-context',
-    'p00f/nvim-ts-rainbow',
-  }
-
-  use {
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-context',
+      'p00f/nvim-ts-rainbow',
+    },
+    build = ':TSUpdate'
+  },
+  {
     'numToStr/Comment.nvim',
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
-  }
-
-  use {
+    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  },
+  {
     'folke/noice.nvim',
-    requires = {
+    dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
     }
-  }
-
-  use {
+  },
+  {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim' }
-  }
-  use 'nvim-telescope/telescope-ui-select.nvim'
-
-  use {
+    dependencies = {
+      'nvim-telescope/telescope-ui-select.nvim',
+      'nvim-lua/plenary.nvim',
+    }
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
-  }
-
-  use 'WhoIsSethDaniel/mason-tool-installer.nvim'
-
-  use {
+  },
+  'WhoIsSethDaniel/mason-tool-installer.nvim',
+  {
     'mfussenegger/nvim-dap',
-    'rcarriga/nvim-dap-ui',
-    'theHamsta/nvim-dap-virtual-text',
-  }
-  use 'simrat39/rust-tools.nvim'
-
-  use 'kylelaker/riscv.vim'
-  use 'kylelaker/cisco.vim'
-
-  use {
+    dependencies = {
+      'theHamsta/nvim-dap-virtual-text',
+      'rcarriga/nvim-dap-ui',
+    }
+  },
+  'simrat39/rust-tools.nvim',
+  {
+    'vuki656/package-info.nvim',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = true,
+  },
+  {
     'iamcco/markdown-preview.nvim',
-    run = function() vim.fn["mkdp#util#install"]() end
-  }
-  use 'lervag/vimtex'
+    build = function() vim.fn["mkdp#util#install"]() end,
+    ft = 'markdown',
+  },
+  {
+    'lervag/vimtex',
+    ft = 'tex'
+  },
+  {
+    'kylelaker/riscv.vim',
+    dev = true,
+  },
+  {
+    'kylelaker/cisco.vim',
+    dev = true,
+  },
+}
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+require("lazy").setup(plugins,
+  {
+    dev = {
+      path = "~/Documents/vim-plugins",
+    },
+    install = {
+      colorscheme = { "tokyonight" },
+    },
+  }
+)

@@ -4,17 +4,20 @@ local schemastore = require('schemastore')
 lsp.preset('recommended')
 
 lsp.ensure_installed {
-  'tsserver',
   'ansiblels',
-  'clangd',
   'bashls',
+  'clangd',
+  'dockerls',
   'elixirls',
+  'jdtls',
+  'jsonls',
   'pyright',
   'rust_analyzer',
   'sumneko_lua',
-  'dockerls',
+  'terraformls',
+  'tsserver',
+  'vimls',
   'yamlls',
-  'jdtls',
 }
 
 lsp.configure('tsserver', {
@@ -28,8 +31,14 @@ lsp.configure('tsserver', {
         }
       end,
       description = "Organize Imports"
-    }
-  }
+    },
+  },
+})
+
+lsp.configure('jsonls', {
+  settings = {
+    json = schemastore.json.schemas(),
+  },
 })
 
 lsp.configure('yamlls', {
@@ -102,3 +111,10 @@ vim.diagnostic.config {
 require('rust-tools').setup {
   server = rust_lsp,
 }
+
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
