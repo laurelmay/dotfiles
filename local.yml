@@ -3,9 +3,12 @@
   hosts: all
   become: false
   roles:
-    - { role: common,   tags: always }
-    - { role: git,      tags: always }
-    - { role: ssh,      tags: always }
-    - { role: vim,      tags: always }
-    - { role: langs,    tags: always }
-    - { role: zsh,      tags: always }
+    - { role: common,    tags: always }
+    - { role: git,       tags: always }
+    - { role: ssh,       tags: always }
+    - { role: vim,       tags: always }
+    - { role: langs,     tags: always }
+    - { role: zsh,       tags: always }
+    - { role: i3blocks,  tags: [desktop]}
+    - { role: sway,      tags: [desktop]}
+    - { role: alacritty, tags: [desktop]}

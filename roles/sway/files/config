@@ -1,0 +1,197 @@
+# sway config file
+# vim: set ft=swayconfig:
+
+exec systemctl --user import-environment
+
+# Use the cmd key
+set $mod Mod4
+# alacritty is a fast, GPU-accelerated terminal emulator (written in Rust)
+set $terminal alacritty
+# Use firefox nightly with wayland support
+set $browser env GDK_BACKEND="wayland" firefox
+
+input 1739:31251:SYNA2393:00_06CB:7A13_Touchpad {
+    tap enabled
+    natural_scroll enabled
+    tap_button_map lrm
+}
+input type:keyboard xkb_numlock enabled
+
+# Use the Arc theme and set it in this convoluted way
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc'
+    gsettings set $gnome-schema icon-theme 'Arc'
+    # gsettings set $gnome-schema cursor-theme 'gentoo'
+}
+
+# Fractional scaling isn't perfect, but it looks okay
+output eDP-1 scale 2.0
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. In practice, this font is never seen.
+font pango:"Font Awesome 5 Pro Solid" 8
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Don't draw the title bars
+default_border pixel 0
+
+# Gaps settings
+smart_gaps on
+set $default_gaps_inner 10
+set $default_gaps_outer 5
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
+# Define workspaces; 6-7 still aren't really assigned to a purpose.
+# I need a better symbol for those.
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3: "
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:"
+
+# Assign applications to workspaces -- these seem to be broken on sway at
+# the moment.
+#assign [class="Thunderbird"]     $ws3
+#assign [class="jetbrains-idea*"] $ws4
+
+bar {
+    status_command i3blocks
+    position top
+    font pango:"Hack Nerd Font Regular","Font Awesome 5 Pro Solid","Font Awesome 5 Brands Regular" 10
+    colors {
+        background #002b36f0
+        statusline #ffffff00
+        separator  #ffffff60
+
+        # Solarized Dark   Border     Background  Text
+        focused_workspace  #002b36f0  #586e75     #eee8d5
+        active_workspace   #002b36f0  #586e75     #eee8d5
+        inactive_workspace #002b36f0  #002b36f0   #eee8d5
+        urgent_workspace   #002b36f0  #dc322f     #eee8d5
+        binding_mode       #002b36f0  #dc322f     #eee8d5
+    }
+}
+
+# Solarized Dark        BORDER    BACKGROUND TEXT    INDICATOR CHILD_BORDER
+client.focused          #002b36   #b58900    #fdf6e3 #268bd2   #dac48100
+client.focused_inactive #002b3600 #073642    #839496 #073642   #00000000
+client.unfocused        #002b3600 #073642    #839496 #073642   #00000000
+client.urgent           #002b36   #dc322f    #fdf6e3 #002b36   #00000000
+
+workspace_auto_back_and_forth yes
+
+# Power settings from the Arch wiki
+set $Locker swaylock
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
+    bindsym s exec --no-startup-id "$Locker -f & ; systemctl suspend", mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#--------------
+# Key bindings
+#--------------
+
+# Screenshot
+bindsym $mod+Shift+p exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy -t image/png
+
+# Media keys
+set $backlight xbacklight
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set 7%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 7%-
+bindsym XF86AudioPlay         exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext         exec --no-startup-id playerctl next
+bindsym XF86AudioPrev         exec --no-startup-id playerctl previous
+bindsym XF86AudioRaiseVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioLowerVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioMute         exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
+
+# Mode bindings
+bindsym $mod+x mode "$mode_system"
+
+# Workspace bindings
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Control+Shift+Left move workspace prev
+bindsym $mod+Control+Shift+Right move workspace next
+
+# Console binding
+bindsym $mod+Return exec $terminal
+
+# Kill bindings
+bindsym $mod+q kill
+
+# Replace these with dmenu_run for default config
+bindsym $mod+d       exec --no-startup-id wofi --show run
+bindsym $mod+space   exec --no-startup-id wofi --show drun
+# bindsym $mod+Tab     exec --no-startup-id wofi --show window
+# bindsym $mod+Shift+s exec --no-startup-id wofi --show ssh
+
+# Window bindings
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1520 54
+
+# Exit/refresh/reload bindings
+bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: Hack, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
+bindsym $mod+Shift+c reload
+
+# Specific software
+bindsym $mod+Shift+f exec $browser
+bindsym $mod+Shift+n exec $browser --private-window
+bindsym $mod+Shift+o exec --no-startup-id libreoffice
+bindsym $mod+Shift+t exec thunderbird
+
+# Start some software on launch
+exec $browser
+exec mako

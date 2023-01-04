@@ -1,0 +1,15 @@
+---
+# tasks file for i3blocks
+- name: Create Alacritty config dir
+  file:
+    path: "{{ user_config_dir}}/alacritty"
+    state: directory
+- name: Install Alacritty config files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/alacritty/files/{{ item }}"
+    dest: "{{ user_config_dir }}/alacritty/{{ item }}"
+    state: link
+  with_items:
+    - alacritty.yml
+    - hack-font.yml
+    - tokyonight-moon.yml

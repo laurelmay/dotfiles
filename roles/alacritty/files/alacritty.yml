@@ -1,0 +1,3 @@
+import:
+  - ~/.config/alacritty/hack-font.yml
+  - ~/.config/alacritty/tokyonight-moon.yml
