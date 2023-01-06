@@ -1,8 +1,6 @@
 # sway config file
 # vim: set ft=swayconfig:
 
-exec systemctl --user import-environment
-
 # Use the cmd/Win key
 set $mod Mod4
 set $terminal alacritty
@@ -15,7 +13,10 @@ input "type:touchpad" {
   middle_emulation enabled
 }
 
-input type:keyboard xkb_numlock enabled
+# This is commented out as the current version of Sway in Fedora will
+# cause Firefox to crash on reload when this line is uncommented. This should
+# be fixed in Sway 1.8
+# input type:keyboard xkb_numlock enabled
 
 # Use the Arc theme and set it in this convoluted way
 set $gnome-schema org.gnome.desktop.interface
@@ -196,3 +197,5 @@ bindsym $mod+Shift+t exec thunderbird
 # Start some software on launch
 exec $browser
 exec mako
+
+include /etc/sway/config.d/*
