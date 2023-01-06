@@ -3,30 +3,35 @@
 
 exec systemctl --user import-environment
 
-# Use the cmd key
+# Use the cmd/Win key
 set $mod Mod4
-# alacritty is a fast, GPU-accelerated terminal emulator (written in Rust)
 set $terminal alacritty
-# Use firefox nightly with wayland support
 set $browser env GDK_BACKEND="wayland" firefox
 
-input 1739:31251:SYNA2393:00_06CB:7A13_Touchpad {
-    tap enabled
-    natural_scroll enabled
-    tap_button_map lrm
+input "type:touchpad" {
+  tap enabled
+  natural_scroll enabled
+  tap_button_map lrm
+  middle_emulation enabled
 }
+
 input type:keyboard xkb_numlock enabled
 
 # Use the Arc theme and set it in this convoluted way
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Arc'
-    gsettings set $gnome-schema icon-theme 'Arc'
+    gsettings set $gnome-schema icon-theme 'Mint-Y'
     # gsettings set $gnome-schema cursor-theme 'gentoo'
 }
 
 # Fractional scaling isn't perfect, but it looks okay
-output eDP-1 scale 2.0
+# output eDP-1 scale 1.0
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+output DP-7 pos 0 0
+output DP-5 pos 1920 0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. In practice, this font is never seen.
@@ -58,15 +63,10 @@ set $ws8 "8:"
 set $ws9 "9:"
 set $ws10 "10:"
 
-# Assign applications to workspaces -- these seem to be broken on sway at
-# the moment.
-#assign [class="Thunderbird"]     $ws3
-#assign [class="jetbrains-idea*"] $ws4
-
 bar {
     status_command i3blocks
     position top
-    font pango:"Hack Nerd Font Regular","Font Awesome 5 Pro Solid","Font Awesome 5 Brands Regular" 10
+    font "FiraCode,FontAwesome6Pro,FontAwesome6Brands" Regular 10
     colors {
         background #002b36f0
         statusline #ffffff00
@@ -110,6 +110,7 @@ mode "$mode_system" {
 
 # Screenshot
 bindsym $mod+Shift+p exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy -t image/png
+bindsym Shift+Print exec --no-startup-id grim -g "$(slurp -d)"
 
 # Media keys
 set $backlight xbacklight

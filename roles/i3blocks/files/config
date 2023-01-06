@@ -13,11 +13,12 @@ color=#A4C2F4
 interval=5
 
 [wifi]
-instance=wlan0
+label= 
+instance=wlo1
 interval=5
-
-[datetime]
-interval=1
 
 [battery]
-interval=5
+interval=1
+
+[datetime]
+label= 
