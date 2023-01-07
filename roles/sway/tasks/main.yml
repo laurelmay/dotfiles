@@ -9,3 +9,9 @@
     src: "{{ user_local_checkout_dir }}/roles/sway/files/config"
     dest: "{{ user_config_dir }}/sway/config"
     state: link
+- name: Download background image
+  get_url:
+    url: "{{ background_image.url }}"
+    dest: "~/.background.png"
+    mode: "0644"
+    checksum: "{{ background_image.checksum }}"

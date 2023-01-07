@@ -33,10 +33,11 @@ bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 output DP-7 pos 0 0
 output DP-5 pos 1920 0
+output "*" bg "~/.background.png" "fit" "#FF0000"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. In practice, this font is never seen.
-font pango:"Font Awesome 5 Pro Solid" 8
+font pango:"Hack Nerd Font Regular","Font Awesome 5 Pro Solid" 8
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -69,24 +70,25 @@ bar {
     position top
     font "FiraCode,FontAwesome6Pro,FontAwesome6Brands" Regular 10
     colors {
-        background #002b36f0
+        # background #1a1b26f0
+        background #1a1b26f0
         statusline #ffffff00
         separator  #ffffff60
 
         # Solarized Dark   Border     Background  Text
-        focused_workspace  #002b36f0  #586e75     #eee8d5
-        active_workspace   #002b36f0  #586e75     #eee8d5
-        inactive_workspace #002b36f0  #002b36f0   #eee8d5
-        urgent_workspace   #002b36f0  #dc322f     #eee8d5
-        binding_mode       #002b36f0  #dc322f     #eee8d5
+        focused_workspace  #1a1b26f0  #a9b1d6     #414868
+        active_workspace   #1a1b26f0  #a9b1d6     #414868
+        inactive_workspace #1a1b26f0  #1a1b26f0   #d5d6db
+        urgent_workspace   #1a1b26f0  #f7768e     #414868
+        binding_mode       #1a1b26f0  #414868     #f7768e
     }
 }
 
 # Solarized Dark        BORDER    BACKGROUND TEXT    INDICATOR CHILD_BORDER
-client.focused          #002b36   #b58900    #fdf6e3 #268bd2   #dac48100
-client.focused_inactive #002b3600 #073642    #839496 #073642   #00000000
-client.unfocused        #002b3600 #073642    #839496 #073642   #00000000
-client.urgent           #002b36   #dc322f    #fdf6e3 #002b36   #00000000
+client.focused          #1a1b26   #b58900    #fdf6e3 #268bd2   #dac48100
+client.focused_inactive #1a1b2600 #073642    #839496 #073642   #00000000
+client.unfocused        #1a1b2600 #073642    #839496 #073642   #00000000
+client.urgent           #1a1b26   #dc322f    #fdf6e3 #002b36   #00000000
 
 workspace_auto_back_and_forth yes
 
@@ -104,14 +106,31 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+bindsym $mod+x mode "$mode_system"
+
+# Setup save & copy for screenshots
+set $screenshot /usr/share/sway/scripts/grimshot
+set $mode_screenshot_save Save Screenshot (1) Active Window, (2), Active Output, (3) Area, (4) Select Window
+mode "$mode_screenshot_save" {
+  bindsym 1 exec $screenshot --notify save active, mode "default"
+  bindsym 2 exec $screenshot --notify save output, mode "default"
+  bindsym 3 exec $screenshot --notify save area, mode "default"
+  bindsym 4 exec $screenshot --notify save window, mode "default"
+}
+bindsym Shift+Print mode "$mode_screenshot_save"
+
+set $mode_screenshot_copy Copy Screenshot (1) Active Window, (2), Active Output, (3) Area, (4) Select Window
+mode "$mode_screenshot_copy" {
+  bindsym 1 exec $screenshot --notify copy active, mode "default"
+  bindsym 2 exec $screenshot --notify copy output, mode "default"
+  bindsym 3 exec $screenshot --notify copy area, mode "default"
+  bindsym 4 exec $screenshot --notify copy window, mode "default"
+}
+bindsym Print mode "$mode_screenshot_copy"
 
 #--------------
 # Key bindings
 #--------------
-
-# Screenshot
-bindsym $mod+Shift+p exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy -t image/png
-bindsym Shift+Print exec --no-startup-id grim -g "$(slurp -d)"
 
 # Media keys
 set $backlight xbacklight
@@ -123,9 +142,6 @@ bindsym XF86AudioPrev         exec --no-startup-id playerctl previous
 bindsym XF86AudioRaiseVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
 bindsym XF86AudioLowerVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
 bindsym XF86AudioMute         exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
-
-# Mode bindings
-bindsym $mod+x mode "$mode_system"
 
 # Workspace bindings
 bindsym $mod+1 workspace $ws1
@@ -185,7 +201,6 @@ bindsym $mod+a focus parent
 bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1520 54
 
 # Exit/refresh/reload bindings
-bindsym $mod+Shift+e exec --no-startup-id "swaynag -f 'pango: Hack, 12' -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
 bindsym $mod+Shift+c reload
 
 # Specific software
@@ -194,8 +209,10 @@ bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
 bindsym $mod+Shift+t exec thunderbird
 
+include /etc/sway/config.d/*
+
 # Start some software on launch
 exec $browser
 exec mako
-
-include /etc/sway/config.d/*
+exec /usr/bin/pinentry-gnome3
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
