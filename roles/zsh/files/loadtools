@@ -10,10 +10,6 @@
 function () {
     # Files to source directly if they exist
     local to_source=( \
-        "/usr/share/doc/pkgfile/command-not-found.zsh" \
-        "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
-        "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
-        "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         "$HOME/.cargo/env" \
     )
 
@@ -25,8 +21,6 @@ function () {
 
     # Directories to add to the path if they exist
     local path_dirs=( \
-        "$HOME/.npm-global/bin" \
-        "$HOME/.nimble/bin" \
         "$HOME/go/bin" \
         "$HOME/.poetry/bin"\
     )
@@ -39,16 +33,17 @@ function () {
 
     # The location for homebrew is different on macOS and Linux; however, in both scenarios, a
     # the `shellenv` command should be `eval`-ed to set the necessary environment variables
-    # correctly. In generally, only one of these should be loaded but that constraint is not
-    # enforced.
+    # correctly.
     local homebrew_paths=(\
         "/home/linuxbrew/.linuxbrew" \
         "/opt/homebrew" \
     )
+    local homebrew_loaded=0
     for brew_path in "$homebrew_paths[@]"; do
-        if [ -d "$brew_path" ]; then
+        if [ -d "$brew_path" ] && [ "$homebrew_loaded" -ne 1 ]; then
             eval "$("$brew_path/bin/brew" shellenv)"
             fpath+=("$(brew --prefix)/share/zsh/site-functions")
+            homebrew_loaded=1
         fi
     done
 
@@ -58,28 +53,10 @@ function () {
     if [ -d "$pyenv_dir" ]; then
         export PYENV_ROOT="$pyenv_dir"
         path+=("${pyenv_dir}/bin")
-        eval "$(pyenv init --path)"
-        eval "$(pyenv init -)"
+        eval "$(pyenv init --path --no-rehash zsh)"
+        eval "$(pyenv init - --no-rehash zsh)"
         if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
-            eval "$(pyenv virtualenv-init -)"
+            eval "$(pyenv virtualenv-init - zsh)"
         fi
-    fi
-
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-    # This likely needs to be made more generic to add various paths to $MANPATH just like we
-    # do for $PATH itself above.
-    NPM_PACKAGES="${HOME}/.npm-packages"
-    if [ -d "$NPM_PACKAGES" ]; then
-      manpath+=("$NPM_PACKAGES/share/man")
-    fi
-
-    # Not sure that I actually use sdkman anymore, but the commands the installer adds to the
-    # rc file are pretty ugly so this is a somewhat pretty-ified version of those.
-    if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
-        export SDKMAN_DIR="${HOME}/.sdkman"
-        source "${SDKMAN_DIR}/bin/sdkman-init.sh"
     fi
 }
