@@ -85,7 +85,7 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id swaymsg exit, mode "default"
-    bindsym s exec --no-startup-id "$Locker -f & ; systemctl suspend", mode "default"
+    bindsym s exec --no-startup-id $Locker -f & ; systemctl suspend, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
@@ -97,7 +97,7 @@ bindsym $mod+x mode "$mode_system"
 bindsym $mod+l exec $Locker
 
 # Setup save & copy for screenshots
-set $screenshot /usr/share/sway/scripts/grimshot
+set $screenshot ~/.config/sway/grimshot
 set $mode_screenshot_save Save Screenshot (1) Active Window, (2), Active Output, (3) Area, (4) Select Window
 mode "$mode_screenshot_save" {
   bindsym 1 exec $screenshot --notify save active, mode "default"

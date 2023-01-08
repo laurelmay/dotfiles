@@ -2,3 +2,5 @@
 background_image:
   url: "https://www.smashingmagazine.com/files/wallpapers/jan-22/don-quijote-here-we-go/nocal/jan-22-don-quijote-here-we-go-nocal-2560x1440.png"
   checksum: "sha1:b57866e55aa4ef11e387b3f9d1455f4722689da0"
+grimshot:
+  url: "https://raw.githubusercontent.com/swaywm/sway/master/contrib/grimshot"

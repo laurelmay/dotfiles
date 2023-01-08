@@ -44,3 +44,11 @@
     cmd: convert ~/.background.png -blur 0x10 ~/.background-lock.png
     creates: ~/.background-lock.png
   when: download_bg.changed or not lock_bg.stat.exists
+# Grimshot is not packaged by all OSes (*cough*Fedora*cough*). Instead, we can just pull
+# it from GitHub and hopefully it works with whatever versions of grim, slurp, sway, and
+# friends happen to be installed.
+- name: Download grimshot
+  get_url:
+    url: "{{ grimshot.url }}"
+    dest: "{{ user_config_dir }}/sway/grimshot"
+    mode: 0755
