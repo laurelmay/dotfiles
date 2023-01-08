@@ -14,8 +14,8 @@
     "battery",
     "tray"
   ],
-  "sway/window": {
-    "max-length": 50
+  "sway/mode": {
+    "format": "<span foreground=\"#ff757f\">?</span> <i>{}</i>"
   },
   "battery": {
     "format": "{icon} {capacity}%",
@@ -27,7 +27,15 @@
   },
   "clock#date": {
     "interval": 10,
-    "format": " {:%Y-%m-%d}"
+    "format": " {:%Y-%m-%d}",
+    "calendar-weeks-pos": "right",
+    "today-format": "<span color='#ff6699'><b><u>{}</u></b></span>",
+    "format-calendar": "<span color='#ecc6d9'><b>{}</b></span>",
+    "format-calendar-weeks": "<span color='#99ffdd'><b>W{:%U}</b></span>",
+    "format-calendar-weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+    "on-scroll": {
+      "calendar": 1
+    }
   },
   "network": {
     "interval": 10,
@@ -47,8 +55,8 @@
   "backlight": {
     "format": "{icon} {percent}%",
     "format-icons": ["", "", ""],
-    "on-scroll-up": "brightnessctl set 1%+",
-    "on-scroll-down": "brightnessctl set 1%-"
+    "on-scroll-up": "brightnessctl set 3%+",
+    "on-scroll-down": "brightnessctl set 3%-",
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -64,7 +72,6 @@
         "default": ["", ""]
     },
     "scroll-step": 1,
-    "on-click": "pavucontrol"
   },
   "custom/hostname": {
     "exec": "hostnamectl --json=short | jq --unbuffered --compact-output \"{text: .Hostname, tooltip: .PrettyHostname, alt: .Chassis}\"",
@@ -85,8 +92,24 @@
       "default": "",
     },
     "max-length": 35,
-    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{playerName}}\", \"class\": \"{{status}}\"}' -F",
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{markup_escape(album)}}\", \"alt\": \"{{playerName}}\", \"class\": \"{{playerName}}\"}' -F",
     "on-click": "playerctl play-pause",
+    "on-right-click": "playerctl next",
+    "on-middle-click": "playerctl previous",
+  },
+  "mpris": {
+    "format": "{player_icon} {status_icon} {artist} - {title}",
+    "format-paused": "{player_icon} {status_icon} <i>{artist} - {title}</i>",
+    "player-icons": {
+      "spotify": "",
+      "firefox": "",
+      "default": "",
+    },
+    "status-icons": {
+      "playing": "▶",
+      "paused": "",
+      "stopped": "",
+    },
   },
   "_vim_": { "modeline": "/* vim: set ft=json: */" }
 }
