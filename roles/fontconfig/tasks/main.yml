@@ -1,0 +1,16 @@
+---
+# tasks file for fontconfig
+- name: Create fontconfig config directory
+  file:
+    path: "{{ user_config_dir }}/fontconfig/conf.d/"
+    state: directory
+- name: Install fontconfig config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/fontconfig/files/60-font-awesome.conf"
+    dest: "{{ user_config_dir }}/fontconfig/conf.d/60-font-awesome.conf"
+    state: link
+- name: Install fontconfig config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/fontconfig/files/99-fonts.conf"
+    dest: "{{ user_config_dir }}/fontconfig/conf.d/99-fonts.conf"
+    state: link
