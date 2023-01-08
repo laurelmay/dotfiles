@@ -1,0 +1,16 @@
+---
+# tasks file for waybar
+- name: Create waybar config dir
+  file:
+    path: "{{ user_config_dir}}/waybar"
+    state: directory
+- name: Install waybar config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/waybar/files/config"
+    dest: "{{ user_config_dir }}/waybar/config"
+    state: link
+- name: Install waybar style
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/waybar/files/style.css"
+    dest: "{{ user_config_dir }}/waybar/style.css"
+    state: link

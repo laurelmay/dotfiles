@@ -1,0 +1,11 @@
+---
+# tasks file for mako
+- name: Create mako config directory
+  file:
+    path: "{{ user_config_dir }}/mako"
+    state: directory
+- name: Install mako config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/mako/files/config"
+    dest: "{{ user_config_dir }}/mako/config"
+    state: link

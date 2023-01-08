@@ -1,0 +1,92 @@
+{
+  "layer": "top",
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": [
+    "clock#date",
+    "clock#time"
+  ],
+  "modules-right": [
+    "custom/media",
+    "custom/hostname",
+    "backlight",
+    "network",
+    "pulseaudio",
+    "battery",
+    "tray"
+  ],
+  "sway/window": {
+    "max-length": 50
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "clock#time": {
+    "interval": 1,
+    "format": " {:%H:%M}",
+  },
+  "clock#date": {
+    "interval": 10,
+    "format": " {:%Y-%m-%d}"
+  },
+  "network": {
+    "interval": 10,
+    "format-wifi": "{icon} {essid}",
+    "format-ethernet": " {ipaddr}/{cidr}",
+    "format-linked": " {ifname} (No IP)",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "tooltip-format": " {ifname} via {gwaddr}",
+    "tooltip-format-disconnected": "⚠ Disconnected",
+    "tooltip-format-wifi": " {ifname} via {gwaddr} ({signaldBm} dBm)"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", ""],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", ""]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+  },
+  "custom/hostname": {
+    "exec": "hostnamectl --json=short | jq --unbuffered --compact-output \"{text: .Hostname, tooltip: .PrettyHostname, alt: .Chassis}\"",
+    "return-type": "json",
+    "format": "{icon} {}",
+    "format-icons": {
+      "laptop": "",
+      "default": "",
+      "server": ""
+    }
+  },
+  "custom/media": {
+    "format": "{icon} {}",
+    "return-type": "json",
+    "format-icons": {
+      "spotify": "",
+      "firefox": "",
+      "default": "",
+    },
+    "max-length": 35,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{playerName}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause",
+  },
+  "_vim_": { "modeline": "/* vim: set ft=json: */" }
+}
