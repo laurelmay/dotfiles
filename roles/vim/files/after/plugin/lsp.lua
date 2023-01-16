@@ -5,10 +5,13 @@ lsp.preset('recommended')
 
 lsp.ensure_installed {
   'ansiblels',
+  'awk_ls',
   'bashls',
   'clangd',
   'dockerls',
   'elixirls',
+  'eslint',
+  'html',
   'jdtls',
   'jsonls',
   'pyright',

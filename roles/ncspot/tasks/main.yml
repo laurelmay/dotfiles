@@ -1,0 +1,11 @@
+---
+# tasks file for ncspot
+- name: Create ncspot config dir
+  file:
+    path: "{{ user_config_dir}}/ncspot"
+    state: directory
+- name: Install ncspot config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/ncspot/files/config.toml"
+    dest: "{{ user_config_dir }}/ncspot/config.toml"
+    state: link

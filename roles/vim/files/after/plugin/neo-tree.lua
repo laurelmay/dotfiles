@@ -5,7 +5,7 @@ require "neo-tree".setup {
   filesystem = {
     follow_current_file = true,
     filtered_items = {
-      always_show = { ".github", ".projenrc.js" },
+      always_show = { ".github", ".projenrc.js", ".projenrc.ts" },
       never_show = { ".git", 'node_modules' },
     },
   },

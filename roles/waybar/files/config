@@ -18,8 +18,13 @@
     "format": "<span foreground=\"#ff757f\">?</span> <i>{}</i>"
   },
   "battery": {
-    "format": "{icon} {capacity}%",
-    "format-icons": ["", "", "", "", ""]
+    "format": "{icon} {capacity:3}%",
+    "format-icons": ["", "", "", "", ""],
+    "states": {
+      "warning": 20,
+      "critical": 10,
+    },
+    "interval": 10,
   },
   "clock#time": {
     "interval": 1,
@@ -59,7 +64,7 @@
     "on-scroll-down": "brightnessctl set 3%-",
   },
   "pulseaudio": {
-    "format": "{icon} {volume}%",
+    "format": "{icon} {volume:3}%",
     "format-bluetooth": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": {

@@ -46,6 +46,10 @@ local plugins = {
     config = true,
   },
   {
+    'andrewferrier/wrapping.nvim',
+    config = true,
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     dependencies = {
       -- LSP Support
@@ -81,9 +85,16 @@ local plugins = {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/nvim-treesitter-context',
-      'p00f/nvim-ts-rainbow',
+      'mrjones2014/nvim-ts-rainbow',
     },
     build = ':TSUpdate'
+  },
+  {
+    'danymat/neogen',
+    dependencies = {
+      'L3MON4D3/LuaSnip',
+      "nvim-treesitter/nvim-treesitter"
+    },
   },
   {
     'numToStr/Comment.nvim',

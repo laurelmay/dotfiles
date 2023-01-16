@@ -1,6 +1,8 @@
 # sway config file
 # vim: set ft=swayconfig:
 
+xwayland enable
+
 # Use the cmd/Win key
 set $mod Mod4
 set $terminal alacritty
@@ -31,8 +33,6 @@ exec_always {
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output DP-7 pos 0 0
-output DP-5 pos 1920 0
 output "*" bg "~/.background.png" "fit" "#FF0000"
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -97,6 +97,7 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym $mod+x mode "$mode_system"
+bindsym $mod+l exec $Locker
 
 # Setup save & copy for screenshots
 set $screenshot /usr/share/sway/scripts/grimshot

@@ -1,0 +1,28 @@
+use_nerdfont = true
+notify = true
+statusbar_format = "%title - %artists"
+library_tabs = ["tracks", "albums", "artists", "playlists"]
+default_keybindings = true
+
+[theme]
+background = "#222436"
+primary = "#C8D3F5"
+secondary = "#C8D3F5"
+title = "#82AAFF"
+playing = "#82AAFF"
+playing_selected = "#86E1FC"
+playing_bg = "#1B1D2B"
+highlight = "#FFC777"
+highlight_bg = "#1B1D2B"
+error = "#C8D3F5"
+error_bg = "#C53B53"
+statusbar = "#222436"
+statusbar_progress = "#444A73"
+statusbar_bg = "#828BB8"
+cmdline = "#C8D3F5"
+cmdline_bg = "#1B1D2B"
+
+[track_format]
+left = "%title - %artists"
+center = "%album"
+right = "%saved %duration"

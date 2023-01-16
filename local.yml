@@ -14,3 +14,4 @@
     - { role: mako,       tags: [desktop]}
     - { role: waybar,     tags: [desktop]}
     - { role: fontconfig, tags: [desktop]}
+    - { role: ncspot,     tags: [desktop]}

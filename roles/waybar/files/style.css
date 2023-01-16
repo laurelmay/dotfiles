@@ -107,8 +107,8 @@ button:hover {
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: @foreground;
+        color: @black;
     }
 }
 
@@ -116,7 +116,7 @@ button:hover {
     background-color: @red;
     color: @white;
     animation-name: blink;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;

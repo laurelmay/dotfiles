@@ -4,10 +4,19 @@
   file:
     path: "{{ user_config_dir }}/sway"
     state: directory
+- name: Create sway config directory
+  file:
+    path: "{{ user_config_dir }}/swaylock"
+    state: directory
 - name: Install sway config
   file:
-    src: "{{ user_local_checkout_dir }}/roles/sway/files/config"
+    src: "{{ user_local_checkout_dir }}/roles/sway/files/sway"
     dest: "{{ user_config_dir }}/sway/config"
+    state: link
+- name: Install swaylock config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/sway/files/swaylock"
+    dest: "{{ user_config_dir }}/swaylock/config"
     state: link
 - name: Download background image
   get_url:
@@ -15,3 +24,13 @@
     dest: "~/.background.png"
     mode: "0644"
     checksum: "{{ background_image.checksum }}"
+  register: download_bg
+- name: Check if lock screen background exists
+  stat:
+    path: ~/.background-lock.png
+  register: lock_bg
+- name: Create lock background
+  command:
+    cmd: convert ~/.background.png -blur 0x10 ~/.background-lock.png
+    creates: ~/.background-lock.png
+  when: download_bg.changed or not lock_bg.stat.exists
