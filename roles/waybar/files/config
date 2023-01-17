@@ -6,6 +6,7 @@
     "clock#time"
   ],
   "modules-right": [
+    "cpu",
     "custom/media",
     "custom/hostname",
     "backlight",
@@ -66,7 +67,7 @@
   "pulseaudio": {
     "format": "{icon} {volume:3}%",
     "format-bluetooth": "{icon} {volume}%",
-    "format-muted": "",
+    "format-muted": "",
     "format-icons": {
         "headphone": "",
         "hands-free": "",
@@ -115,6 +116,11 @@
       "paused": "",
       "stopped": "",
     },
+  },
+  "cpu": {
+    "interval": 2,
+    "format": " {icon0} {icon1} {icon2} {icon3} {icon4} {icon5} {icon6} {icon7}",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
   },
   "_vim_": { "modeline": "/* vim: set ft=json: */" }
 }
