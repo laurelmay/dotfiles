@@ -1,5 +1,5 @@
 image=~/.background-lock.png
-scaling=fit
+scaling=fill
 # indicator-idle-visible
 # indicator-radius=100
 # indicator-thickness=15

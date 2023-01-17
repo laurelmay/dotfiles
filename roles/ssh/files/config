@@ -2,6 +2,10 @@ VerifyHostKeyDNS yes
 PubkeyAcceptedAlgorithms +ssh-rsa
 HostkeyAlgorithms +ssh-rsa
 
+Host github.com
+  User git
+  IdentityFile ~/.ssh/github_ed25519
+
 Host aur.archlinux.org
     IdentityFile ~/.ssh/aur_ed25519
     User aur

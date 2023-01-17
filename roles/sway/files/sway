@@ -23,14 +23,14 @@ input "type:touchpad" {
 # Use the Arc theme and set it in this convoluted way
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'Arc'
-    gsettings set $gnome-schema icon-theme 'Mint-Y'
+  gsettings set $gnome-schema gtk-theme 'Arc'
+  gsettings set $gnome-schema icon-theme 'Mint-Y'
 }
 
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output "*" bg "~/.background.png" "fit" "#FF0000"
+output "*" bg "~/.background.png" "fill"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. In practice, this font is never seen.
@@ -83,15 +83,15 @@ workspace_auto_back_and_forth yes
 set $Locker swaylock
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id swaymsg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker -f & ; systemctl suspend, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+  bindsym l exec --no-startup-id $Locker, mode "default"
+  bindsym e exec --no-startup-id swaymsg exit, mode "default"
+  bindsym s exec --no-startup-id $Locker -f & ; systemctl suspend, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+x mode "$mode_system"
 bindsym $mod+l exec $Locker
@@ -203,14 +203,20 @@ bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
 bindsym $mod+Shift+t exec thunderbird
 
+# Teams PWA captures all keypresses
+for_window [app_id="msedge-_\w+-Default"] shortcuts_inhibitor disable
+
 include /etc/sway/config.d/*
 include ~/.config/sway/monitors
 
 # Start some software on launch
 exec $browser
-exec mako
+exec mako &> /var/run/user/"$(id -u)"/mako.log
+exec kanshi &> /var/run/user/"$(id -u)"/kanshi.log
 exec /usr/bin/pinentry-gnome3
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+exec_always kanshictl reload
 
 # Lock after 10 minutes, turn off displays after 15 minutes, and sleep after 20 minutes.
 # Before sleep, lock the screen and pause any music.
