@@ -13,6 +13,16 @@
     src: "{{ user_local_checkout_dir }}/roles/sway/files/sway"
     dest: "{{ user_config_dir }}/sway/config"
     state: link
+- name: Create local monitor configuration file
+  copy:
+    content: |
+      # Configuration for local monitor setup
+      # vim: set ft=swayconfig:
+
+      output eDP-1 pos 0 0
+    dest: "{{ user_config_dir }}/sway/monitors"
+    mode: "0644"
+    force: no
 - name: Install swaylock config
   file:
     src: "{{ user_local_checkout_dir }}/roles/sway/files/swaylock"

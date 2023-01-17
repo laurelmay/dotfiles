@@ -6,7 +6,7 @@ xwayland enable
 # Use the cmd/Win key
 set $mod Mod4
 set $terminal alacritty
-set $browser env GDK_BACKEND="wayland" firefox
+set $browser env MOZ_ENABLE_WAYLAND=1 firefox
 
 input "type:touchpad" {
   tap enabled
@@ -25,11 +25,8 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Arc'
     gsettings set $gnome-schema icon-theme 'Mint-Y'
-    # gsettings set $gnome-schema cursor-theme 'gentoo'
 }
 
-# Fractional scaling isn't perfect, but it looks okay
-# output eDP-1 scale 1.0
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
@@ -131,14 +128,14 @@ bindsym Print mode "$mode_screenshot_copy"
 
 # Media keys
 set $backlight xbacklight
-bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set 7%+
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 7%-
-bindsym XF86AudioPlay         exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext         exec --no-startup-id playerctl next
-bindsym XF86AudioPrev         exec --no-startup-id playerctl previous
-bindsym XF86AudioRaiseVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioLowerVolume  exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioMute         exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86MonBrightnessUp    exec --no-startup-id brightnessctl set 7%+
+bindsym XF86MonBrightnessDown  exec --no-startup-id brightnessctl set 7%-
+bindsym XF86AudioNext          exec --no-startup-id playerctl next
+bindsym XF86AudioPrev          exec --no-startup-id playerctl previous
+bindsym --locked XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioRaiseVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioLowerVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioMute          exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
 
 # Workspace bindings
 bindsym $mod+1 workspace $ws1
@@ -153,6 +150,8 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 bindsym $mod+Control+Left workspace prev
 bindsym $mod+Control+Right workspace next
+bindgesture swipe:3:left workspace prev
+bindgesture swipe:3:right workspace next
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -170,13 +169,12 @@ bindsym $mod+Control+Shift+Right move workspace next
 bindsym $mod+Return exec $terminal
 
 # Kill bindings
-bindsym $mod+q kill
+bindsym --inhibited $mod+q kill
 
 # Replace these with dmenu_run for default config
-bindsym $mod+d       exec --no-startup-id wofi --show run
-bindsym $mod+space   exec --no-startup-id wofi --show drun
-# bindsym $mod+Tab     exec --no-startup-id wofi --show window
-# bindsym $mod+Shift+s exec --no-startup-id wofi --show ssh
+set $wofi wofi --no-actions --allow-images --allow-markup --gtk-dark --prompt 'Run' --columns 2
+bindsym $mod+d       exec --no-startup-id $wofi --show run
+bindsym $mod+space   exec --no-startup-id $wofi --show drun
 
 # Window bindings
 bindsym $mod+Left focus left
@@ -197,7 +195,6 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+a focus parent
 bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1520 54
 
-# Exit/refresh/reload bindings
 bindsym $mod+Shift+c reload
 
 # Specific software
@@ -207,9 +204,20 @@ bindsym $mod+Shift+o exec --no-startup-id libreoffice
 bindsym $mod+Shift+t exec thunderbird
 
 include /etc/sway/config.d/*
+include ~/.config/sway/monitors
 
 # Start some software on launch
 exec $browser
 exec mako
 exec /usr/bin/pinentry-gnome3
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Lock after 10 minutes, turn off displays after 15 minutes, and sleep after 20 minutes.
+# Before sleep, lock the screen and pause any music.
+exec swayidle -w \
+  timeout 600 '$Locker -f' \
+  timeout 900 'swaymsg "output * power off"' \
+  resume 'swaymsg "output * power on"' \
+  timeout 1200 'systemctl suspend' \
+  before-sleep 'playerctl pause' \
+  before-sleep '$Locker -f'
