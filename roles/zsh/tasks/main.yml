@@ -30,6 +30,7 @@
     - "functions"
     - "loadtools"
     - "pre-ohmyzsh"
+    - "sway"
     - "wslconfig"
     - "wslfixes"
     - "xdg"

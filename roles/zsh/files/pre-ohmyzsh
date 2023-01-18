@@ -20,8 +20,6 @@ plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm)
 
 # User configuration
 path=("$HOME/.local/bin" $path)
-manpath+=("$HOME/.local/share/man" "/usr/local/share/man" "/usr/share/man")
-
 # Ruby Gems
 if which ruby &> /dev/null; then
   export GEM_HOME="$(ruby -e "puts Gem.user_dir")"

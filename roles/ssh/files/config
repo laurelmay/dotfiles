@@ -2,6 +2,9 @@ VerifyHostKeyDNS yes
 PubkeyAcceptedAlgorithms +ssh-rsa
 HostkeyAlgorithms +ssh-rsa
 
+Host *.sr.ht
+  IdentityFile ~/.ssh/srht_ed25519
+
 Host github.com
   User git
   IdentityFile ~/.ssh/github_ed25519
