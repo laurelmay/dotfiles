@@ -201,7 +201,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+f exec $browser
 bindsym $mod+Shift+n exec $browser --private-window
 bindsym $mod+Shift+o exec --no-startup-id libreoffice
-bindsym $mod+Shift+t exec thunderbird
+bindsym $mod+Shift+t exec env MOZ_ENABLE_WAYLAND=1 thunderbird
 
 # Teams PWA captures all keypresses
 for_window [app_id="msedge-_\w+-Default"] shortcuts_inhibitor disable
