@@ -1,12 +1,2 @@
 image=~/.background-lock.png
 scaling=fill
-# indicator-idle-visible
-# indicator-radius=100
-# indicator-thickness=15
-# inside-color=c8d3f5f0
-# inside-clear-color=ffc777
-# inside-caps-lock-color=ff757f
-# inside-ver-color=82aaff
-# inside-wrong-color=ff757f
-# key-hl-color=c3e88d
-# ring-color=1db954f0
