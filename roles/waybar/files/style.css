@@ -71,6 +71,7 @@ button:hover {
 #pulseaudio,
 #custom-media,
 #custom-hostname,
+#custom-weather,
 #mpris,
 #tray,
 #mode {
@@ -164,6 +165,11 @@ label:focus {
 
 #custom-hostname {
   background-color: @magenta;
+  color: @background;
+}
+
+#custom-weather {
+  background: @blue;
   color: @background;
 }
 

@@ -6,7 +6,7 @@
     "clock#time"
   ],
   "modules-right": [
-    "cpu",
+    "custom/weather",
     "custom/media",
     "custom/hostname",
     "backlight",
@@ -116,10 +116,9 @@
       "stopped": "",
     },
   },
-  "cpu": {
-    "interval": 2,
-    "format": " {}%",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+  "custom/weather": {
+    "interval": 5,
+    "exec": "curl 'https://wttr.in/?format=1'",
   },
   "_vim_": { "modeline": "/* vim: set ft=json: */" }
 }
