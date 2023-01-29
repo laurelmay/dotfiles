@@ -18,6 +18,21 @@
   "sway/mode": {
     "format": "<span foreground=\"#ff757f\">?</span> <i>{}</i>"
   },
+  "sway/workspaces": {
+    "all-outputs": true,
+    "format": "{index}: {icon}",
+    "format-icons": {
+        "1": "",
+        "2": "",
+        "3": " ",
+        "4": "",
+        "5": "",
+        "10": "",
+        "urgent": "",
+        "focused": "",
+        "default": ""
+    },
+  },
   "battery": {
     "format": "{icon} {capacity:3}%",
     "format-icons": ["", "", "", "", ""],
