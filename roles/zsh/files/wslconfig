@@ -2,7 +2,7 @@
 
 # Check for WSL
 if [[ "$(uname -r)" == *"Microsoft"* ]]; then
-    is_wsl="true"
+  is_wsl="true"
 else
-    is_wsl="false"
+  is_wsl="false"
 fi

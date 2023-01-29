@@ -1,29 +1,29 @@
 #!/usr/bin/env zsh
 
 up() {
-    go_up=${1:-"1"}
-    if [ $go_up -lt 1 ]; then
-        return 1
-    fi
-    cd_arg="$(python3 -c "print('../' * $go_up)")"
-    cd "$cd_arg"
+  go_up=${1:-"1"}
+  if [ $go_up -lt 1 ]; then
+    return 1
+  fi
+  cd_arg="$(python3 -c "print('../' * $go_up)")"
+  cd "$cd_arg"
 }
 
 exists() {
-    type "$1" &> /dev/null
+  type "$1" &> /dev/null
 }
 
 mkcd() {
-    mkdir "$@" && cd "$_"
+  mkdir "$@" && cd "$_"
 }
 
 # Creates a Python package with an empty __init__.py file
 mkpypkg() {
-    mkdir "$@" && touch "$_/__init__.py"
+  mkdir "$@" && touch "$_/__init__.py"
 }
 
 syncwatch() {
-    watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
+  watch -n0.5 grep -e Dirty: -e Writeback: /proc/meminfo
 }
 
 #--
@@ -32,14 +32,14 @@ syncwatch() {
 #   $1 - The FQDN to query for (required)
 #   $2 - The FQDN's NS record to query for $1 (defaults to $1)
 dig_any() {
-    if [ -z "$1" ]; then
-        >&2 echo "Must provide a domain to query for"
-        return 1
-    fi
-    local ns="$(dig +noall +answer NS "${2:-1}" | grep -v "\tCNAME\t" | awk '{print $NF};' | head -n1)"
-    if [ -z "$ns" ]; then
-        >&2 echo "No NS server for ${2:-$1}"
-        return 1
-    fi
-    dig ANY "$1" "@$ns"
+  if [ -z "$1" ]; then
+    >&2 echo "Must provide a domain to query for"
+    return 1
+  fi
+  local ns="$(dig +noall +answer NS "${2:-1}" | grep -v "\tCNAME\t" | awk '{print $NF};' | head -n1)"
+  if [ -z "$ns" ]; then
+    >&2 echo "No NS server for ${2:-$1}"
+    return 1
+  fi
+  dig ANY "$1" "@$ns"
 }

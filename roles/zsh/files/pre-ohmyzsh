@@ -13,7 +13,7 @@ bindkey -v
 ZSH_THEME="agnoster"
 CASE_SENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-zstyle ':omz:plugins:nvm' lazy yes
+# zstyle ':omz:plugins:nvm' lazy yes
 
 # Plugins
 plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm)

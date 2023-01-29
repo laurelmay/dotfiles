@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   # Environment variables
   export MOZ_ENABLE_WAYLAND=1
