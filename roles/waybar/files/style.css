@@ -157,7 +157,7 @@ label:focus {
     min-width: 100px;
 }
 
-#custom-media.spotify {
+#custom-media.spotify, #custom-media.ncspot {
     background-color: @spotify-green;
     color: @spotify-black;
 }

@@ -92,6 +92,7 @@
     "return-type": "json",
     "format-icons": {
       "spotify": "",
+      "ncspot": "",
       "firefox": "",
       "default": "",
     },
