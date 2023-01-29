@@ -2,72 +2,80 @@
 # tasks file for git
 - name: Set gitconfig aliases
   git_config:
-      name: "alias.{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "alias.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: co, value: checkout }
-      - { name: current, value: rev-parse --abbrev-ref HEAD }
-      - { name: count, value: "!git shortlog -sn" }
-      - { name: syncm, value: "!git pull upstream main && git push origin main" }
-      - { name: sync, value: "!CURRENT=$(git current) && git pull upstream $CURRENT && git push origin $CURRENT" }
+    - { name: co, value: checkout }
+    - { name: current, value: rev-parse --abbrev-ref HEAD }
+    - { name: count, value: "!git shortlog -sn" }
+    - { name: syncm, value: "!git pull upstream main && git push origin main" }
+    - { name: sync, value: "!CURRENT=$(git current) && git pull upstream $CURRENT && git push origin $CURRENT" }
 - name: Set git color settings
   git_config:
-      name: "color.{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "color.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: diff, value: auto }
-      - { name: status, value: auto }
-      - { name: branch, value: auto }
-      - { name: ui, value: 'true' }
+    - { name: diff, value: auto }
+    - { name: status, value: auto }
+    - { name: branch, value: auto }
+    - { name: ui, value: 'true' }
 - name: Set git core settings
   git_config:
-      name: "core.{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "core.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: excludesfile, value: "~/.gitignore" }
-      - { name: editor, value: "nvim" }
+    - { name: excludesfile, value: "~/.gitignore" }
+    - { name: editor, value: "nvim" }
+- name: Set commit settings
+  git_config:
+    name: "commit.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - name: verbose
+      value: 'true'
 - name: Set git user settings
   git_config:
-      name: "user.{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "user.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: name, value: "{{ me.name }}" }
-      - { name: email, value: "{{ me.email }}" }
+    - { name: name, value: "{{ me.name }}" }
+    - { name: email, value: "{{ me.email }}" }
 - name: Set push settings
   git_config:
-      name: "push.{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "push.{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: default, value: simple }
+    - { name: default, value: simple }
 - name: Set various git settings
   git_config:
-      name: "{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: apply.whitespace, value: nowarn }
-      - { name: mergetool.keepBackup, value: 'false' }
-      - { name: difftool.prompt, value: 'false' }
-- name: Install global gitignore
-  file:
-      src: "{{ user_local_checkout_dir }}/roles/git/files/gitignore"
-      dest: "~/.gitignore"
-      state: link
+    - { name: apply.whitespace, value: nowarn }
+    - { name: mergetool.keepBackup, value: 'false' }
+    - { name: difftool.prompt, value: 'false' }
 - name: Set PGP signing values
   git_config:
-      name: "{{ item.name }}"
-      value: "{{ item.value }}"
-      scope: global
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
-      - { name: user.signingKey, value: "{{ me.pgp }}" }
-      - { name: commit.gpgSign, value: 'true' }
+    - { name: user.signingKey, value: "{{ me.pgp }}" }
+    - { name: commit.gpgSign, value: '{{ git_gpg }}' }
 - name: Use main branch name
   git_config:
-      name: init.defaultBranch
-      value: main
-      scope: global
+    name: init.defaultBranch
+    value: main
+    scope: global
+- name: Install global gitignore
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/git/files/gitignore"
+    dest: "~/.gitignore"
+    state: link
