@@ -117,7 +117,7 @@
     },
   },
   "custom/weather": {
-    "interval": 5,
+    "interval": 60,
     "exec": "curl 'https://wttr.in/?format=1'",
   },
   "_vim_": { "modeline": "/* vim: set ft=json: */" }
