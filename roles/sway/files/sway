@@ -13,6 +13,8 @@ input "type:touchpad" {
   natural_scroll enabled
   tap_button_map lrm
   middle_emulation enabled
+  scroll_factor 0.5
+  accel_profile adaptive
 }
 
 # This is commented out as the current version of Sway in Fedora will
