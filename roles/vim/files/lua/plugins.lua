@@ -156,6 +156,13 @@ local plugins = {
     'kylelaker/cisco.vim',
     dev = true,
   },
+  {
+    'kylelaker/y86.vim',
+    dev = true,
+  },
+  {
+    'andweeb/presence.nvim',
+  },
 }
 
 require("lazy").setup(plugins,
