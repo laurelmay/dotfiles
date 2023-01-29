@@ -34,14 +34,12 @@
   "clock#date": {
     "interval": 10,
     "format": " {:%Y-%m-%d}",
+    "tooltip-format": "<span color='#c8d3f5'><big>{:%B %Y}</big></span>\n\n<tt>{calendar}</tt>",
     "calendar-weeks-pos": "right",
-    "today-format": "<span color='#ff6699'><b><u>{}</u></b></span>",
-    "format-calendar": "<span color='#ecc6d9'><b>{}</b></span>",
-    "format-calendar-weeks": "<span color='#99ffdd'><b>W{:%U}</b></span>",
-    "format-calendar-weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-    "on-scroll": {
-      "calendar": 1
-    }
+    "today-format": "<span color='#ff757f'><b><u>{}</u></b></span>",
+    "format-calendar": "<span color='#c8d3f5'><b>{}</b></span>",
+    "format-calendar-weeks": "<span color='#82aaff'><b>W{:%U}</b></span>",
+    "format-calendar-weekdays": "<span color='#ffc777'><b>{}</b></span>",
   },
   "network": {
     "interval": 10,
