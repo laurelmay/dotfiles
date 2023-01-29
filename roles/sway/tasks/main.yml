@@ -52,3 +52,12 @@
     url: "{{ grimshot.url }}"
     dest: "{{ user_config_dir }}/sway/grimshot"
     mode: 0755
+- name: Create xdg-desktop-portal-wlr config directory
+  file:
+    path: "{{ user_config_dir }}/xdg-desktop-portal-wlr"
+    state: directory
+- name: Create xdg-desktop-portal-wlr sway configuration
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/sway/files/xdg-desktop-portal-wlr"
+    dest: "{{ user_config_dir }}/xdg-desktop-portal-wlr/sway"
+    state: link
