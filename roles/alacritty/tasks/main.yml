@@ -12,4 +12,4 @@
   with_items:
     - alacritty.yml
     - hack-font.yml
-    - tokyonight-moon.yml
+    - catppuccin-macchiato.yml
