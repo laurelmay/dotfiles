@@ -219,7 +219,7 @@ for_window [app_id = "floating"] floating enable
 for_window [title="Firefox — Sharing Indicator$"] kill
 for_window [title = "Picture in picture"] floating enable, sticky enable
 for_window [title = "About Mozilla Firefox"] floating enable
-for_window [shell="xwayland"] kill
+# for_window [shell="xwayland"] kill
 
 include /etc/sway/config.d/*
 include ~/.config/sway/monitors
