@@ -12,16 +12,11 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   {
-    'folke/tokyonight.nvim',
-    lazy = false,
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function()
-      require('tokyonight').setup {
-        styles = {
-          keywords = { italic = false }
-        }
-      }
-      vim.cmd.colorscheme 'tokyonight'
+      vim.cmd.colorscheme "catppuccin-macchiato"
     end
   },
   {
