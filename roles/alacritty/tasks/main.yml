@@ -11,5 +11,5 @@
     state: link
   with_items:
     - alacritty.yml
-    - hack-font.yml
+    - font.yml
     - catppuccin-macchiato.yml
