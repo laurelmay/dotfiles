@@ -19,7 +19,6 @@
     "format": "<span foreground=\"#ff757f\">?</span> <i>{}</i>"
   },
   "sway/workspaces": {
-    "all-outputs": true,
     "format": "{index}: {icon}",
     "format-icons": {
         "1": "",
