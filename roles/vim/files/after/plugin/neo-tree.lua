@@ -10,7 +10,7 @@ require "neo-tree".setup {
     },
   },
 }
-_G.map('n', '<C-n>', '<cmd>Neotree toggle<CR>', { silent = true })
+_G.map('n', '<C-n>', '<cmd>Neotree toggle<CR>', { silent = true, desc = "Toggle file browser" })
 
 -- Show the file explorer by default, based on
 -- https://github.com/AstroNvim/AstroNvim/issues/648

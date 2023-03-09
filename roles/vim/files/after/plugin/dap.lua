@@ -1,22 +1,24 @@
 local dap = require('dap')
 
-local function map(mode, lhs, rhs)
-  _G.map(mode, lhs, rhs, { silent = true })
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = true
+  _G.map(mode, lhs, rhs, opts)
 end
 
 require("nvim-dap-virtual-text").setup()
 require("dapui").setup()
 
-map('n', '<F5>', dap.continue)
-map('n', '<F10>', dap.step_over)
-map('n', '<F11>', dap.step_into)
-map('n', '<F12>', dap.step_out)
+map('n', '<F5>', dap.continue, { desc = "Debug continue" })
+map('n', '<F10>', dap.step_over, { desc = "Debug step over" })
+map('n', '<F11>', dap.step_into, { desc = "Debug step into" })
+map('n', '<F12>', dap.step_out, { desc = "Debug step out" })
 
-map('n', '<leader>b', function() dap.toggle_breakpoint() end)
-map('n', '<leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
-map('n', '<leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-map('n', '<leader>dr', dap.repl.open)
-map('n', '<leader>dl', dap.run_last)
+map('n', '<leader>b', function() dap.toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map('n', '<leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, { desc = "Set condition point" })
+map('n', '<leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, { desc = "Set log point" })
+map('n', '<leader>dr', dap.repl.open, { desc = "Debug open REPL" })
+map('n', '<leader>dl', dap.run_last, { desc = "Debug run last" })
 
 -- Rust Debugging
 dap.adapters.lldb = {

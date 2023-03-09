@@ -9,4 +9,4 @@ require('neogen').setup {
   }
 }
 
-_G.map("n", "<Leader>nf", function() require('neogen').generate() end)
+_G.map("n", "<Leader>nf", function() require('neogen').generate() end, { desc = "Generate annotation" })

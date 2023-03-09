@@ -14,15 +14,16 @@ local plugins = {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme "catppuccin-macchiato"
+      vim.cmd.colorscheme "catppuccin-mocha"
     end
   },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
       'WhoIsSethDaniel/lualine-lsp-progress.nvim',
     },
   },
@@ -80,7 +81,7 @@ local plugins = {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/nvim-treesitter-context',
-      'mrjones2014/nvim-ts-rainbow',
+      'HiPhish/nvim-ts-rainbow2',
     },
     build = ':TSUpdate'
   },
@@ -103,10 +104,32 @@ local plugins = {
     }
   },
   {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+    end,
+  },
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = {
+      auto_open = true,
+      auto_close = true,
+      use_diagnostic_signs = true,
+    },
+  },
+  {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-lua/plenary.nvim',
+      'aaronhallaert/advanced-git-search.nvim',
     }
   },
   {
@@ -114,7 +137,7 @@ local plugins = {
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
   },
@@ -161,12 +184,12 @@ local plugins = {
 }
 
 require("lazy").setup(plugins,
-  {
-    dev = {
-      path = "~/Documents/vim-plugins",
-    },
-    install = {
-      colorscheme = { "tokyonight" },
-    },
-  }
+{
+  dev = {
+    path = "~/Documents/vim-plugins",
+  },
+  install = {
+    colorscheme = { "catppuccin" },
+  },
+}
 )

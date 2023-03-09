@@ -1,5 +1,6 @@
 local lsp = require('lsp-zero')
 local schemastore = require('schemastore')
+local schemas = schemastore.json.schemas()
 
 lsp.preset('recommended')
 
@@ -12,6 +13,7 @@ lsp.ensure_installed {
   'elixirls',
   'eslint',
   'html',
+  'hls',
   'jdtls',
   'jsonls',
   'pyright',
@@ -50,7 +52,7 @@ lsp.configure('yamlls', {
       hover = true,
       completion = true,
       validate = false,
-      schemas = schemastore.json.schemas(),
+      schemas = schemas,
       -- These tags are only really useful if using AWS CloudFormation
       customTags = {
         "!Cidr",
@@ -87,10 +89,9 @@ lsp.configure('yamlls', {
 })
 
 lsp.on_attach(function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-  _G.map('n', '<leader>rn', vim.lsp.buf.rename, opts)
-  _G.map('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  _G.map('n', '<leader>f', vim.lsp.buf.format, opts)
+  _G.map('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, remap = false, desc = "Rename" })
+  _G.map('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, remap = false, desc = "Code actions" })
+  _G.map('n', '<leader>f', vim.lsp.buf.format, { buffer = bufnr, remap = false, desc = "Format file" })
 end)
 
 lsp.nvim_workspace()

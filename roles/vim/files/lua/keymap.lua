@@ -10,18 +10,18 @@ _G.map = map
 
 -- Allow switching buffers easier
 map('n', 'gb', '<cmd>ls<CR>:b<Space>')
-map('n', '<Tab>', '<cmd>bn<CR>')
-map('n', '<S-Tab>', '<cmd>bp<CR>')
+map('n', '<Tab>', '<cmd>bn<CR>', { desc = "Next buffer" })
+map('n', '<S-Tab>', '<cmd>bp<CR>', { desc = "Previous buffer" })
 
 -- Keep selection after (de)indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Remove trailing whitespace
-map('n', '<F5>', [[<cmd>let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]])
+map('n', '<F5>', [[<cmd>let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], { desc = "Removing trailing whitespace" })
 
 -- These are LSP-related key mappings that are applied globally.
-map('n', '<space>e', vim.diagnostic.open_float)
+map('n', '<space>e', vim.diagnostic.open_float, { desc = "Open diagnostics" })
 map('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Yank to system clipboard

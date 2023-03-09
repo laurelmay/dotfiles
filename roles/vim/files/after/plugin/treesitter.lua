@@ -37,8 +37,13 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
   rainbow = {
-    enable = true,
-    extended_mode = true,
+    query = {
+      'rainbow-parens',
+      html = 'rainbow-tags'
+    },
+    strategy = {
+      require('ts-rainbow').strategy.global,
+    },
   },
   autotag = {
     enable = true,
