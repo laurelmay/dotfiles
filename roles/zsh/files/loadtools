@@ -11,6 +11,7 @@ function () {
   # Files to source directly if they exist
   local to_source=( \
     "$HOME/.cargo/env" \
+    "$HOME/.ghcup/env" \
   )
 
   for file in "$to_source[@]"; do
