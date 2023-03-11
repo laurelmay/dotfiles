@@ -15,7 +15,6 @@ vim.opt.inccommand = 'split'
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
 vim.opt.cmdheight = 0
-vim.opt.shortmess:append 'c'
 vim.opt.colorcolumn = '100'
 
 -- Tabs and stuff
@@ -30,6 +29,11 @@ vim.opt.incsearch = true
 -- Performance Settings
 vim.opt.hidden = true
 vim.opt.updatetime = 300
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+  vim.opt.splitkeep = "screen"
+  vim.opt.shortmess:append { C = true }
+end
 
 -- Disable builtins plugins
 local disabled_built_ins = {
