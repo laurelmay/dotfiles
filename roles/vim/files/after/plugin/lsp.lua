@@ -42,7 +42,7 @@ lsp.configure('tsserver', {
 
 lsp.configure('jsonls', {
   settings = {
-    json = schemastore.json.schemas(),
+    json = schemas,
   },
 })
 
