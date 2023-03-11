@@ -76,13 +76,6 @@ local plugins = {
     }
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "jayp0521/mason-null-ls.nvim",
-    }
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
