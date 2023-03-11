@@ -27,6 +27,12 @@ local plugins = {
       'WhoIsSethDaniel/lualine-lsp-progress.nvim',
     },
   },
+  {
+    'akinsho/bufferline.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
   'lewis6991/gitsigns.nvim',
   'lukas-reineke/indent-blankline.nvim',
   {
