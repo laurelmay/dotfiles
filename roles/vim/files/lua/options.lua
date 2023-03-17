@@ -3,6 +3,8 @@ vim.opt.backup = true
 vim.opt.undofile = true
 vim.opt.backupdir:remove '.'
 vim.opt.spelllang = 'en'
+vim.opt.autowrite = true
+vim.opt.clipboard = "unnamedplus"
 
 -- Appearance
 vim.opt.number = true
@@ -16,6 +18,9 @@ vim.opt.termguicolors = true
 vim.opt.background = 'dark'
 vim.opt.cmdheight = 0
 vim.opt.colorcolumn = '100'
+vim.opt.shortmess:append { W = true, I = true, c = true }
+vim.opt.showmode = false
+vim.opt.cursorline = true
 
 -- Tabs and stuff
 vim.opt.expandtab = true
@@ -25,6 +30,8 @@ vim.opt.smartindent = true
 -- Nicer search
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- Performance Settings
 vim.opt.hidden = true

@@ -115,15 +115,6 @@ local plugins = {
     end,
   },
   {
-    'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = {
-      auto_open = true,
-      auto_close = true,
-      use_diagnostic_signs = true,
-    },
-  },
-  {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
