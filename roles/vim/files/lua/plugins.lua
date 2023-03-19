@@ -52,10 +52,8 @@ local plugins = {
     config = true,
   },
   {
-    'VonHeikemen/lsp-zero.nvim',
+    'neovim/nvim-lspconfig',
     dependencies = {
-      -- LSP Support
-      'neovim/nvim-lspconfig',
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
@@ -66,6 +64,8 @@ local plugins = {
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'onsails/lspkind.nvim',
 
       -- Snippets
       'L3MON4D3/LuaSnip',
@@ -73,6 +73,10 @@ local plugins = {
 
       -- LSP configs
       'b0o/schemastore.nvim',
+
+      -- Neovim
+      'folke/neodev.nvim',
+      'folke/neoconf.nvim',
     }
   },
   {

@@ -20,9 +20,6 @@ map('v', '>', '>gv')
 -- Remove trailing whitespace
 map('n', '<F5>', [[<cmd>let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], { desc = "Removing trailing whitespace" })
 
--- These are LSP-related key mappings that are applied globally.
-map('n', '<space>e', vim.diagnostic.open_float, { desc = "Open diagnostics" })
-map('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Yank to system clipboard
 map('n', '<leader>y', '"+y')
