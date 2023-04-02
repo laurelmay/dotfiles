@@ -2,4 +2,4 @@ _G.config = {}
 
 require('options')
 require('keymap')
-require('plugins')
+require('plugin')
