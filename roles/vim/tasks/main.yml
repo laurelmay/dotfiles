@@ -14,4 +14,4 @@
     src: "{{ user_local_checkout_dir }}/roles/vim/files/{{ item }}"
     dest: "{{ nvim_dir}}/{{ item }}"
     state: link
-  with_items: [lua, after]
+  with_items: [lua]
