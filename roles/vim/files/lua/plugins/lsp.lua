@@ -12,6 +12,7 @@ return {
       'b0o/schemastore.nvim',
     },
     config = function ()
+      local schemas = require('schemastore').json.schemas
       local servers = {
         'ansiblels',
         'awk_ls',
