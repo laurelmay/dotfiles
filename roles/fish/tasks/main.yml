@@ -1,0 +1,7 @@
+---
+- name: Install fish config files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/fish/files/config"
+    dest: "~/.config/fish"
+    state: link
+
