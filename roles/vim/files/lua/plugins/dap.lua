@@ -1,7 +1,7 @@
 return {
   {
     'mfussenegger/nvim-dap',
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       'theHamsta/nvim-dap-virtual-text',
       'rcarriga/nvim-dap-ui',

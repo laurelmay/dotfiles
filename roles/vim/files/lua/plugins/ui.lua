@@ -13,8 +13,20 @@ return {
     },
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
-      require("neo-tree")
-    end,
+      -- Show the file explorer by default, based on
+      -- https://github.com/AstroNvim/AstroNvim/issues/648
+      vim.api.nvim_create_augroup("neotree_autoopen", { clear = true })
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        desc = "Open neo-tree on enter",
+        group = "neotree_autoopen",
+        callback = function()
+          if not vim.g.neotree_opened then
+            vim.cmd "Neotree show"
+            vim.g.neotree_opened = true
+          end
+        end,
+      })
+      end,
     opts = {
       close_if_last_window = true,
       filesystem = {
