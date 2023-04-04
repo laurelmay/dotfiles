@@ -29,7 +29,12 @@ return {
       { "gi", ts_builtin("lsp_implementations"), desc = "Go to implementations" },
       { "<space>d", ts_builtin("diagnostics"), desc = "List diagnostics" }
     },
-    config = function ()
+    opts = {
+      extensions = {
+        ["ui-select"] = {}
+      }
+    },
+    init = function ()
       local telescope = require('telescope')
       telescope.load_extension('ui-select')
     end
