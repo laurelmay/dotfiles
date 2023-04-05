@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 vim.opt.mouse = 'a'
 vim.opt.backup = true
 vim.opt.undofile = true
