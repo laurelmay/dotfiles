@@ -16,7 +16,9 @@ return {
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-lua/plenary.nvim',
+      'noice.nvim'
     },
+    event = "VeryLazy",
     cmd = "Telescope",
     keys = {
       { "<leader>ff", ts_builtin("find_files"), desc = "Find files" },
@@ -29,15 +31,11 @@ return {
       { "gi", ts_builtin("lsp_implementations"), desc = "Go to implementations" },
       { "<space>d", ts_builtin("diagnostics"), desc = "List diagnostics" }
     },
-    opts = {
-      extensions = {
-        ["ui-select"] = {}
-      }
-    },
     init = function ()
       local telescope = require('telescope')
       telescope.load_extension('ui-select')
-    end
+      telescope.load_extension("noice")
+    end,
   },
   {
     'aaronhallaert/advanced-git-search.nvim',
