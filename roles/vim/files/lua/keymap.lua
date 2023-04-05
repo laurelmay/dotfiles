@@ -20,7 +20,6 @@ map('v', '>', '>gv')
 -- Remove trailing whitespace
 map('n', '<F5>', [[<cmd>let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], { desc = "Removing trailing whitespace" })
 
-
 -- Yank to system clipboard
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
