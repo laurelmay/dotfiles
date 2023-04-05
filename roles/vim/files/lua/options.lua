@@ -6,7 +6,6 @@ vim.opt.undofile = true
 vim.opt.backupdir:remove '.'
 vim.opt.spelllang = 'en'
 vim.opt.autowrite = true
-vim.opt.clipboard = "unnamedplus"
 
 -- Appearance
 vim.opt.number = true
