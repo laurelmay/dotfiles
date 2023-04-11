@@ -1,4 +1,3 @@
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -146,5 +145,25 @@ return {
         end
       })
     end
+  },
+  {
+    "SmiteshP/nvim-navic",
+    lazy = true,
+    init = function()
+      vim.g.navic_silence = true
+      _G.lsp_on_attach(function(client, buffer)
+        if client.server_capabilities.documentSymbolProvider then
+          require("nvim-navic").attach(client, buffer)
+        end
+      end)
+    end,
+    opts = function()
+      return {
+        separator = " ",
+        highlight = true,
+        depth_limit = 5,
+        icons = _G.icons.kinds,
+      }
+    end,
   },
 }

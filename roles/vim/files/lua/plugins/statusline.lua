@@ -1,62 +1,3 @@
-local icons = {
-  diagnostics = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
-  },
-  git = {
-    added = " ",
-    modified = " ",
-    removed = " ",
-  },
-  kinds = {
-    Array = " ",
-    Boolean = " ",
-    Class = " ",
-    Color = " ",
-    Constant = " ",
-    Constructor = " ",
-    Copilot = " ",
-    Enum = " ",
-    EnumMember = " ",
-    Event = " ",
-    Field = " ",
-    File = " ",
-    Folder = " ",
-    Function = " ",
-    Interface = " ",
-    Key = " ",
-    Keyword = " ",
-    Method = " ",
-    Module = " ",
-    Namespace = " ",
-    Null = " ",
-    Number = " ",
-    Object = " ",
-    Operator = " ",
-    Package = " ",
-    Property = " ",
-    Reference = " ",
-    Snippet = " ",
-    String = " ",
-    Struct = " ",
-    Text = " ",
-    TypeParameter = " ",
-    Unit = " ",
-    Value = " ",
-    Variable = " ",
-  },
-}
-
-local function fg(name)
-  return function()
-    local hl = vim.api.nvim_get_hl_by_name(name, true)
-    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
-  end
-end
-
-
 return {
   {
     'nvim-lualine/lualine.nvim',
@@ -94,6 +35,10 @@ return {
           { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
         },
         lualine_x = {
+          {
+            function() return require("nvim-navic").get_location() end,
+            cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+          },
           {
             "diff",
             symbols = {
