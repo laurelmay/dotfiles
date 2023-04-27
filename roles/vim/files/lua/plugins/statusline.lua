@@ -47,6 +47,13 @@ return {
               removed = icons.git.removed,
             },
           },
+          {
+            function() return _G.icons.kinds.Copilot .. (require("copilot.api").status.data or "") end,
+            cond = function ()
+              local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0})
+              return ok and #clients > 0
+            end,
+          }
         },
         lualine_y = {
           { "progress", separator = " ", padding = { left = 1, right = 0 } },

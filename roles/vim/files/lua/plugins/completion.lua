@@ -24,6 +24,29 @@ return {
     },
   },
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    }
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    dependencies = "copilot.lua",
+    opts = {},
+    config = function (_, opts)
+      local copilot_cmp = require("copilot_cmp")
+      copilot_cmp.setup(opts)
+      _G.lsp_on_attach(function (client)
+        if client.name == "copilot" then
+          copilot_cmp._on_insert_enter()
+        end
+      end)
+    end
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -31,7 +54,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
-      'onsails/lspkind.nvim',
+      'copilot-cmp'
     },
     config = function ()
       local has_words_before = function()
@@ -46,15 +69,13 @@ return {
           completeopt = "menu,menuone,noinsert",
         },
         formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol_text",
-            menu = ({
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              buffer = "[Buffer]",
-              path = "[Path]",
-            })
-          }),
+          format = function (_, item)
+            local icons = _G.icons.kinds
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. ' [' .. item.kind .. ']'
+            end
+            return item
+          end
         },
         snippet = {
           expand = function(args)
@@ -68,7 +89,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
           ["<S-CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
@@ -95,11 +116,27 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          { name = "copilot", group_index = 2 },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
         }),
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require("copilot_cmp.comparators").prioritize,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          }
+        }
       }
     end
   },
