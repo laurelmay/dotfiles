@@ -1,18 +1,18 @@
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-treesitter-context',
-      'HiPhish/nvim-ts-rainbow2',
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
+      "HiPhish/nvim-ts-rainbow2",
     },
-    build = ':TSUpdate',
+    build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       ensure_installed = "all",
       ignore_install = {
         -- phpdoc TS parser compilation is broken on M1 Macs and other ARM64
-        'phpdoc'
+        "phpdoc",
       },
       highlight = {
         enable = true,
@@ -28,30 +28,30 @@ return {
         },
       },
       indent = {
-        enable = false
+        enable = false,
       },
       context = {
         enable = true,
         patterns = {
           default = {
-            'class',
-            'function',
-            'if',
-            'for',
-            'switch',
-            'case',
-          }
-        }
+            "class",
+            "function",
+            "if",
+            "for",
+            "switch",
+            "case",
+          },
+        },
       },
       context_commentstring = {
         enable = true,
       },
       rainbow = {
         query = {
-          'rainbow-parens',
-          html = 'rainbow-tags',
-          javascript = 'rainbow-tags-react',
-          tsx = 'rainbow-tags'
+          "rainbow-parens",
+          html = "rainbow-tags",
+          javascript = "rainbow-tags-react",
+          tsx = "rainbow-tags",
         },
       },
       autotag = {
@@ -62,42 +62,42 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-            ['ia'] = '@parameter.inner',
-          }
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["ia"] = "@parameter.inner",
+          },
         },
         swap = {
           enable = true,
           swap_previous = {
-            ['<leader>a'] = '@parameter.inner',
+            ["<leader>a"] = "@parameter.inner",
           },
           swap_next = {
-            ['<leader>A'] = '@parameter.inner',
+            ["<leader>A"] = "@parameter.inner",
           },
         },
         move = {
           enable = true,
           set_jumps = true,
           goto_next_start = {
-            [']f'] = '@function.outer',
-            [']c'] = '@class.outer',
-            [']a'] = '@parameter.inner',
+            ["]f"] = "@function.outer",
+            ["]c"] = "@class.outer",
+            ["]a"] = "@parameter.inner",
           },
           goto_next_end = {
-            [']F'] = '@function.outer',
-            [']C'] = '@class.outer',
+            ["]F"] = "@function.outer",
+            ["]C"] = "@class.outer",
           },
           goto_previous_start = {
-            ['[f'] = '@function.outer',
-            ['[c'] = '@class.outer',
-            ['[a'] = '@parameter.inner',
+            ["[f"] = "@function.outer",
+            ["[c"] = "@class.outer",
+            ["[a"] = "@parameter.inner",
           },
           goto_previous_end = {
-            ['[F'] = '@function.outer',
-            ['[C'] = '@class.outer',
+            ["[F"] = "@function.outer",
+            ["[C"] = "@class.outer",
           },
         },
       },

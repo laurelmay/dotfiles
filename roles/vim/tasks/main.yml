@@ -1,17 +1,7 @@
 ---
-- name: Make configuration directory
+- name: Install neovim configuration files
   file:
-    path: "{{ nvim_dir }}"
-    state: directory
-    mode: "0755"
-- name: Install init.lua
-  file:
-    src: "{{ user_local_checkout_dir }}/roles/vim/files/init.lua"
-    dest: "{{ nvim_dir }}/init.lua"
+    src: "{{ user_local_checkout_dir }}/roles/vim/files/nvim"
+    dest: "{{ nvim_dir }}"
     state: link
-- name: Install remaining files
-  file:
-    src: "{{ user_local_checkout_dir }}/roles/vim/files/{{ item }}"
-    dest: "{{ nvim_dir}}/{{ item }}"
-    state: link
-  with_items: [lua]
+
