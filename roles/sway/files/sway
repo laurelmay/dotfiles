@@ -230,6 +230,7 @@ exec mako &> /var/run/user/"$(id -u)"/mako.log
 exec kanshi &> /var/run/user/"$(id -u)"/kanshi.log
 exec /usr/bin/pinentry-gnome3
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec gnome-keyring-daemon --start
 
 exec_always kanshictl reload
 
