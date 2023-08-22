@@ -3,22 +3,14 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      autoformat = false,
       servers = {
         ansiblels = {},
         awk_ls = {},
         bashls = {},
-        clangd = {},
-        dockerls = {},
         html = {},
-        jdtls = {},
-        pyright = {},
         yamlls = {
           settings = {
             yaml = {
-              hover = true,
-              completion = true,
-              validate = false,
               -- These tags are only really useful if using AWS CloudFormation
               customTags = {
                 "!Cidr",

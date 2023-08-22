@@ -1,3 +1,7 @@
+if not os.getenv('USER'):match('^kyle') then
+  return {}
+end
+
 return {
   {
     "kylelaker/riscv.vim",
