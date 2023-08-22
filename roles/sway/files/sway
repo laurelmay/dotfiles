@@ -17,10 +17,7 @@ input "type:touchpad" {
   accel_profile adaptive
 }
 
-# This is commented out as the current version of Sway in Fedora will
-# cause Firefox to crash on reload when this line is uncommented. This should
-# be fixed in Sway 1.8
-# input type:keyboard xkb_numlock enabled
+input type:keyboard xkb_numlock enabled
 
 # Use the Arc theme and set it in this convoluted way
 set $gnome-schema org.gnome.desktop.interface
