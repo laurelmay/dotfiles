@@ -16,11 +16,6 @@
   git:
     repo: https://github.com/pyenv/pyenv-doctor
     dest: ~/.pyenv/plugins/pyenv-doctor
-- name: Create npm global prefix directory
-  file:
-    state: directory
-    mode: 0755
-    path: ~/.npm-global
 
 # nvm & node
 - name: Clone NVM
