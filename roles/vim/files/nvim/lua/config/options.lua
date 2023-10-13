@@ -46,3 +46,5 @@ vim.opt.smartcase = true
 vim.opt.hidden = true
 vim.opt.updatetime = 300
 
+-- LazyVim globals
+vim.g.autoformat = false

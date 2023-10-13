@@ -3,49 +3,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      autoformat = false,
       servers = {
         ansiblels = {},
         awk_ls = {},
         bashls = {},
         html = {},
-        yamlls = {
-          settings = {
-            yaml = {
-              -- These tags are only really useful if using AWS CloudFormation
-              customTags = {
-                "!Cidr",
-                "!Cidr sequence",
-                "!And",
-                "!And sequence",
-                "!If",
-                "!If sequence",
-                "!Not",
-                "!Not sequence",
-                "!Equals",
-                "!Equals sequence",
-                "!Or",
-                "!Or sequence",
-                "!FindInMap",
-                "!FindInMap sequence",
-                "!Base64",
-                "!Join",
-                "!Join sequence",
-                "!Ref",
-                "!Sub",
-                "!Sub sequence",
-                "!GetAtt",
-                "!GetAZs",
-                "!ImportValue",
-                "!ImportValue sequence",
-                "!Select",
-                "!Select sequence",
-                "!Split",
-                "!Split sequence",
-              },
-            },
-          },
-        },
       },
     },
     init = function()
