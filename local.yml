@@ -5,7 +5,7 @@
   roles:
     - { role: common,     tags: [base] }
     - { role: git,        tags: [git] }
-    - { role: ssh,        tags: [base] }
+    - { role: ssh,        tags: [ssh] }
     - { role: vim,        tags: [vim] }
     - { role: langs,      tags: [base] }
     - { role: zsh,        tags: [base] }
