@@ -8,12 +8,6 @@ return {
   },
 
   {
-    'iamcco/markdown-preview.nvim',
-    build = function() vim.fn["mkdp#util#install"]() end,
-    ft = 'markdown',
-  },
-
-  {
     'monkoose/matchparen.nvim',
     config = true,
     event = 'BufReadPost'
