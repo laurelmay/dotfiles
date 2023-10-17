@@ -12,6 +12,7 @@ function () {
   local to_source=( \
     "$HOME/.cargo/env" \
     "$HOME/.ghcup/env" \
+    "$HOME/.bun/_bun" \
   )
 
   for file in "$to_source[@]"; do
@@ -23,7 +24,8 @@ function () {
   # Directories to add to the path if they exist
   local path_dirs=( \
     "$HOME/go/bin" \
-    "$HOME/.poetry/bin"\
+    "$HOME/.poetry/bin" \
+    "$HOME/.bun/bin" \
   )
 
   for dir in "$path_dirs[@]"; do
