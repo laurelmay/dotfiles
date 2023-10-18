@@ -2,22 +2,15 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
       "HiPhish/nvim-ts-rainbow2",
       "windwp/nvim-ts-autotag",
     },
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
     opts = {
       ensure_installed = "all",
       ignore_install = {
         -- phpdoc TS parser compilation is broken on M1 Macs and other ARM64
         "phpdoc",
-      },
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
       },
       incremental_selection = {
         enable = true,
@@ -27,9 +20,6 @@ return {
           scope_incremental = "grc",
           node_decremental = "grm",
         },
-      },
-      indent = {
-        enable = false,
       },
       context = {
         enable = true,
