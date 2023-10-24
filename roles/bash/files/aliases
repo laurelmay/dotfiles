@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+# Aliases
+alias cdgit='cd "$(git rev-parse --show-toplevel)"'
+alias :q='exit'
+
+# Make nvim all the things if it exists otherwise
+# vim 5ever
+if which nvim &> /dev/null; then
+  export EDITOR='nvim'
+  alias nano='nvim'
+  alias vi='nvim'
+  alias vim='nvim'
+else
+  export EDITOR='vim'
+  alias nano='vim'
+  alias vi='vim'
+fi
+
+# Use htop instead of top when available
+if which htop &> /dev/null; then
+  alias top='htop'
+fi

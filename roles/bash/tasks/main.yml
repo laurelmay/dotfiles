@@ -1,0 +1,40 @@
+---
+- name: Create bash config directory
+  file:
+      path: "{{ bash_config_dir }}"
+      state: directory
+- name: Create oh-my-bash clone directory
+  file:
+      path: "{{ ohmybash_dir }}"
+      state: directory
+- name: Install oh-my-bash
+  git:
+    repo: "https://github.com/ohmybash/oh-my-bash"
+    dest: "{{ ohmybash_dir }}"
+- name: Install zsh config files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/bash/files/{{ item }}"
+    dest: "{{ bash_config_dir }}/{{ item }}"
+    state: link
+  with_items:
+    - "aliases"
+    - "asciinema"
+    - "colors"
+    - "functions"
+    - "lib"
+    - "loadtools"
+    - "pre-ohmybash"
+    - "sway"
+    - "wslconfig"
+    - "wslfixes"
+    - "xdg"
+- name: Install bashrc
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/bash/files/bashrc"
+    dest: "~/.bashrc"
+    state: link
+- name: Install inputrc
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/bash/files/inputrc"
+    dest: "~/.inputrc"
+    state: link

@@ -1,0 +1,15 @@
+function path_prepend() {
+  dir="$1"
+  if [ -z "$dir" ]; then
+    return
+  fi
+  PATH="$dir:$PATH"
+}
+
+function path_append() {
+  dir="$1"
+  if [ -z "$dir" ]; then
+    return
+  fi
+  PATH="$PATH:$dir"
+}

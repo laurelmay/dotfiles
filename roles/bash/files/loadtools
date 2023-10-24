@@ -1,0 +1,75 @@
+#!/usr/bin/env zsh
+
+# The commands in this file largely either source various files or output of commands, add
+# directories to PATH if they exist, or modify similar values.
+#
+# Note to self: It is very easy to try to use $path as a variable name in this file; however,
+# in ZSH (and other shells), that is just $PATH as an array instead of colon-delimited. So try
+# to be careful of that.
+
+function _setup() {
+  # Files to source directly if they exist
+  local to_source=( \
+    "$HOME/.cargo/env" \
+    "$HOME/.ghcup/env" \
+    "$HOME/.bun/_bun" \
+  )
+
+  for file in "$to_source[@]"; do
+    if [ -f "$file" ]; then
+      source "$file"
+    fi
+  done
+
+  # Directories to add to the path if they exist
+  local path_dirs=( \
+    "$HOME/go/bin" \
+    "$HOME/.poetry/bin" \
+    "$HOME/.bun/bin" \
+  )
+
+  for dir in "$path_dirs[@]"; do
+    if [ -d "$dir" ]; then
+      path_append "$dir"
+    fi
+  done
+
+  # The location for homebrew is different on macOS and Linux; however, in both scenarios, a
+  # the `shellenv` command should be `eval`-ed to set the necessary environment variables
+  # correctly.
+  # local homebrew_paths=(\
+  #   "/home/linuxbrew/.linuxbrew" \
+  #   "/opt/homebrew" \
+  # )
+  # local homebrew_loaded=0
+  # for brew_path in "$homebrew_paths[@]"; do
+  #   if [ -d "$brew_path" ] && [ "$homebrew_loaded" -ne 1 ]; then
+  #     eval "$("$brew_path/bin/brew" shellenv)"
+  #     fpath+=("$(brew --prefix)/share/zsh/site-functions")
+  #     homebrew_loaded=1
+  #   fi
+  # done
+
+  # If pyenv is installed and is located in $HOME/.pyenv, run the commands to configure it as
+  # well as the virtualenv plugin (if installed)
+  pyenv_dir="$HOME/.pyenv"
+  if [ -d "$pyenv_dir" ]; then
+    export PYENV_ROOT="$pyenv_dir"
+    path_append "${pyenv_dir}/bin"
+    eval "$(pyenv init --path --no-rehash bash)"
+    eval "$(pyenv init - --no-rehash bash)"
+    if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
+      eval "$(pyenv virtualenv-init - bash)"
+    fi
+  fi
+
+  # Ruby Gems
+  if which ruby &> /dev/null; then
+    export GEM_HOME="$(ruby -e "puts Gem.user_dir")"
+    path_prepend "$(ruby -e 'puts Gem.user_dir')/bin"
+  fi
+}
+
+_setup
+
+unset -f _setup

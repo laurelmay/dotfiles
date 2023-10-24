@@ -9,6 +9,7 @@
     - { role: vim,        tags: [vim] }
     - { role: langs,      tags: [base] }
     - { role: zsh,        tags: [base] }
+    - { role: bash,       tags: [bash] }
     - { role: fish,       tags: [fish] }
     - { role: sway,       tags: [desktop]}
     - { role: alacritty,  tags: [desktop]}

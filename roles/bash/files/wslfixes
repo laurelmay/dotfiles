@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+# The VPN fix is required because without it, TLSv1.3 will break. As will other things that
+# are sensitive to not unexpectedly having their packets re-split.
+function _setup() {
+  if [[ "$is_wsl" != "true" ]]; then
+    return
+  fi
+  local connection_status
+
+  connection_status="$(pwsh.exe -Command "Write-Host -NoNewline ((Get-VpnConnection).ConnectionStatus)")"
+  if [[ "$connection_status" == "Connected" ]]; then
+    echo "!!! Detected Windows VPN connection -- Applying fix"
+    sudo ip link set dev eth0 mtu 1400
+  fi
+}
+
+_setup
+unset -f _setup
+
+if [[ "$is_wsl" == "true" ]]; then
+  BROWSER="wslview"
+fi

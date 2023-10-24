@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# This file contains commands that should be set _prior_ to oh-my-zsh being loaded. In general
+# they are commands that set omz config values and plugin lists. It also does some basic config
+# for the $PATH and $MANPATH.
+
+export OSH="${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash"
+
+# oh-my-zsh settings
+OSH_THEME="agnoster"
+OMB_CASE_SENSITIVE="true"
+OMB_USE_SUDO="true"
+
+# Plugins
+plugins=(
+  git
+  bashmarks
+  nvm
+  pyenv
+  sudo
+)
+
+completions=(
+  git
+  ssh
+)
+
+aliases=(
+  general
+)
+
+# User configuration
+path_prepend "$HOME/.local/bin"
+
+export GPG_TTY="$(tty)"

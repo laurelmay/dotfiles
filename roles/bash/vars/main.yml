@@ -1,0 +1,5 @@
+---
+# vars file for zsh
+bash_config_dir: "~/.config/bash"
+xdg_data_home: "~/.local/share"
+ohmybash_dir: "{{ xdg_data_home }}/oh-my-bash"

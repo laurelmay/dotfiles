@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# Check for WSL
+if [[ "$(uname -r)" == *"Microsoft"* ]]; then
+  is_wsl="true"
+else
+  is_wsl="false"
+fi

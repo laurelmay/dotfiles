@@ -1,0 +1,19 @@
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+export BASH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/bash"
+
+source "$BASH_CONFIG_DIR/lib"
+source "$BASH_CONFIG_DIR/xdg"
+source "$BASH_CONFIG_DIR/pre-ohmybash"
+source "$BASH_CONFIG_DIR/loadtools"
+source "$OSH/oh-my-bash.sh"
+source "$BASH_CONFIG_DIR/wslconfig"
+source "$BASH_CONFIG_DIR/functions"
+source "$BASH_CONFIG_DIR/aliases"
+source "$BASH_CONFIG_DIR/colors"
+source "$BASH_CONFIG_DIR/wslfixes"
+source "$BASH_CONFIG_DIR/asciinema"
+source "$BASH_CONFIG_DIR/sway"
