@@ -11,6 +11,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+-- Workaround an issue with ZSH during plugin installs
+vim.env.SHELL = '/bin/bash'
+
 require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = "catppuccin-macchiato" } },
@@ -19,6 +22,9 @@ require("lazy").setup({
   defaults = {
     lazy = false,
     version = false,
+  },
+  news = {
+    neovim = true,
   },
   install = { colorscheme = { "catppuccin-macchiato" } },
   checker = { enabled = false },
