@@ -16,8 +16,8 @@
     "lazyvim.plugins.extras.vscode",
     "plugins.extras.coding.autopairs",
     "plugins.extras.lang.cloudformation",
-    "plugins.extras.lang.svelte",
-    "lazyvim.plugins.extras.editor.aerial"
+    "plugins.extras.coding.surround",
+    "plugins.extras.lang.cloudformation"
   ],
   "news": {
     "NEWS.md": "2123",
