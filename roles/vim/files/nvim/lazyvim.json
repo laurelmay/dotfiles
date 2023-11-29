@@ -14,11 +14,14 @@
     "lazyvim.plugins.extras.ui.edgy",
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
+    "plugins.extras.coding.autopairs",
     "plugins.extras.lang.cloudformation",
-    "plugins.extras.coding.autopairs"
+    "plugins.extras.lang.svelte",
+    "lazyvim.plugins.extras.editor.aerial"
   ],
   "news": {
-    "NEWS.md": "2123"
+    "NEWS.md": "2123",
+    "doc/news.txt": "17421"
   },
   "version": 2
 }

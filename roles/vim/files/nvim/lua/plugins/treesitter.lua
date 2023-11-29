@@ -1,10 +1,10 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-context",
-    },
     opts = {
+      autotag = {
+        enable = true,
+      },
       ensure_installed = "all",
       ignore_install = {
         -- phpdoc TS parser compilation is broken on M1 Macs and other ARM64
