@@ -44,6 +44,11 @@
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh"
     dest: "{{ zdot_dir }}/.oh-my-zsh"
+- name: Install custom theme
+  file:
+    src: "{{ user_local_checkout_dir}}/roles/zsh/files/theme"
+    dest: "{{ zdot_dir }}/.oh-my-zsh/custom/themes/kyle.zsh-theme"
+    state: link
 - name: Install zsh_syntax_highlighting
   git:
     repo: "{{ zsh_syntax_highlight_git }}"

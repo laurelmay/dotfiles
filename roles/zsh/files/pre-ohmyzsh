@@ -10,13 +10,14 @@ export ZSH="$ZDOTDIR/.oh-my-zsh"
 bindkey -v
 
 # oh-my-zsh settings
-ZSH_THEME="agnoster"
+ZSH_THEME="kyle"
 CASE_SENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 # zstyle ':omz:plugins:nvm' lazy yes
+zstyle 'omz:update' mode auto
 
 # Plugins
-plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm)
+plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm aws)
 
 # User configuration
 path=("$HOME/.local/bin" $path)
