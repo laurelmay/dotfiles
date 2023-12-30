@@ -1,8 +1,8 @@
 {
   "extras": [
     "lazyvim.plugins.extras.dap.core",
-    "lazyvim.plugins.extras.editor.aerial",
     "lazyvim.plugins.extras.lang.clangd",
+    "lazyvim.plugins.extras.lang.elixir",
     "lazyvim.plugins.extras.lang.java",
     "lazyvim.plugins.extras.lang.json",
     "lazyvim.plugins.extras.lang.markdown",
@@ -15,13 +15,15 @@
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
     "plugins.extras.coding.autopairs",
-    "plugins.extras.lang.cloudformation",
+    "plugins.extras.coding.package-lock",
     "plugins.extras.coding.surround",
-    "plugins.extras.lang.cloudformation"
+    "plugins.extras.lang.cloudformation",
+    "plugins.extras.lang.cloudformation",
+    "lazyvim.plugins.extras.editor.aerial"
   ],
   "news": {
     "NEWS.md": "2123",
-    "doc/news.txt": "17421"
+    "doc/news.txt": "19364"
   },
   "version": 2
 }

@@ -1,6 +1,6 @@
 local Plugin = require('lazyvim.util.plugin')
 
-local config = {}
+local config = {};
 
 if Plugin.extra_idx("ui.edgy") then
   local edgy = {

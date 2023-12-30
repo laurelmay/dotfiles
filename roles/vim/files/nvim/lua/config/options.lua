@@ -24,7 +24,7 @@ vim.opt.splitright = true
 vim.opt.wrap = false
 vim.opt.inccommand = "split"
 vim.opt.termguicolors = true
-vim.opt.background = "dark"
+--vim.opt.background = "dark"
 vim.opt.cmdheight = 0
 vim.opt.colorcolumn = "100"
 vim.opt.shortmess:append({ W = true, I = true, c = true })

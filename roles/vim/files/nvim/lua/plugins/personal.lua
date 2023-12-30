@@ -16,6 +16,7 @@ return {
   {
     "kylelaker/y86.vim",
     dev = true,
-    ft = "y86",
+    -- ft = "y86",
+    lazy = false,
   },
 }

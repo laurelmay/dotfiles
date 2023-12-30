@@ -16,15 +16,16 @@ vim.env.SHELL = '/bin/bash'
 
 require("lazy").setup({
   spec = {
-    { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = "catppuccin-macchiato" } },
+    { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = "catppuccin-frappe", news = { neovim = true } } },
+    { "catppuccin", opts = { transparent_background = true } },
     { import = "plugins" },
+  },
+  dev = {
+    path = "~/Documents/vim-plugins"
   },
   defaults = {
     lazy = false,
     version = false,
-  },
-  news = {
-    neovim = true,
   },
   install = { colorscheme = { "catppuccin-macchiato" } },
   checker = { enabled = false },
