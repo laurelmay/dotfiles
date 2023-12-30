@@ -29,13 +29,20 @@
     src: "{{ user_local_checkout_dir }}/roles/sway/files/swaylock"
     dest: "{{ user_config_dir }}/swaylock/config"
     state: link
-- name: Download background image
-  get_url:
-    url: "{{ background_image.url }}"
-    dest: "~/.background.png"
+# - name: Download background image
+#   get_url:
+#     url: "{{ background_image.url }}"
+#     dest: "~/.background.png"
+#     mode: "0644"
+#     checksum: "{{ background_image.checksum }}"
+#   register: download_bg
+#   notify: Reload sway config
+- name: Install background image
+  copy:
+    src: "{{ user_local_checkout_dir }}/roles/sway/files/wallpapers/wallpaper.svg"
+    dest: "~/.background.svg"
     mode: "0644"
-    checksum: "{{ background_image.checksum }}"
-  register: download_bg
+  register: copy_bg
   notify: Reload sway config
 - name: Check if lock screen background exists
   stat:
@@ -44,7 +51,7 @@
 - name: Create lock background
   command:
     cmd: convert ~/.background.png -blur 0x10 ~/.background-lock.png
-  when: download_bg.changed or not lock_bg.stat.exists
+  when: copy_bg.changed or not lock_bg.stat.exists
 # Always just grab the latest version of grimshot
 - name: Download grimshot
   get_url:

@@ -1,11 +1,10 @@
-
 # vim: set ft=swayconfig:
 
 xwayland enable
 
 # Use the cmd/Win key
 set $mod Mod4
-set $terminal alacritty
+set $terminal kitty
 set $browser firefox
 
 input "type:touchpad" {
@@ -161,6 +160,11 @@ bindsym XF86MonBrightnessDown  exec --no-startup-id brightnessctl set 7%-
 bindsym XF86AudioNext          exec --no-startup-id playerctl next
 bindsym XF86AudioPrev          exec --no-startup-id playerctl previous
 bindsym --locked XF86AudioPlay exec --no-startup-id playerctl play-pause
+# My keyboard doesn't have the normal keys for this!
+bindsym $mod+F12               exec --no-startup-id playerctl next
+bindsym $mod+F11               exec --no-startup-id playerctl previous
+bindsym --locked $mod+F10      exec --no-startup-id playerctl play-pause
+
 bindsym XF86AudioRaiseVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
 bindsym XF86AudioLowerVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
 bindsym XF86AudioMute          exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
@@ -247,7 +251,6 @@ for_window [title = "About Mozilla Firefox"] floating enable
 # for_window [shell="xwayland"] kill
 
 include /etc/sway/config.d/*
-include ~/.config/sway/monitors
 
 # Start some software on launch
 exec $browser
@@ -255,7 +258,7 @@ exec mako &> /var/run/user/"$(id -u)"/mako.log
 exec kanshi &> /var/run/user/"$(id -u)"/kanshi.log
 exec /usr/bin/pinentry-gnome3
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# exec gnome-keyring-daemon --start
+exec gnome-keyring-daemon --start
 
 exec_always kanshictl reload
 
