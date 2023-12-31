@@ -10,3 +10,7 @@ source "$ZDOTDIR/colors"
 source "$ZDOTDIR/wslfixes"
 source "$ZDOTDIR/asciinema"
 source "$ZDOTDIR/sway"
+
+if [ -f "$ZDOTDIR/local-settings" ]; then
+  source "$ZDOTDIR/local-settings"
+fi
