@@ -50,7 +50,7 @@
   register: lock_bg
 - name: Create lock background
   command:
-    cmd: convert ~/.background.png -blur 0x10 ~/.background-lock.png
+    cmd: convert ~/.background.svg -blur 0x10 ~/.background-lock.png
   when: copy_bg.changed or not lock_bg.stat.exists
 # Always just grab the latest version of grimshot
 - name: Download grimshot
