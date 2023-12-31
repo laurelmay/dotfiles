@@ -1,0 +1,13 @@
+---
+- name: Create kitty config dir
+  file:
+    path: "{{ user_config_dir}}/kitty"
+    state: directory
+- name: Install kitty config files
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/kitty/files/{{ item }}"
+    dest: "{{ user_config_dir }}/kitty/{{ item }}"
+    state: link
+  with_items:
+    - kitty.conf
+    - current-theme.conf

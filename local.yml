@@ -13,6 +13,7 @@
     - { role: fish,       tags: [fish] }
     - { role: sway,       tags: [desktop]}
     - { role: alacritty,  tags: [desktop]}
+    - { role: kitty,      tags: [desktop]}
     - { role: mako,       tags: [desktop]}
     - { role: waybar,     tags: [desktop]}
     - { role: fontconfig, tags: [desktop]}
