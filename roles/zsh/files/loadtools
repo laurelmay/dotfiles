@@ -34,6 +34,13 @@ function () {
     fi
   done
 
+  # If a system-provided rustup is used, `~/.cargo/env` may not exist to
+  # source; however, tools may still get installed to `~/.cargo/bin/` when
+  # using `cargo install`.
+  if [[ (! -f "$$HOME/.cargo/env") && -d "$HOME/.cargo/bin" ]]; then
+    path+=("$HOME/.cargo/bin")
+  fi
+
   # The location for homebrew is different on macOS and Linux; however, in both scenarios, a
   # the `shellenv` command should be `eval`-ed to set the necessary environment variables
   # correctly.
