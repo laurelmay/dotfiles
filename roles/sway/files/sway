@@ -165,9 +165,9 @@ bindsym $mod+F12               exec --no-startup-id playerctl next
 bindsym $mod+F11               exec --no-startup-id playerctl previous
 bindsym --locked $mod+F10      exec --no-startup-id playerctl play-pause
 
-bindsym XF86AudioRaiseVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioLowerVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%; pkill -SIGRTMIN+11 i3blocks"
-bindsym XF86AudioMute          exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -SIGRTMIN+11 i3blocks"
+bindsym XF86AudioRaiseVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +10%"
+bindsym XF86AudioLowerVolume   exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -10%"
+bindsym XF86AudioMute          exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 
 # Workspace bindings
 bindsym $mod+1 workspace number 1
