@@ -21,3 +21,23 @@ fi
 if which htop &> /dev/null; then
   alias top='htop'
 fi
+
+function () {
+  local uutils_prefix="uu-"
+  for uutil in /usr/bin/"$uutils_prefix"*; do
+    name="$(basename "$uutil")"
+    coreutil="${name##$uutils_prefix}"
+    case "$coreutil" in
+      "[")
+        # Fix a "bad pattern" error when using `[`
+        alias "[='uu-['"
+        ;;
+      "ls")
+        # Keep the alias for colors in the new alias
+        alias "$coreutil=$name --color=tty"
+        ;;
+      *)
+        alias "$coreutil=$name"
+    esac
+  done
+}
