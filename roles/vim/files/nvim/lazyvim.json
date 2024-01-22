@@ -19,11 +19,12 @@
     "plugins.extras.coding.surround",
     "plugins.extras.lang.cloudformation",
     "plugins.extras.lang.cloudformation",
+    "plugins.extras.lang.vue",
     "lazyvim.plugins.extras.editor.aerial"
   ],
   "news": {
     "NEWS.md": "2123",
-    "doc/news.txt": "17989"
+    "doc/news.txt": "20685"
   },
   "version": 2
 }
