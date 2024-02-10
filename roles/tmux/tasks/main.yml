@@ -1,0 +1,7 @@
+---
+- name: Install tmux configuration file
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/tmux/files/tmux.conf"
+    dest: "~/.tmux.conf"
+    state: link
+

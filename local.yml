@@ -4,6 +4,7 @@
   become: false
   roles:
     - { role: common,     tags: [base] }
+    - { role: tmux,       tags: [base] }
     - { role: git,        tags: [git] }
     - { role: ssh,        tags: [ssh] }
     - { role: vim,        tags: [vim] }
