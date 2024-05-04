@@ -4,9 +4,13 @@
   file:
     path: "{{ user_config_dir }}/sway"
     state: directory
-- name: Create sway config directory
+- name: Create swaylock config directory
   file:
     path: "{{ user_config_dir }}/swaylock"
+    state: directory
+- name: Create swayidle config directory
+  file:
+    path: "{{ user_config_dir }}/swayidle"
     state: directory
 - name: Install sway config
   file:
@@ -28,6 +32,11 @@
   file:
     src: "{{ user_local_checkout_dir }}/roles/sway/files/swaylock"
     dest: "{{ user_config_dir }}/swaylock/config"
+    state: link
+- name: Install swayidle config
+  file:
+    src: "{{ user_local_checkout_dir }}/roles/sway/files/swayidle"
+    dest: "{{ user_config_dir }}/swayidle/config"
     state: link
 # - name: Download background image
 #   get_url:

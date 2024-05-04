@@ -248,6 +248,4 @@ exec export $($launcher gnome-keyring-daemon --start)
 
 exec_always kanshictl reload
 
-# Lock after 10 minutes, turn off displays after 15 minutes, and sleep after 20 minutes.
-# Before sleep, lock the screen and pause any music.
 exec $launcher swayidle -w
