@@ -4,8 +4,8 @@
 @define-color spotify-black #191414;
 
 * {
-    font-family: Cantarell, "Font Awesome", "Font Awesome 6 Brands", sans-serif;
-    font-size: 12px;
+    font-family: "Noto Sans", "Font Awesome", "Font Awesome 6 Brands", sans-serif;
+    font-size: 14px;
 }
 
 window#waybar {
