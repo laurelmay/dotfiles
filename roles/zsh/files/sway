@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-if uwsm check may-start && uwsm select; then
+if [ -z "$DISPLAY" ] && command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
 	exec uwsm start -S default
 fi

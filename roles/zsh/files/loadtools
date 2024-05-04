@@ -56,7 +56,9 @@ function () {
       homebrew_loaded=1
     fi
   done
+}
 
+function enable_pyenv() {
   # If pyenv is installed and is located in $HOME/.pyenv, run the commands to configure it as
   # well as the virtualenv plugin (if installed)
   pyenv_dir="$HOME/.pyenv"
@@ -68,5 +70,13 @@ function () {
     if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
       eval "$(pyenv virtualenv-init - zsh)"
     fi
+  fi
+}
+
+function load_ruby() {
+  # Ruby Gems
+  if which ruby &> /dev/null; then
+    export GEM_HOME="$(ruby -e "puts Gem.user_dir")"
+    path=("$(ruby -e 'puts Gem.user_dir')/bin" $path)
   fi
 }

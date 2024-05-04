@@ -13,7 +13,8 @@ bindkey -v
 ZSH_THEME="kyle"
 CASE_SENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-# zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' lazy-cmd eslint prettier tsc
 zstyle 'omz:update' mode auto
 
 # Plugins
@@ -21,10 +22,5 @@ plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm aws)
 
 # User configuration
 path=("$HOME/.local/bin" $path)
-# Ruby Gems
-if which ruby &> /dev/null; then
-  export GEM_HOME="$(ruby -e "puts Gem.user_dir")"
-  path=("$(ruby -e 'puts Gem.user_dir')/bin" $path)
-fi
 
 export GPG_TTY="$(tty)"

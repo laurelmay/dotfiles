@@ -4,7 +4,6 @@ local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 local user_host='%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}'
 local current_dir='%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}'
 
-local nvm_node='%{$fg[green]%}$(nvm_prompt_info)%{$reset_color%}'
 local pyenv_py='%{$fg[blue]%}$(virtualenv_prompt_info)%{$reset_color%}'
 local aws_info='%{$fg[yellow]%}$(aws_prompt_info)%{$reset_color%}'
 
@@ -12,9 +11,6 @@ local git_branch='$(git_prompt_info)'
 
 show_nvm() {
   if ! command -v nvm &> /dev/null; then
-    return 1
-  fi
-  if nvm alias default | grep -q "$(nvm version)"; then
     return 1
   fi
   return 0
@@ -27,7 +23,6 @@ build_prompt_info() {
   fi
   echo -n "${current_dir} "
   echo -n "${git_branch}"
-  echo -n "${nvm_node}"
   echo -n "${pyenv_py}"
   echo -n "${aws_info}"
   echo -n '\n'

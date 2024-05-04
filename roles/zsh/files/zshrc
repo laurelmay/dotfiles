@@ -7,7 +7,6 @@ source "$ZDOTDIR/wslconfig"
 source "$ZDOTDIR/functions"
 source "$ZDOTDIR/aliases"
 source "$ZDOTDIR/colors"
-source "$ZDOTDIR/wslfixes"
 source "$ZDOTDIR/asciinema"
 source "$ZDOTDIR/sway"
 
