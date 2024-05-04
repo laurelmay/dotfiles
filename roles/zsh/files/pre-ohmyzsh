@@ -18,7 +18,7 @@ zstyle ':omz:plugins:nvm' lazy-cmd eslint prettier tsc
 zstyle 'omz:update' mode auto
 
 # Plugins
-plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm aws)
+plugins=(sudo zsh-syntax-highlighting virtualenv direnv nvm aws kubectl)
 
 # User configuration
 path=("$HOME/.local/bin" $path)
