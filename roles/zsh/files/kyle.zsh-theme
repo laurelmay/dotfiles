@@ -7,8 +7,6 @@ function kubectl_prompt_info() {
   echo "${ZSH_THEME_K8S_PROMPT_PREFIX}${K8S_CONTEXT}:${K8S_NS}${ZSH_THEME_K8S_PROMPT_SUFFIX}"
 }
 
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
-
 local user_host='%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}'
 local current_dir='%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}'
 
@@ -18,14 +16,15 @@ local aws_info='%{$fg[yellow]%}$(aws_prompt_info)%{$reset_color%}'
 
 local git_branch='$(git_prompt_info)'
 
-show_nvm() {
-  if ! command -v nvm &> /dev/null; then
-    return 1
-  fi
-  return 0
+function print_line() {
+  echo -n '%(?.%{$fg[green]%}.%{$fg[red]%})'
+  for i in {1..$COLUMNS}; do printf "-"; done
+  echo -n '%{$reset_color%}'
+  echo ""
 }
 
 build_prompt_info() {
+  print_line
   echo -n '╭─ '
   if [ "$DEFAULT_USER" != "$USER" ]; then
     echo -n "${user_host} "
