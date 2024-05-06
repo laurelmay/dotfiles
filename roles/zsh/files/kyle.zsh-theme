@@ -17,14 +17,15 @@ local aws_info='%{$fg[yellow]%}$(aws_prompt_info)%{$reset_color%}'
 local git_branch='$(git_prompt_info)'
 
 function print_line() {
-  echo -n '%(?.%{$fg[green]%}.%{$fg[red]%})'
-  for i in {1..$COLUMNS}; do printf "-"; done
-  echo -n '%{$reset_color%}'
-  echo ""
+  line=""
+  for i in {1..$COLUMNS}; do line="${line}-"; done
+  echo "$line"
 }
 
+local line='%(?.%{$fg[green]%}.%{$fg[red]%})$(print_line)%{$reset_color%}'
+
 build_prompt_info() {
-  print_line
+  echo "${line}"
   echo -n '╭─ '
   if [ "$DEFAULT_USER" != "$USER" ]; then
     echo -n "${user_host} "
