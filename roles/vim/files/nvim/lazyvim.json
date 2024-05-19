@@ -1,7 +1,7 @@
 {
   "extras": [
     "lazyvim.plugins.extras.dap.core",
-    "lazyvim.plugins.extras.editor.aerial",
+    "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.editor.dial",
     "lazyvim.plugins.extras.lang.ansible",
     "lazyvim.plugins.extras.lang.clangd",
@@ -23,11 +23,12 @@
     "plugins.extras.coding.package-lock",
     "plugins.extras.coding.surround",
     "plugins.extras.lang.cloudformation",
-    "plugins.extras.lang.nvim-java"
+    "plugins.extras.lang.nvim-java",
+    "lazyvim.plugins.extras.editor.aerial"
   ],
   "news": {
-    "NEWS.md": "4578",
+    "NEWS.md": "4944",
     "doc/news.txt": "24447"
   },
-  "version": 3
+  "version": 4
 }
