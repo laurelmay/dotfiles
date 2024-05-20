@@ -210,7 +210,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+a focus parent
-bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1520 54
+bindsym $mod+y fullscreen disable; floating enable; resize set 640 360; move window to position 1890 115
 
 bindsym $mod+Shift+c reload
 
@@ -231,7 +231,7 @@ for_window [window_role = "task_dialog"] floating enable
 for_window [window_type = "menu"] floating enable
 for_window [app_id = "floating"] floating enable
 for_window [title="Firefox — Sharing Indicator$"] kill
-for_window [title = "Picture in picture"] floating enable, sticky enable
+for_window [title = "Picture-in-Picture"] floating enable, sticky enable, resize set 640 360, move window to position 1890 115
 for_window [title = "About Mozilla Firefox"] floating enable
 # for_window [shell="xwayland"] kill
 
