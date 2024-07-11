@@ -3,19 +3,20 @@
   hosts: all
   become: false
   roles:
-    - { role: common,     tags: [base] }
-    - { role: tmux,       tags: [base] }
-    - { role: git,        tags: [git] }
-    - { role: ssh,        tags: [ssh] }
-    - { role: vim,        tags: [vim] }
-    - { role: langs,      tags: [base] }
-    - { role: zsh,        tags: [base] }
-    - { role: bash,       tags: [bash] }
-    - { role: fish,       tags: [fish] }
-    - { role: sway,       tags: [desktop]}
     - { role: alacritty,  tags: [desktop]}
-    - { role: kitty,      tags: [desktop]}
-    - { role: mako,       tags: [desktop]}
-    - { role: waybar,     tags: [desktop]}
+    - { role: bash,       tags: [bash] }
+    - { role: common,     tags: [base] }
+    - { role: fish,       tags: [fish] }
     - { role: fontconfig, tags: [desktop]}
+    - { role: git,        tags: [git] }
+    - { role: kitty,      tags: [desktop]}
+    - { role: langs,      tags: [base] }
+    - { role: mako,       tags: [desktop]}
     - { role: ncspot,     tags: [desktop]}
+    - { role: packages,   tags: [packages]}
+    - { role: ssh,        tags: [ssh] }
+    - { role: sway,       tags: [desktop]}
+    - { role: tmux,       tags: [base] }
+    - { role: vim,        tags: [vim] }
+    - { role: waybar,     tags: [desktop]}
+    - { role: zsh,        tags: [base] }
