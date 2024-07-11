@@ -65,7 +65,7 @@ button:hover {
 #custom-hostname,
 #custom-weather,
 #mpris,
-#tray,
+#privacy,
 #mode {
     padding: 0 10px;
     color: @text;
@@ -134,7 +134,7 @@ label:focus {
     background-color: @red;
 }
 
-#pulseaudio, #wireplumber {
+#pulseaudio, #wireplumber, #pulseaudio-slider {
     background-color: @yellow;
     color: @base;
 }
@@ -142,6 +142,35 @@ label:focus {
 #pulseaudio.muted, #wireplumber.muted {
     background-color: @white;
     color: @crust;
+}
+
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    opacity: 0;
+    background-color: shade(@yellow, 1.15);
+    border: none;
+    box-shadow: none;
+}
+
+#pulseaudio-slider slider:hover {
+    background-color: shade(@yellow, 1.05);
+}
+
+#pulseaudio-slider slider:active {
+    background-color: shade(@yellow, 0.9);
+}
+
+#pulseaudio-slider trough {
+    min-height: 14px;
+    min-width: 30px;
+    border-radius: 5px;
+    background-color: @crust;
+}
+#pulseaudio-slider highlight {
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: darker(@yellow);
 }
 
 #custom-media, #mpris {
@@ -176,4 +205,13 @@ label:focus {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
     background-color: @base;
+}
+
+#tray .item {
+  padding: 0 10px;
+}
+
+#privacy {
+  background-color: @red;
+  color: @crust;
 }

@@ -1,6 +1,9 @@
 {
   "layer": "top",
-  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
   "modules-center": [
     "clock#date",
     "clock#time"
@@ -12,7 +15,9 @@
     "backlight",
     "network",
     "pulseaudio",
+    "pulseaudio/slider",
     "battery",
+    "privacy",
     "tray"
   ],
   "sway/mode": {
@@ -21,20 +26,26 @@
   "sway/workspaces": {
     "format": "{index}: {icon}",
     "format-icons": {
-        "1": "",
-        "2": "",
-        "3": " ",
-        "4": "",
-        "5": "",
-        "10": "",
-        "urgent": "",
-        "focused": "",
-        "default": ""
+      "1": "",
+      "2": "",
+      "3": " ",
+      "4": "",
+      "5": "",
+      "10": "",
+      "urgent": "",
+      "focused": "",
+      "default": ""
     },
   },
   "battery": {
     "format": "{icon} {capacity:3}%",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "states": {
       "warning": 20,
       "critical": 10,
@@ -49,11 +60,21 @@
     "interval": 10,
     "format": " {:%Y-%m-%d}",
     "tooltip-format": "<tt>{calendar}</tt>",
-    "calendar-weeks-pos": "right",
-    "today-format": "<span color='#ff757f'><b><u>{}</u></b></span>",
-    "format-calendar": "<span color='#c8d3f5'><b>{}</b></span>",
-    "format-calendar-weeks": "<span color='#82aaff'><b>W{:%U}</b></span>",
-    "format-calendar-weekdays": "<span color='#ffc777'><b>{}</b></span>",
+    "calendar": {
+      "mode": "month",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#c8d3f5'><b>{}</b></span>",
+        "weeks": "<span color='#82aaff'><b>W{:%U}</b></span>",
+        "weekdays": "<span color='#ffc777'><b>{}</b></span>",
+        "today": "<span color='#ff757f'><b><u>{}</u></b></span>",
+      },
+    },
+    "actions": {
+      "on-scroll-up": "shift_down",
+      "on-scroll-down": "shift_up",
+    },
   },
   "network": {
     "interval": 10,
@@ -72,24 +93,37 @@
   },
   "backlight": {
     "format": "{icon} {percent}%",
-    "format-icons": ["", "", ""],
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
     "on-scroll-up": "brightnessctl set 3%+",
     "on-scroll-down": "brightnessctl set 3%-",
   },
   "pulseaudio": {
-    "format": "{icon} {volume:3}%",
-    "format-bluetooth": "{icon} {volume}%",
+    "format": "{icon}",
+    "format-bluetooth": "{icon}",
     "format-muted": "",
+    "tooltip-format": "{desc} {volume:3}%",
     "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["", ""]
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        ""
+      ]
     },
     "scroll-step": 1,
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal",
   },
   "custom/hostname": {
     "exec": "hostnamectl --json=short | jq --unbuffered --compact-output \"{text: .Hostname, tooltip: .PrettyHostname, alt: .Chassis}\"",
@@ -130,9 +164,33 @@
       "stopped": "",
     },
   },
-  "custom/weather": {
-    "interval": 60,
-    "exec": "curl -s 'http://wttr.in/?format=1'",
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 14,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ]
   },
-  "_vim_": { "modeline": "/* vim: set ft=json: */" }
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10,
+  },
+  "_vim_": {
+    "modeline": "/* vim: set ft=jsonc: */"
+  }
 }

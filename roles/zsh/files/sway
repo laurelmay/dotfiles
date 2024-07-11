@@ -1,5 +1,15 @@
 #!/usr/bin/env zsh
 
-if [ -z "$DISPLAY" ] && command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
-	exec uwsm start -S default
+if [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq '1' ]; then
+  export XDG_SESSION_TYPE=wayland
+  export XDG_SESSION_DESKTOP=sway
+  export XDG_CURRENT_DESKTOP=sway
+
+  # Wayland stuff
+  export QT_QPA_PLATFORM=wayland
+  export SDL_VIDEODRIVER=wayland
+  export _JAVA_AWT_WM_NONREPARENTING=1
+  export MOZ_ENABLE_WAYLAND=1
+
+  exec dbus-run-session sway > /var/run/user/"$(id -u)"/sway.log
 fi

@@ -6,7 +6,6 @@ xwayland enable
 set $mod Mod4
 set $terminal kitty
 set $browser firefox
-set $launcher uwsm app --
 
 input "type:touchpad" {
   tap enabled
@@ -38,8 +37,8 @@ font pango:"Hack Nerd Font Regular","Font Awesome 5 Pro Solid" 8
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# Don't draw the title bars
-default_border pixel 0
+default_border pixel 2
+default_floating_border pixel 0
 
 # Gaps settings
 smart_gaps on
@@ -47,15 +46,6 @@ set $default_gaps_inner 10
 set $default_gaps_outer 5
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
-
-set $bg_color "#222436f0"
-set $fg_color "#c8d3f5"
-set $black    "#1b1d2b"
-set $red      "#ff757f"
-
-bar {
-  swaybar_command waybar
-}
 
 set $rosewater #f4dbd6
 set $flamingo  #f0c6c6
@@ -93,12 +83,28 @@ client.background        $base
 
 workspace_auto_back_and_forth yes
 
+bar {
+  swaybar_command waybar
+
+  colors {
+    background         $base
+    statusline         $text
+    focused_statusline $text
+    focused_separator  $base
+    focused_workspace  $base $base $green
+    active_workspace   $base $base $blue
+    inactive_workspace $base $base $surface1
+    urgent_workspace   $base $base $surface1
+    binding_mode       $base $base $surface1
+  }
+}
+
 # Power settings from the Arch wiki
 set $Locker swaylock
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
   bindsym l exec --no-startup-id $Locker, mode "default"
-  bindsym e exec --no-startup-id uwsm stop, mode "default"
+  bindsym e exec --no-startup-id swaymsg exit, mode "default"
   bindsym s exec --no-startup-id $Locker -f & ; systemctl suspend, mode "default"
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
   bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
@@ -183,15 +189,16 @@ bindsym $mod+Control+Shift+Left move workspace prev
 bindsym $mod+Control+Shift+Right move workspace next
 
 # Console binding
-bindsym $mod+Return exec $launcher $terminal
+bindsym $mod+Return exec $terminal
 
 # Kill bindings
 bindsym --inhibited $mod+q kill
 
 # Replace these with dmenu_run for default config
-set $wofi $launcher wofi --no-actions --allow-images --allow-markup --gtk-dark --prompt 'Run' --columns 2
+set $wofi wofi --no-actions --allow-images --allow-markup --gtk-dark --prompt 'Run' --columns 2
 bindsym $mod+d       exec --no-startup-id $wofi --show run
 bindsym $mod+space   exec --no-startup-id $wofi --show drun
+bindsym $mod+v       exec --no-startup-id $wofi --show dmenu | cliphist decode | wl-copy
 
 # Window bindings
 bindsym $mod+Left focus left
@@ -202,23 +209,23 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-bindsym $mod+h split h
-bindsym $mod+v split v
+bindsym $mod+Minus split v
+bindsym $mod+Bar split h
 bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+a focus parent
-bindsym $mod+y fullscreen disable; floating enable; resize set 640 360; move window to position 1890 115
+bindsym $mod+y fullscreen disable; floating enable; border 0; resize set 480 270; move window to position 1430 90
 
-bindsym $mod+Shift+c reload
+bindsym --locked $mod+Shift+c reload
 
 # Specific software
-bindsym $mod+Shift+f exec $launcher $browser
-bindsym $mod+Shift+n exec $launcher $browser --private-window
-bindsym $mod+Shift+o exec --no-startup-id $launcher libreoffice
-bindsym $mod+Shift+t exec $launcher thunderbird
+bindsym $mod+Shift+f exec $browser
+bindsym $mod+Shift+n exec $browser --private-window
+bindsym $mod+Shift+o exec --no-startup-id libreoffice
+bindsym $mod+Shift+t exec thunderbird
 
 # Teams PWA captures all keypresses
 for_window [app_id="msedge-_\w+-Default"] shortcuts_inhibitor disable
@@ -231,21 +238,21 @@ for_window [window_role = "task_dialog"] floating enable
 for_window [window_type = "menu"] floating enable
 for_window [app_id = "floating"] floating enable
 for_window [title="Firefox — Sharing Indicator$"] kill
-for_window [title = "Picture-in-Picture"] floating enable, sticky enable, resize set 640 360, move window to position 1890 115
+for_window [title = "Picture-in-Picture"] floating enable, border 0, sticky enable, resize set 480 270, move window to position 1430 90
 for_window [title = "About Mozilla Firefox"] floating enable
 # for_window [shell="xwayland"] kill
 
 include /etc/sway/config.d/*
-exec uwsm finalize DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 # Start some software on launch
-exec $launcher $browser
-exec $launcher mako &> /var/run/user/"$(id -u)"/mako.log
-exec $launcher kanshi &> /var/run/user/"$(id -u)"/kanshi.log
-exec $launcher /usr/bin/pinentry-gnome3
-exec $launcher /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec export $($launcher gnome-keyring-daemon --start)
+exec $browser
+exec mako &> /var/run/user/"$(id -u)"/mako.log
+exec kanshi &> /var/run/user/"$(id -u)"/kanshi.log
+exec /usr/bin/pinentry-gnome3
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec wl-paste --watch cliphist store
+exec export $(gnome-keyring-daemon --start)
 
 exec_always kanshictl reload
 
-exec $launcher swayidle -w
+exec swayidle -w
