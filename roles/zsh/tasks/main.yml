@@ -7,17 +7,17 @@
 # are created as symlinks which hopefully makes it easier to track changes.
 - name: Create zsh config directory
   file:
-      path: "{{ zdot_dir }}"
-      state: directory
+    path: "{{ zdot_dir }}"
+    state: directory
 - name: Create zsh history directory
   file:
-      path: "~/.local/share/zsh"
-      state: directory
+    path: "~/.local/share/zsh"
+    state: directory
 - name: Install zshenv
   file:
-      src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshenv"
-      dest: "~/.zshenv"
-      state: link
+    src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshenv"
+    dest: "~/.zshenv"
+    state: link
 - name: Install zsh config files
   file:
     src: "{{ user_local_checkout_dir }}/roles/zsh/files/{{ item }}"
@@ -37,16 +37,16 @@
     - "zsh"
 - name: Install zshrc
   file:
-      src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshrc"
-      dest: "{{ zdot_dir }}/.zshrc"
-      state: link
+    src: "{{ user_local_checkout_dir }}/roles/zsh/files/zshrc"
+    dest: "{{ zdot_dir }}/.zshrc"
+    state: link
 - name: Install oh-my-zsh
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh"
     dest: "{{ zdot_dir }}/.oh-my-zsh"
 - name: Install custom theme
   file:
-    src: "{{ user_local_checkout_dir}}/roles/zsh/files/kyle.zsh-theme"
+    src: "{{ user_local_checkout_dir }}/roles/zsh/files/kyle.zsh-theme"
     dest: "{{ zdot_dir }}/.oh-my-zsh/custom/themes/kyle.zsh-theme"
     state: link
 - name: Install zsh_syntax_highlighting

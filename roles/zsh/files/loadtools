@@ -58,21 +58,6 @@ function () {
   done
 }
 
-function enable_pyenv() {
-  # If pyenv is installed and is located in $HOME/.pyenv, run the commands to configure it as
-  # well as the virtualenv plugin (if installed)
-  pyenv_dir="$HOME/.pyenv"
-  if [ -d "$pyenv_dir" ]; then
-    export PYENV_ROOT="$pyenv_dir"
-    path+=("${pyenv_dir}/bin")
-    eval "$(pyenv init --path --no-rehash zsh)"
-    eval "$(pyenv init - --no-rehash zsh)"
-    if [ -d "$pyenv_dir/plugins/pyenv-virtualenv" ]; then
-      eval "$(pyenv virtualenv-init - zsh)"
-    fi
-  fi
-}
-
 function load_ruby() {
   # Ruby Gems
   if which ruby &> /dev/null; then
