@@ -13,7 +13,6 @@
     - { role: langs,      tags: [base] }
     - { role: mako,       tags: [desktop]}
     - { role: ncspot,     tags: [desktop]}
-    - { role: packages,   tags: [packages]}
     - { role: ssh,        tags: [ssh] }
     - { role: sway,       tags: [desktop]}
     - { role: tmux,       tags: [base] }
