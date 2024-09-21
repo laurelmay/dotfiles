@@ -8,6 +8,5 @@ user_cache_dir: '~/.cache'
 user_local_checkout_dir: "~/Documents/dotfiles"
 
 me:
-  name: "Kyle Laker"
-  email: "kyle@laker.email"
-  pgp: "0x17CAD266B70E3F72"
+  name: "Laurel May"
+  email: "laurel@laurelmay.me"

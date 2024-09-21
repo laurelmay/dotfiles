@@ -67,7 +67,6 @@
     value: "{{ item.value }}"
     scope: global
   with_items:
-    - { name: user.signingKey, value: "{{ me.pgp }}" }
     - { name: commit.gpgSign, value: '{{ git_gpg }}' }
 - name: Use main branch name
   git_config:
