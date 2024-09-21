@@ -1,6 +1,6 @@
 return {
   {
-    "kylelaker/cisco.vim",
+    "laurelmay/cisco.vim",
     dev = true,
     ft = "cisco",
   },

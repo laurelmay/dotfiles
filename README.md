@@ -5,6 +5,5 @@ does not install any required packages, nor are those documented yet. This does
 not overwrite any existing files and it will fail if the files already exist.
 
 ```
-curl -sL https://kylelaker.com/kylelaker.asc | gpg --import
-ansible-playbook -i hosts -t common local.yml
+ansible-playbook -i hosts -t base -t vim -t desktop local.yml
 ```

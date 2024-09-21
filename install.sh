@@ -12,12 +12,8 @@ install_base_deps() (
   sudo dnf install -y git ansible
 )
 
-import_pgp_key() (
-  curl -sL https://kylelaker.com/kylelaker.asc | gpg --import
-)
-
 run_ansible() (
-  ansible-playbook -i hosts -t common local.yml
+  ansible-playbook -i hosts -t base -t vim local.yml
 )
 
 main () (
@@ -25,7 +21,6 @@ main () (
   install_base_deps
   install_neovim
   install_pyenv_deps
-  import_pgp_key
   run_ansible
 )
 
