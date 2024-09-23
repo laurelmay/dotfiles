@@ -128,7 +128,7 @@
   "custom/hostname": {
     "exec": "hostnamectl --json=short | jq --unbuffered --compact-output \"{text: .Hostname, tooltip: .PrettyHostname, alt: .Chassis}\"",
     "return-type": "json",
-    "format": "{icon} {}",
+    "format": "{icon} {0}",
     "format-icons": {
       "laptop": "",
       "default": "",
@@ -136,7 +136,7 @@
     }
   },
   "custom/media": {
-    "format": "{icon} {}",
+    "format": "{icon} {0}",
     "return-type": "json",
     "format-icons": {
       "spotify": "",
