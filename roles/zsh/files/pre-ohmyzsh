@@ -10,7 +10,7 @@ export ZSH="$ZDOTDIR/.oh-my-zsh"
 bindkey -v
 
 # oh-my-zsh settings
-ZSH_THEME="kyle"
+ZSH_THEME="laurel"
 CASE_SENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 zstyle ':omz:plugins:nvm' lazy yes

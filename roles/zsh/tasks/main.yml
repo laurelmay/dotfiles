@@ -46,8 +46,8 @@
     dest: "{{ zdot_dir }}/.oh-my-zsh"
 - name: Install custom theme
   file:
-    src: "{{ user_local_checkout_dir }}/roles/zsh/files/kyle.zsh-theme"
-    dest: "{{ zdot_dir }}/.oh-my-zsh/custom/themes/kyle.zsh-theme"
+    src: "{{ user_local_checkout_dir }}/roles/zsh/files/laurel.zsh-theme"
+    dest: "{{ zdot_dir }}/.oh-my-zsh/custom/themes/laurel.zsh-theme"
     state: link
 - name: Install zsh_syntax_highlighting
   git:
