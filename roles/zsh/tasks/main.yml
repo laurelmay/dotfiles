@@ -53,3 +53,7 @@
   git:
     repo: "{{ zsh_syntax_highlight_git }}"
     dest: "{{ zdot_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+- name: Install zsh-autosuggestions
+  git:
+    repo: "https://github.com/zsh-users/zsh-autosuggestions"
+    dest: "{{ zdot_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
