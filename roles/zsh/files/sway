@@ -11,5 +11,5 @@ if [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq '1' ]; t
   export _JAVA_AWT_WM_NONREPARENTING=1
   export MOZ_ENABLE_WAYLAND=1
 
-  exec dbus-run-session sway > /var/run/user/"$(id -u)"/sway.log
+  exec sway > /var/run/user/"$(id -u)"/sway.log
 fi
